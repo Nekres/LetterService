@@ -1,4 +1,5 @@
-com/mycompany/letterservice/InitServlet.class
-com/mycompany/letterservice/entity/Account.class
 com/mycompany/letterservice/DatabaseManager.class
+com/mycompany/letterservice/InitServlet.class
+com/mycompany/letterservice/entity/Message.class
+com/mycompany/letterservice/entity/Account.class
 com/mycompany/letterservice/entity/User.class

@@ -10,19 +10,21 @@ import javax.persistence.*;
  *
  * @author nekres
  */
-@Entity(name = "client")
+@Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_id",nullable = false)
     private int id;
-    @Column(name = "name")
+    @Column(name = "name",length = 50,nullable = false)
     private String name;
-    @Column(name = "surname")
+    @Column(name = "surname",length = 60, nullable = false)
     private String surname;
-    @Column(name = "email")
+    @Column(name = "email", length = 60, nullable = false,unique = true)
     private String email;
-
+    
+    
     public int getId() {
         return id;
     }

@@ -5,9 +5,12 @@
  */
 package com.mycompany.letterservice;
 
+import com.mycompany.letterservice.entity.Account;
 import com.mycompany.letterservice.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,16 +32,22 @@ public class InitServlet extends HttpServlet{
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
         String email = req.getParameter("email");
+        String password = req.getParameter("password");
         
         User u = new User();
         u.setName(name);
         u.setSurname(surname);
         u.setEmail(email);
+        Account acc = new Account();
+        acc.setPassword(password);
+        acc.setRegistrationDate(new Date());
+        acc.setUser(u);
         
         DatabaseManager manager = new DatabaseManager();
         manager.beginTransaction();
         if(!manager.isEmailExist(email)){
             manager.persistObj(u);
+            manager.persistObj(acc);
             writer.append(generateResponse("OK"));
         }
         else
@@ -48,10 +57,10 @@ public class InitServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        
+        DatabaseManager.LOGGER.debug("Get request");
+        req.getRequestDispatcher("index.html").forward(req, resp);
     }
-    
+
     
     public String generateResponse(final String type){
         StringBuilder b = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
