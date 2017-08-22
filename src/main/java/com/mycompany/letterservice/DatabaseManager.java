@@ -5,11 +5,11 @@
  */
 package com.mycompany.letterservice;
 
-import com.mycompany.letterservice.entity.Account;
 import com.mycompany.letterservice.entity.User;
-import org.apache.log4j.Logger;
+import com.mycompany.letterservice.exceptions.EmailAlreadyExistException;
+import java.util.List;
+import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
@@ -19,7 +19,6 @@ import org.hibernate.query.Query;
  * @author nekres
  */
 public class DatabaseManager {
-    public static final Logger LOGGER = Logger.getLogger(InitServlet.class);
     static Configuration c = new Configuration();
     static {c.configure("hibernate.cfg.xml");}
     Session session;
@@ -28,17 +27,25 @@ public class DatabaseManager {
         session = c.buildSessionFactory().openSession();
     }
     
-    public final void persistObj(final Object obj){
-        LOGGER.debug("persisting obj to db");
+    public final void persistObj(final Object obj) throws PropertyValueException{
         session.save(obj);
     }
-    public final boolean isEmailExist(final String email){
+    
+    public final void updateObj(final Object obj){
+        session.update(obj);
+    }
+    public final List<User> getObj(Class type){
+        Query query = session.createQuery("from "+ type.getName());
+        List<User> users = query.list();
+        return users;
+    }
+    
+    public final void checkOnEmailExist(final String email) throws EmailAlreadyExistException{
         final String hquery = "FROM User c WHERE email LIKE :email";
         Query query = session.createQuery(hquery);
         query.setParameter("email", email);
-        if(query.list().isEmpty())
-            return false;
-        return true;
+        if(!query.list().isEmpty())
+            throw new EmailAlreadyExistException("Email " + email + " is busy. Try another one.");
     }
     public final Transaction beginTransaction(){
         return transact = session.beginTransaction();

@@ -1,5 +1,13 @@
-/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/Message.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/exceptions/BadPropertiesException.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/exceptions/ForbiddenSymbolsException.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/exceptions/EmailAlreadyExistException.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/auth/LoginServlet.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/Validator.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/Account.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/DatabaseManager.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/ResponseWrapper.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/Message.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/exceptions/LetterServiceException.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/exceptions/BadEmailSyntaxException.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/User.java
-/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/InitServlet.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/auth/RegistrationServlet.java

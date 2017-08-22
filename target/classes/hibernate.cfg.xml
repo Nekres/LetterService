@@ -13,6 +13,7 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
     <mapping class="com.mycompany.letterservice.entity.User"/> 
     <mapping class="com.mycompany.letterservice.entity.Account"/> 
+    <mapping class="com.mycompany.letterservice.entity.Message"/> 
     </session-factory> 
     
 </hibernate-configuration>

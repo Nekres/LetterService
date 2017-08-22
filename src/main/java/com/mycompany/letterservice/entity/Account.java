@@ -57,6 +57,11 @@ public class Account {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" + "id=" + id + ", registrationDate=" + registrationDate + ", password=" + password + ", user=" + user + '}';
+    }
     
     
 }
