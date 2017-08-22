@@ -7,6 +7,7 @@ com/mycompany/letterservice/auth/RegistrationServlet.class
 com/mycompany/letterservice/Validator.class
 com/mycompany/letterservice/Validator$1.class
 com/mycompany/letterservice/DatabaseManager.class
+com/mycompany/letterservice/SessionManager.class
 com/mycompany/letterservice/exceptions/LetterServiceException.class
 com/mycompany/letterservice/entity/Message.class
 com/mycompany/letterservice/entity/Account.class

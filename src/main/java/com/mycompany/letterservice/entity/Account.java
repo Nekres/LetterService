@@ -23,6 +23,8 @@ public class Account {
     private Date registrationDate;
     @Column(name = "password",nullable = false)
     private String password;
+    @Column(name = "email", length = 60, nullable = false,unique = true)
+    private String email;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
@@ -58,6 +60,14 @@ public class Account {
         this.user = user;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     @Override
     public String toString() {
         return "Account{" + "id=" + id + ", registrationDate=" + registrationDate + ", password=" + password + ", user=" + user + '}';

@@ -29,6 +29,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/register")
 public class RegistrationServlet extends HttpServlet {
+    public static final String USER_NAME = "name";
+    public static final String USER_EMAIL = "email";
+    public static final String USER_PASSWORD = "password";
     public static final Logger logger = Logger.getLogger(RegistrationServlet.class.getName());
     
     @Override
@@ -36,9 +39,9 @@ public class RegistrationServlet extends HttpServlet {
         resp.setContentType("text/xml");
         PrintWriter writer = resp.getWriter();
 
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
+        String name = req.getParameter(USER_NAME);
+        String email = req.getParameter(USER_EMAIL);
+        String password = req.getParameter(USER_PASSWORD);
     
         try {
             Validator.validate(email, Validator.Type.EMAIL);
@@ -47,25 +50,25 @@ public class RegistrationServlet extends HttpServlet {
             
             User u = new User();
             u.setName(name);
-            u.setEmail(email);
             
             Account acc = new Account();
             acc.setPassword(password);
             acc.setRegistrationDate(new Date());
+            acc.setEmail(email);
             acc.setUser(u);
             
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
             
-//            Message message = new Message();
-//            message.setBody("Message from uid 24 to uid 25");
-//            message.setDate(new Date());
-//            
-//            List<User> users = manager.getObj(User.class);
-//                logger.info(Integer.toString(users.get(0).getId()));
-//                users.get(0).getMessage().add(message);
-//            manager.updateObj(users.get(0));
-//            manager.persistObj(message);
+            Message message = new Message();
+            message.setBody("Message from uid 24 to uid 25");
+            message.setDate(new Date());
+            
+            List<User> users = manager.getObj(User.class);
+                logger.info(Integer.toString(users.get(0).getId()));
+                users.get(0).getMessage().add(message);
+            manager.updateObj(users.get(0));
+            manager.persistObj(message);
             manager.checkOnEmailExist(email);
             manager.persistObj(u);
             manager.persistObj(acc);

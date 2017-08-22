@@ -21,8 +21,6 @@ public class User {
     private int id;
     @Column(name = "name",length = 50,nullable = false)
     private String name;
-    @Column(name = "email", length = 60, nullable = false,unique = true)
-    private String email;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_received_messages", joinColumns = {@JoinColumn(name = "user_id")},inverseJoinColumns ={@JoinColumn(name = "message_id")})
     private Set<Message> receivedMessage = new HashSet<>(0);
@@ -43,14 +41,6 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Set<Message> getMessage() {
         return receivedMessage;
     }
@@ -58,13 +48,12 @@ public class User {
     public void setMessage(Set<Message> messages) {
         this.receivedMessage = messages;
     }
-    
-    
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", receivedMessage=" + receivedMessage + '}';
     }
-
+    
     
     
 }

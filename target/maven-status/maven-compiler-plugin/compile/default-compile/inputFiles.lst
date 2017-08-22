@@ -4,6 +4,7 @@
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/auth/LoginServlet.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/Validator.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/Account.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/SessionManager.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/DatabaseManager.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/ResponseWrapper.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/Message.java

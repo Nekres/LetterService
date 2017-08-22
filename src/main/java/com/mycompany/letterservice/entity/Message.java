@@ -63,13 +63,6 @@ public class Message {
     }
 
 
-//    public User getMessageRecipient() {
-//        return messageRecipient;
-//    }
-//
-//    public void setMessageRecipient(User messageRecipient) {
-//        this.messageRecipient = messageRecipient;
-//    }
 
     public int getPosition() {
         return position;
@@ -77,6 +70,11 @@ public class Message {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" + "id=" + id + ", date=" + date + ", body=" + body + ", position=" + position + '}';
     }
     
     

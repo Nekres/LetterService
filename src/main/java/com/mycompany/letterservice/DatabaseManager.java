@@ -39,9 +39,18 @@ public class DatabaseManager {
         List<User> users = query.list();
         return users;
     }
+    public final User getUser(final String email, final String password){
+        String q = "select user from Account as acc inner join acc.user as user where acc.email = :email and acc.password = :password";
+        String q2 = "from User as u inner join Account as acc where acc.email = :email and acc.password = :password";
+        Query query = session.createQuery(q);
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        User u = (User)query.getSingleResult();
+        return u;
+    }
     
     public final void checkOnEmailExist(final String email) throws EmailAlreadyExistException{
-        final String hquery = "FROM User c WHERE email LIKE :email";
+        final String hquery = "FROM Account a WHERE email LIKE :email";
         Query query = session.createQuery(hquery);
         query.setParameter("email", email);
         if(!query.list().isEmpty())
