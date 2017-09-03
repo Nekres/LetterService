@@ -60,15 +60,15 @@ public class RegistrationServlet extends HttpServlet {
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
             
-            Message message = new Message();
-            message.setBody("Message from uid 24 to uid 25");
-            message.setDate(new Date());
+          //  Message message = new Message();
+          //  message.setBody("Message from uid 24 to uid 25");
+          //  message.setDate(new Date());
             
-            List<User> users = manager.getObj(User.class);
-                logger.info(Integer.toString(users.get(0).getId()));
-                users.get(0).getMessage().add(message);
-            manager.updateObj(users.get(0));
-            manager.persistObj(message);
+         //   List<User> users = manager.getObj(User.class);
+          //      logger.info(Integer.toString(users.get(0).getId()));
+           //     users.get(0).getMessage().add(message);
+         //   manager.updateObj(users.get(0));
+           // manager.persistObj(message);
             manager.checkOnEmailExist(email);
             manager.persistObj(u);
             manager.persistObj(acc);

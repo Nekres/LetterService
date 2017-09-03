@@ -13,7 +13,7 @@ import javax.persistence.*;
  * @author nekres
  */
 @Entity
-@Table(name = "user")
+@Table(name = "client")
 public class User {
     @Id
     @GeneratedValue
