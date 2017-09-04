@@ -48,6 +48,7 @@ public class LoginServlet extends HttpServlet{
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.html");
             PrintWriter out = resp.getWriter();
             out.println("<font color=red>ERROR</font>");
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             dispatcher.include(req, resp);
         }
     }

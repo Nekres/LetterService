@@ -3,42 +3,40 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <p>Registration Form</p>
-        <form action="register" method="post">
-            Username:<br>
-            <input type="text" name="name"><br>
-            <br>
-            Password:<br> <input type="password" name="password">
-            <br>
-            Email :<br><input type="email" name="email">
-            <br><br>
-            <input type="submit" value="Make an account">
-        </form>
-        <br><p>Login form</p>
-        <form action="login" method="post">
-            <table  width="14" cellspacing="6">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                             Email:
-                        </td>
-                        <td><input type="email" name="email"></td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td><input type="password" name ="password"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <br><input type="submit" value="Login">
-        </form>
-    </body>
-</html>
+        <kbd>Registration form</kbd>
+        <div class="container-fluid">
+            <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <form action="register" method="post" class="form-inline">
+                        Username:<br>
+                        <input type="text" name="name" class="form-control"><br>
+                        <br>
+                        <p>Password: </p><input type="password" name="password" class="form-control">
+                        <br>
+                        <p>Email: </p><input type="email" name="email" class="form-control" id="email">
+                        <br><br>
+                        <input type="submit" value="Make an account" class="btn btn-info">
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <br><p><kbd>Login form</kbd></p>
+                    <form action="login" method="post" class="form-inline">
+                        Email:<br>
+                                                <input type="email" name="email" class="form-control" id="email"> 
+                                                <br>Password:<br>
+                                                <input type="password" name ="password" class="form-control">
+                                    <br><input type="submit" value="Login" class="btn btn-info">
+                                </form>
+                                </div>
+                                </div>
+            </div>
+                                </div>
+                                </body>
+                                </html>
