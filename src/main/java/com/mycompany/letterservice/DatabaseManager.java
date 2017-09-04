@@ -78,9 +78,9 @@ public class DatabaseManager {
         if(!query.list().isEmpty())
             throw new EmailAlreadyExistException("Email " + email + " is busy. Try another one.");
     }
-    public final List<User> getUsersByName(final String name){
-        
-    }
+//    public final List<User> getUsersByName(final String name){
+//        List<User> users = session.createQuery(cd)
+//    }
     public final Transaction beginTransaction(){
         return transact = session.beginTransaction();
     }

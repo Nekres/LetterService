@@ -7,8 +7,6 @@ package com.mycompany.letterservice;
 
 import com.mycompany.letterservice.exceptions.BadEmailSyntaxException;
 import com.mycompany.letterservice.exceptions.ForbiddenSymbolsException;
-import com.mycompany.letterservice.exceptions.LetterServiceException;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

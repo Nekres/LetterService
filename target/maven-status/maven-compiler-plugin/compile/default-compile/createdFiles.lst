@@ -3,6 +3,7 @@ com/mycompany/letterservice/exceptions/BadPropertiesException.class
 com/mycompany/letterservice/ResponseWrapper.class
 com/mycompany/letterservice/exceptions/EmailAlreadyExistException.class
 com/mycompany/letterservice/ResponseWrapper$Type.class
+com/mycompany/letterservice/auth/UserManagerServlet.class
 com/mycompany/letterservice/auth/RegistrationServlet.class
 com/mycompany/letterservice/exceptions/NoSuchUserException.class
 com/mycompany/letterservice/Validator.class
