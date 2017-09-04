@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nekres
  */
-@WebServlet(value = {"/users.get",""})
+@WebServlet(value = {"/users.get"})
 public class UserManagerServlet extends HttpServlet{
 
     @Override
