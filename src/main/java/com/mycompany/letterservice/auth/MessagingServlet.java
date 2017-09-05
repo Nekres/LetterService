@@ -12,8 +12,8 @@ import com.mycompany.letterservice.entity.User;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,22 +44,32 @@ public class MessagingServlet extends HttpServlet {
         Writer out = resp.getWriter();
         HttpSession session = req.getSession(false);
         String line = req.getParameter(LAST_MESSAGES_COUNT);
+        if(line == null || line.isEmpty()){
+            out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("wrong params")));
+            return;
+        }
         manager.beginTransaction();
         
         if (req.getServletPath().equals(GET_MESSAGE)) {
             try {
                 logger.info("msg.get request come with " + line);
                 int count = Integer.parseInt(line);
+                
                 if (session == null) {
                     out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("You need to log in to access this api.")));
                     resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     return;
                 }
-                manager.getUserMessagesByUid(2, 5);
+                String user_id = session.getAttribute("curr_u_id").toString();
+                List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id), count);
                 
+                if(messages.isEmpty()){
+                    out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("user have no messages yet.")));
+                }
+                out.write(mapper.writeValueAsString(messages));
             } catch (NumberFormatException nfe) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("param must be integer")));
+                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("")));
             }
         }
     }
@@ -80,12 +90,8 @@ public class MessagingServlet extends HttpServlet {
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
             User currentUser = manager.getUserById(receiverId);
-            Message m = new Message(messageBody);
-            m.setDate(new Date());
-            m.setSenderId(user_id);
-            m.setReceiverId(receiverId);
+            Message m = new Message(user_id,receiverId,new Date(),messageBody);
             manager.persistObj(m);
-            manager.updateObj(currentUser);
             logger.info(currentUser.toString());
             resp.setStatus(HttpServletResponse.SC_ACCEPTED);
             manager.commitAndClose();

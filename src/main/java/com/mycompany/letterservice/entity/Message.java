@@ -5,11 +5,13 @@
  */
 package com.mycompany.letterservice.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "messages")
-public class Message {
+public class Message implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "message_id", nullable = false)
@@ -33,14 +35,22 @@ public class Message {
     
     @Column(name = "body",length = 1000)
     private String body;
-    
-    @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "position",length = 20000) //in hope that chat will have so many messages.
-    private int position;
+    private long position;
     
     public Message(String body) {
         this.body = body;
     }
+
+    public Message(int senderId, int receiverId, Date date, String body) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.date = date;
+        this.body = body;
+    }
+    
 
     public Message() {
     }
@@ -85,13 +95,11 @@ public class Message {
         this.body = body;
     }
 
-
-
-    public int getPosition() {
+    public long getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(long position) {
         this.position = position;
     }
 

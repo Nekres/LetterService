@@ -63,9 +63,8 @@ public class DatabaseManager {
     public final List<Message> getUserMessagesByUid(final int userId, final int count){
         Query query = session.createQuery("FROM Message m where m.senderId = :userId");
         query.setParameter("userId", userId);
-        System.err.println("HH");
-        System.err.println(query.list());
-        return null;
+        List<Message> list = query.list();
+        return list;
     }
     public final User getUserById(final int id) throws NoSuchUserException{
         String q = "from User where user_id = :id";
