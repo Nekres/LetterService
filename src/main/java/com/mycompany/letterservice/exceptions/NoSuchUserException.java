@@ -13,7 +13,7 @@ public class NoSuchUserException extends LetterServiceException{
     private String message;
 
     public NoSuchUserException(String message){
-        this.message = "Email " + message + " is bad.";
+        this.message = message;
     }
     @Override
     public String getMessage() {

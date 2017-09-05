@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.persistence.NoResultException;
 import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
@@ -26,10 +27,11 @@ public class DatabaseManager {
     private static final Logger logger = Logger.getLogger(DatabaseManager.class.getName());
     static Configuration c = new Configuration();
     static {c.configure("hibernate.cfg.xml");}
+    static SessionFactory factory = c.buildSessionFactory();
     Session session;
     Transaction transact;
     public DatabaseManager() {
-        session = c.buildSessionFactory().openSession();
+        session = factory.openSession();
     }
     
     public final void persistObj(final Object obj) throws PropertyValueException{
@@ -78,9 +80,15 @@ public class DatabaseManager {
         if(!query.list().isEmpty())
             throw new EmailAlreadyExistException("Email " + email + " is busy. Try another one.");
     }
-//    public final List<User> getUsersByName(final String name){
-//        List<User> users = session.createQuery(cd)
-//    }
+    public final List<User> getUsersByName(final String name) throws NoSuchUserException{
+        Query query = session.createQuery("FROM User WHERE name = :name");
+        query.setParameter("name", name);
+        List<User> list = null;
+        if((list = query.list()).isEmpty()){
+            throw new NoSuchUserException("Users with name \"" + name + "\" not found.");
+        }
+        return list;
+    }
     public final Transaction beginTransaction(){
         return transact = session.beginTransaction();
     }

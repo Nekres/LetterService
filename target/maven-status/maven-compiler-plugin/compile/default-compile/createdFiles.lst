@@ -17,5 +17,6 @@ com/mycompany/letterservice/entity/Message.class
 com/mycompany/letterservice/entity/Account.class
 com/mycompany/letterservice/Validator$Type.class
 com/mycompany/letterservice/exceptions/BadEmailSyntaxException.class
+.netbeans_automatic_build
 com/mycompany/letterservice/entity/User.class
 com/mycompany/letterservice/auth/LoginServlet.class

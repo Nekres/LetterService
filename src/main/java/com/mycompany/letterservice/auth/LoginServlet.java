@@ -31,8 +31,8 @@ public class LoginServlet extends HttpServlet{
         logger.info(req.getServletPath());
         String email = req.getParameter(RegistrationServlet.USER_EMAIL);
         String password = req.getParameter(RegistrationServlet.USER_PASSWORD);
-        try{
         DatabaseManager manager = new DatabaseManager();
+        try{
         manager.beginTransaction();
         logger.info("Transaction in /login executing");
         
@@ -42,7 +42,6 @@ public class LoginServlet extends HttpServlet{
         session.setAttribute("user", user.getName());
         session.setAttribute("curr_u_id",user.getId() );
         session.setMaxInactiveInterval(30*60);
-        
         resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.jsp"));
         }catch(NoSuchUserException exception){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.html");
@@ -50,6 +49,8 @@ public class LoginServlet extends HttpServlet{
             out.println("<font color=red>ERROR</font>");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             dispatcher.include(req, resp);
+        }finally{
+            manager.commitAndClose();
         }
     }
     

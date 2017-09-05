@@ -53,6 +53,7 @@ public class MessagingServlet extends HttpServlet{
             User currentUser = manager.getUserById(receiverId);
             logger.info(currentUser.toString());
             resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+            manager.commitAndClose();
         }
         
     }
