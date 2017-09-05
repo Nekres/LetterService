@@ -1,6 +1,7 @@
 com/mycompany/letterservice/exceptions/ForbiddenSymbolsException.class
 com/mycompany/letterservice/exceptions/BadPropertiesException.class
 com/mycompany/letterservice/ResponseWrapper.class
+com/mycompany/letterservice/entity/Error.class
 com/mycompany/letterservice/exceptions/EmailAlreadyExistException.class
 com/mycompany/letterservice/ResponseWrapper$Type.class
 com/mycompany/letterservice/auth/UserManagerServlet.class
@@ -17,6 +18,5 @@ com/mycompany/letterservice/entity/Message.class
 com/mycompany/letterservice/entity/Account.class
 com/mycompany/letterservice/Validator$Type.class
 com/mycompany/letterservice/exceptions/BadEmailSyntaxException.class
-.netbeans_automatic_build
 com/mycompany/letterservice/entity/User.class
 com/mycompany/letterservice/auth/LoginServlet.class

@@ -26,9 +26,9 @@ public class User {
 //    private String surname;
 //    @Column(name = "photo_url", length = 250, nullable = false)
 //    private String photoUrl;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_received_messages", joinColumns = {@JoinColumn(name = "user_id")},inverseJoinColumns ={@JoinColumn(name = "message_id")})
-    private Set<Message> receivedMessage = new HashSet<>(0);
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "user_received_messages", joinColumns = {@JoinColumn(name = "user_id")},inverseJoinColumns ={@JoinColumn(name = "message_id")})
+//    private Set<Message> receivedMessage = new HashSet<>(0);
     
     public int getId() {
         return id;
@@ -62,26 +62,26 @@ public class User {
 //        this.photoUrl = photoUrl;
 //    }
 
-    public Set<Message> getReceivedMessage() {
-        return receivedMessage;
-    }
+//    public Set<Message> getReceivedMessage() {
+//        return receivedMessage;
+//    }
+//
+//    public void setReceivedMessage(Set<Message> receivedMessage) {
+//        this.receivedMessage = receivedMessage;
+//    }
 
-    public void setReceivedMessage(Set<Message> receivedMessage) {
-        this.receivedMessage = receivedMessage;
-    }
-    
-    
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", receivedMessage=" + receivedMessage + '}';
+        return "User{" + "id=" + id + ", name=" + name + '}';
     }
-
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + this.id;
         hash = 29 * hash + Objects.hashCode(this.name);
-        hash = 29 * hash + Objects.hashCode(this.receivedMessage);
         return hash;
     }
 
@@ -101,9 +101,6 @@ public class User {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.receivedMessage, other.receivedMessage)) {
             return false;
         }
         return true;

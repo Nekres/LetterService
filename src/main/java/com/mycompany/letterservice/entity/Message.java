@@ -24,7 +24,10 @@ public class Message {
     @GeneratedValue
     @Column(name = "message_id", nullable = false)
     private int id;
-    
+    @Column(name = "sender_id")
+    private int senderId;
+    @Column(name = "receiver_id")
+    private int receiverId;
     @Column(name = "date", nullable = false)
     private Date date;
     
@@ -34,6 +37,29 @@ public class Message {
     @GeneratedValue
     @Column(name = "position",length = 20000) //in hope that chat will have so many messages.
     private int position;
+    
+    public Message(String body) {
+        this.body = body;
+    }
+
+    public Message() {
+    }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
+    }
+
+    public int getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
+    }
     
     public int getId() {
         return id;

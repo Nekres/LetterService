@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet{
         HttpSession session = req.getSession();
         session.setAttribute("user", user.getName());
         session.setAttribute("curr_u_id",user.getId() );
+        logger.info(Integer.toString(user.getId()));
         session.setMaxInactiveInterval(30*60);
         resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.jsp"));
         }catch(NoSuchUserException exception){

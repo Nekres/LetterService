@@ -13,6 +13,7 @@
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/ResponseWrapper.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/Message.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/exceptions/LetterServiceException.java
+/home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/Error.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/exceptions/BadEmailSyntaxException.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/entity/User.java
 /home/nekres/NetBeansProjects/LetterService/src/main/java/com/mycompany/letterservice/auth/RegistrationServlet.java

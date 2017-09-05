@@ -6,6 +6,7 @@
 package com.mycompany.letterservice;
 
 import com.mycompany.letterservice.auth.RegistrationServlet;
+import com.mycompany.letterservice.entity.Message;
 import com.mycompany.letterservice.entity.User;
 import com.mycompany.letterservice.exceptions.EmailAlreadyExistException;
 import com.mycompany.letterservice.exceptions.NoSuchUserException;
@@ -59,7 +60,13 @@ public class DatabaseManager {
         }
         return u;
     }
-    
+    public final List<Message> getUserMessagesByUid(final int userId, final int count){
+        Query query = session.createQuery("FROM Message m where m.senderId = :userId");
+        query.setParameter("userId", userId);
+        System.err.println("HH");
+        System.err.println(query.list());
+        return null;
+    }
     public final User getUserById(final int id) throws NoSuchUserException{
         String q = "from User where user_id = :id";
         Query query = session.createQuery(q);

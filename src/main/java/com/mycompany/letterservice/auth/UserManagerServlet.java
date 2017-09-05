@@ -23,10 +23,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(value = {"/users.get"})
 public class UserManagerServlet extends HttpServlet{
-    private static final ObjectMapper mapper = new ObjectMapper();
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
         DatabaseManager manager = new DatabaseManager();
         manager.beginTransaction();
         String name = req.getParameter("name");
