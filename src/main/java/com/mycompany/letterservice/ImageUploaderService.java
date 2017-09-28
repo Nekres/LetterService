@@ -13,6 +13,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Map;
 import java.util.logging.Logger;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -26,21 +27,21 @@ public class ImageUploaderService {
     public static final Cloudinary cloud = new Cloudinary(ObjectUtils.asMap("cloud_name",CLOUD_NAME,"api_key",CLOUD_API_KEY,
             "api_secret",API_SECRET));
     
-    public static void upload(final InputStream input, int size) throws IOException{
-        ReadableByteChannel rbc = Channels.newChannel(input);
-        ByteBuffer buff = ByteBuffer.allocateDirect(size+1);
-        int num = 0;
-        while(num >= 0){
-            buff.rewind();
-            num = rbc.read(buff);
-            logger.info("s\n");
-            buff.rewind();
-        }
-      Map uploadResult = cloud.uploader().upload(buff, ObjectUtils.emptyMap());
-      logger.info("STARTING UPLOAD");
-      while(uploadResult.entrySet().iterator().hasNext()){
-          logger.info("::" + uploadResult.entrySet().iterator().next());
+    public static void upload(final InputStream input, Part picture) throws IOException{
+      byte buff[] = new byte[input.available()];
+      input.read(buff);
+      
+      File targetFile = new File("/home/nekres/temp/1.jpg");
+      if(!targetFile.exists()){
+          targetFile.getParentFile().mkdirs();
+          targetFile.createNewFile();
       }
+      OutputStream out = new FileOutputStream(targetFile);
+      out.write(buff);
+      out.flush();
+      
+      Map uploadResult = cloud.uploader().upload(targetFile, ObjectUtils.emptyMap());
+      logger.info(uploadResult.get("url").toString());
       logger.info("\n\n\nfinished\n");
     }
 }

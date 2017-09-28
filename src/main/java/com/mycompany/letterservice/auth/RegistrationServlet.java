@@ -53,10 +53,9 @@ public class RegistrationServlet extends HttpServlet {
         if(picture == null || name == null || password == null || surname == null){
             throw new BadPropertiesException("Check your request parameters");
         }
-        String pictureName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
         InputStream filestream = picture.getInputStream();
         logger.info("UPLOADING");
-        ImageUploaderService.upload(filestream, (int)picture.getSize());
+        ImageUploaderService.upload(filestream, picture);
         
         try {
             Validator.validate(email, Validator.Type.EMAIL);
