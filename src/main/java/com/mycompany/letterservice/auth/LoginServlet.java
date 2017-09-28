@@ -5,22 +5,16 @@
  */
 package com.mycompany.letterservice.auth;
 
-import com.mycompany.letterservice.DatabaseManager;
-import com.mycompany.letterservice.SessionManager;
+import com.mycompany.letterservice.*;
 import com.mycompany.letterservice.entity.User;
 import com.mycompany.letterservice.exceptions.NoSuchUserException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 /**
  *
@@ -48,8 +42,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("curr_u_id", user.getId());
             HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
             activeSession.put(session.getId(), session);
-            SessionManager.addCookie(resp, "session_id", session.getId(), 30 * 60);
             
+            SessionManager.addCookie(resp, "session_id", session.getId(), 30 * 60);
             logger.info(Integer.toString(user.getId()));
             resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.jsp"));
         } catch (NoSuchUserException exception) {

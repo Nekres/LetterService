@@ -21,28 +21,36 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nekres
  */
-@WebServlet(value = {"/users.get"})
-public class UserManagerServlet extends HttpServlet{
-    
+@WebServlet(value = {UserManagerServlet.USERS_GET, UserManagerServlet.USERS_ALL})
+public class UserManagerServlet extends HttpServlet {
+
+    public static final String USERS_GET = "/users.get";
+    public static final String USERS_ALL = "/users.all";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         DatabaseManager manager = new DatabaseManager();
-        manager.beginTransaction();
-        String name = req.getParameter("name");
         PrintWriter out = resp.getWriter();
-        if(name == null){
-            manager.commitAndClose();
-            out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("null")));
-            return;
+
+        manager.beginTransaction();
+        if (req.getServletPath().equals(USERS_GET)) {
+            String name = req.getParameter("name");
+            if (name == null) {
+                manager.commitAndClose();
+                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("null")));
+                return;
+            }
+            List<User> userList = manager.getUsersByName(name);
+            String json = mapper.writeValueAsString(userList);
+            out.write(json);
         }
-        List<User> userList = manager.getUsersByName(name);
-        if(userList.isEmpty())
-             out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("users with name " + name + " not found")));
-        String json = mapper.writeValueAsString(userList);
-        out.write(json);
+        if (req.getServletPath().equals(USERS_ALL)) {
+            List<User> userList = manager.getAllUsers();
+            String json = mapper.writeValueAsString(userList);
+            out.write(json);
+        }
         manager.commitAndClose();
     }
-    
-    
+
 }

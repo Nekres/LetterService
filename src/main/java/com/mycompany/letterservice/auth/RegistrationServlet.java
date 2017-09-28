@@ -5,33 +5,39 @@
  */
 package com.mycompany.letterservice.auth;
 
-import com.mycompany.letterservice.DatabaseManager;
-import com.mycompany.letterservice.ResponseWrapper;
-import com.mycompany.letterservice.Validator;
-import com.mycompany.letterservice.entity.Account;
-import com.mycompany.letterservice.entity.Message;
-import com.mycompany.letterservice.entity.User;
+import com.mycompany.letterservice.*;
+import com.mycompany.letterservice.entity.*;
+import com.mycompany.letterservice.exceptions.BadPropertiesException;
 import com.mycompany.letterservice.exceptions.LetterServiceException;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author nekres
  */
 @WebServlet("/register")
+@MultipartConfig
 public class RegistrationServlet extends HttpServlet {
     public static final String USER_NAME = "name";
+    public static final String USER_SURNAME = "surname";
     public static final String USER_EMAIL = "email";
     public static final String USER_PASSWORD = "password";
+    public static final String PICTURE = "picture";
     public static final Logger logger = Logger.getLogger(RegistrationServlet.class.getName());
     
     @Override
@@ -40,9 +46,18 @@ public class RegistrationServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         String name = req.getParameter(USER_NAME);
+        String surname = req.getParameter(USER_SURNAME);
         String email = req.getParameter(USER_EMAIL);
         String password = req.getParameter(USER_PASSWORD);
-    
+        Part picture = req.getPart(PICTURE);
+        if(picture == null || name == null || password == null || surname == null){
+            throw new BadPropertiesException("Check your request parameters");
+        }
+        String pictureName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
+        InputStream filestream = picture.getInputStream();
+        logger.info("UPLOADING");
+        ImageUploaderService.upload(filestream, (int)picture.getSize());
+        
         try {
             Validator.validate(email, Validator.Type.EMAIL);
             Validator.validate(name, Validator.Type.NAME);
@@ -50,6 +65,8 @@ public class RegistrationServlet extends HttpServlet {
             
             User u = new User();
             u.setName(name);
+            u.setPhotoUrl("fakeurl");
+            u.setSurname("somefake surname");
             
             Account acc = new Account();
             acc.setPassword(password);
@@ -57,18 +74,10 @@ public class RegistrationServlet extends HttpServlet {
             acc.setEmail(email);
             acc.setUser(u);
             
+            
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
             
-          //  Message message = new Message();
-          //  message.setBody("Message from uid 24 to uid 25");
-          //  message.setDate(new Date());
-            
-         //   List<User> users = manager.getObj(User.class);
-          //      logger.info(Integer.toString(users.get(0).getId()));
-           //     users.get(0).getMessage().add(message);
-         //   manager.updateObj(users.get(0));
-           // manager.persistObj(message);
             manager.checkOnEmailExist(email);
             manager.persistObj(u);
             manager.persistObj(acc);

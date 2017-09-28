@@ -31,12 +31,12 @@ public class MessagingServlet extends HttpServlet {
     public static final Logger logger = Logger.getLogger(MessagingServlet.class.getName());
     public static final String SEND_MESSAGE = "/msg.send";
     public static final String GET_MESSAGE = "/msg.get";
-    
+
     public static final String RECEIVER_ID = "receiver_id";
     public static final String MSG_BODY = "m_body";
     public static final String CURR_U_ID = "curr_u_id";
     public static final String LAST_MESSAGES_COUNT = "msgcount";
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -44,36 +44,37 @@ public class MessagingServlet extends HttpServlet {
         Writer out = resp.getWriter();
         HttpSession session = req.getSession(false);
         String line = req.getParameter(LAST_MESSAGES_COUNT);
-        if(line == null || line.isEmpty()){
+        if (line == null || line.isEmpty()) {
             out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("wrong params")));
             return;
         }
-        manager.beginTransaction();
+        if (session == null) {
+            out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("You need to log in to access this api.")));
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
         
         if (req.getServletPath().equals(GET_MESSAGE)) {
             try {
                 logger.info("msg.get request come with " + line);
                 int count = Integer.parseInt(line);
-                
-                if (session == null) {
-                    out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("You need to log in to access this api.")));
-                    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    return;
-                }
                 String user_id = session.getAttribute("curr_u_id").toString();
+                manager.beginTransaction();
                 List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id), count);
-                
-                if(messages.isEmpty()){
+                if (messages.isEmpty()) {
                     out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("user have no messages yet.")));
                 }
+                logger.info("LOAD MESSAGES: " + messages.toString());
                 out.write(mapper.writeValueAsString(messages));
             } catch (NumberFormatException nfe) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("")));
+            }finally{
+                manager.closeSession();
             }
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getServletPath().equals(SEND_MESSAGE)) {
@@ -82,7 +83,7 @@ public class MessagingServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-            
+
             int user_id = Integer.parseInt(session.getAttribute(CURR_U_ID).toString());
             String messageBody = req.getParameter(MSG_BODY);
             int receiverId = Integer.parseInt(req.getParameter(RECEIVER_ID));
@@ -90,13 +91,13 @@ public class MessagingServlet extends HttpServlet {
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
             User currentUser = manager.getUserById(receiverId);
-            Message m = new Message(user_id,receiverId,new Date(),messageBody);
+            Message m = new Message(user_id, receiverId, new Date(), messageBody);
             manager.persistObj(m);
             logger.info(currentUser.toString());
             resp.setStatus(HttpServletResponse.SC_ACCEPTED);
             manager.commitAndClose();
         }
-        
+
     }
-    
+
 }

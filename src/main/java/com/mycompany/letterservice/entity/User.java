@@ -5,9 +5,7 @@
  */
 package com.mycompany.letterservice.entity;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.*;
 /**
  *
@@ -22,13 +20,10 @@ public class User {
     private int id;
     @Column(name = "name",length = 50,nullable = false)
     private String name;
-//    @Column(name = "surname", length = 50, nullable = false)
-//    private String surname;
-//    @Column(name = "photo_url", length = 250, nullable = false)
-//    private String photoUrl;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_received_messages", joinColumns = {@JoinColumn(name = "user_id")},inverseJoinColumns ={@JoinColumn(name = "message_id")})
-//    private Set<Message> receivedMessage = new HashSet<>(0);
+    @Column(name = "surname", length = 50, nullable = false)
+    private String surname;
+    @Column(name = "photo_url", length = 250, nullable = false)
+    private String photoUrl;
     
     public int getId() {
         return id;
@@ -46,29 +41,22 @@ public class User {
         this.name = name;
     }
 
-//    public String getSurname() {
-//        return surname;
-//    }
-//
-//    public void setSurname(String surname) {
-//        this.surname = surname;
-//    }
-//
-//    public String getPhotoUrl() {
-//        return photoUrl;
-//    }
-//
-//    public void setPhotoUrl(String photoUrl) {
-//        this.photoUrl = photoUrl;
-//    }
+    public String getSurname() {
+        return surname;
+    }
 
-//    public Set<Message> getReceivedMessage() {
-//        return receivedMessage;
-//    }
-//
-//    public void setReceivedMessage(Set<Message> receivedMessage) {
-//        this.receivedMessage = receivedMessage;
-//    }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
 
     @Override
     public String toString() {

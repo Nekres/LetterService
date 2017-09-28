@@ -6,17 +6,12 @@
 package com.mycompany.letterservice;
 
 import com.mycompany.letterservice.auth.RegistrationServlet;
-import com.mycompany.letterservice.entity.Message;
-import com.mycompany.letterservice.entity.User;
-import com.mycompany.letterservice.exceptions.EmailAlreadyExistException;
-import com.mycompany.letterservice.exceptions.NoSuchUserException;
+import com.mycompany.letterservice.entity.*;
+import com.mycompany.letterservice.exceptions.*;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
-import org.hibernate.PropertyValueException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
@@ -60,8 +55,10 @@ public class DatabaseManager {
         }
         return u;
     }
+    
     public final List<Message> getUserMessagesByUid(final int userId, final int count){
-        Query query = session.createQuery("FROM Message m where m.senderId = :userId");
+        Query query = session.createQuery("FROM Message m where m.senderId = :userId or m.receiverId = :userId");
+        query.setParameter("userId", userId);
         query.setParameter("userId", userId);
         List<Message> list = query.list();
         return list;
@@ -77,6 +74,15 @@ public class DatabaseManager {
             throw new NoSuchUserException("User with this id not exist");
         }
         return u;
+    }
+    
+    public final List<User> getAllUsers() throws NoSuchUserException{
+        String q = "from User";
+        Query query = session.createQuery(q);
+        List<User> list = query.list();
+        if(list == null || list.isEmpty())
+            throw new NoSuchUserException("Database is empty");
+        else return list;
     }
     
     public final void checkOnEmailExist(final String email) throws EmailAlreadyExistException{
@@ -100,6 +106,11 @@ public class DatabaseManager {
     }
     public final void commitAndClose(){
         transact.commit();
+        session.clear();
+        session.close();
+    }
+    public final void closeSession(){
+        session.clear();
         session.close();
     }
 }

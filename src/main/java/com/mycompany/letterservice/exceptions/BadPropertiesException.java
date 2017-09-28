@@ -9,7 +9,7 @@ package com.mycompany.letterservice.exceptions;
  *
  * @author nekres
  */
-public class BadPropertiesException extends Exception{
+public class BadPropertiesException extends LetterServiceException{
 
     private String message;
 

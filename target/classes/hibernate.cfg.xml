@@ -11,9 +11,17 @@
         <property name="connection.username">foultvhxdrzrau</property>  
         <property name="connection.password">6035fefb6558100e99d0061dca440fa400daa3af5914ce9d237a0a2f8de4f76d</property>  
         <property name="connection.driver_class">org.postgresql.Driver</property>  
-    <mapping class="com.mycompany.letterservice.entity.User"/> 
-    <mapping class="com.mycompany.letterservice.entity.Account"/> 
-    <mapping class="com.mycompany.letterservice.entity.Message"/> 
+        <property name="hibernate.connection.release_mode">after_transaction</property>
+        
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">10</property>
+        <property name="hibernate.c3p0.timeout">1</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">10</property>
+  
+        <mapping class="com.mycompany.letterservice.entity.User"/> 
+        <mapping class="com.mycompany.letterservice.entity.Account"/> 
+        <mapping class="com.mycompany.letterservice.entity.Message"/> 
     </session-factory> 
     
 </hibernate-configuration>

@@ -15,8 +15,30 @@
         <tomcat.version>8.5.2</tomcat.version>
         
     </properties>
-    
+    <repositories>
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
     <dependencies>
+        <dependency>
+    <groupId>com.cloudinary</groupId>
+    <artifactId>cloudinary-http44</artifactId>
+    <version>1.15.0</version>
+</dependency>
+        <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>5.2.10.Final</version>
+		</dependency>
+               <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+<dependency>
+    <groupId>com.mchange</groupId>
+    <artifactId>c3p0</artifactId>
+    <version>0.9.5.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
         <dependency>
         <groupId>org.apache.tomcat.embed</groupId>
         <artifactId>tomcat-embed-core</artifactId>
@@ -64,11 +86,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.0.1.Final</version>
         </dependency>
         <dependency>
 			<groupId>org.postgresql</groupId>
@@ -127,6 +144,7 @@
                 </execution>
             </executions>
         </plugin>
+         
         </plugins>
     </build>
 
