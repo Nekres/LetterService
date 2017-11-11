@@ -9,21 +9,14 @@ import com.mycompany.letterservice.*;
 import com.mycompany.letterservice.entity.*;
 import com.mycompany.letterservice.exceptions.BadPropertiesException;
 import com.mycompany.letterservice.exceptions.LetterServiceException;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import javax.servlet.http.Part;
 
 /**
@@ -33,6 +26,7 @@ import javax.servlet.http.Part;
 @WebServlet("/register")
 @MultipartConfig
 public class RegistrationServlet extends HttpServlet {
+    public static final String LOGIN = "login";
     public static final String USER_NAME = "name";
     public static final String USER_SURNAME = "surname";
     public static final String USER_EMAIL = "email";
@@ -44,7 +38,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/xml");
         PrintWriter writer = resp.getWriter();
-
+        
         String name = req.getParameter(USER_NAME);
         String surname = req.getParameter(USER_SURNAME);
         String email = req.getParameter(USER_EMAIL);
@@ -53,9 +47,10 @@ public class RegistrationServlet extends HttpServlet {
         if(picture == null || name == null || password == null || surname == null){
             throw new BadPropertiesException("Check your request parameters");
         }
+        
+        String pictureName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
         InputStream filestream = picture.getInputStream();
-        logger.info("UPLOADING");
-        ImageUploaderService.upload(filestream, picture);
+        String photoUrl = ImageUploaderService.upload(filestream, (int)picture.getSize(), pictureName);
         
         try {
             Validator.validate(email, Validator.Type.EMAIL);
@@ -64,15 +59,14 @@ public class RegistrationServlet extends HttpServlet {
             
             User u = new User();
             u.setName(name);
-            u.setPhotoUrl("fakeurl");
-            u.setSurname("somefake surname");
+            u.setPhotoUrl(photoUrl);
+            u.setSurname(surname);
             
             Account acc = new Account();
             acc.setPassword(password);
             acc.setRegistrationDate(new Date());
             acc.setEmail(email);
             acc.setUser(u);
-            
             
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
