@@ -8,9 +8,7 @@ package com.mycompany.letterservice;
 import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import javax.servlet.http.*;
 
 /**
  *

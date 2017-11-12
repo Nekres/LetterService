@@ -36,9 +36,12 @@ public class RegistrationServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/xml");
-        PrintWriter writer = resp.getWriter();
         
+        PrintWriter writer = resp.getWriter();
+        //receiving fields
         String name = req.getParameter(USER_NAME);
         String surname = req.getParameter(USER_SURNAME);
         String email = req.getParameter(USER_EMAIL);
@@ -48,14 +51,14 @@ public class RegistrationServlet extends HttpServlet {
             throw new BadPropertiesException("Check your request parameters");
         }
         
-        String pictureName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
-        InputStream filestream = picture.getInputStream();
-        String photoUrl = ImageUploaderService.upload(filestream, (int)picture.getSize(), pictureName);
-        
         try {
             Validator.validate(email, Validator.Type.EMAIL);
             Validator.validate(name, Validator.Type.NAME);
             Validator.validate(password, Validator.Type.PASSWORD);
+             //upload avatar if validation passed
+            String pictureName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
+            InputStream filestream = picture.getInputStream();
+            String photoUrl = ImageUploaderService.upload(filestream, (int)picture.getSize(), pictureName);
             
             User u = new User();
             u.setName(name);

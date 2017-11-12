@@ -22,11 +22,12 @@ import javax.servlet.http.*;
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-
+    public static final int COOKIE_EXPIRE_TIME = 30*60;
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         logger.info(req.getServletPath());
         String email = req.getParameter(RegistrationServlet.USER_EMAIL);
         String password = req.getParameter(RegistrationServlet.USER_PASSWORD);
@@ -43,9 +44,14 @@ public class LoginServlet extends HttpServlet {
             HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
             activeSession.put(session.getId(), session);
             
-            SessionManager.addCookie(resp, "session_id", session.getId(), 30 * 60);
+            SessionManager.addCookie(resp, "session_id", session.getId(), COOKIE_EXPIRE_TIME);
+            SessionManager.addCookie(resp, "user_id", Integer.toString(user.getId()), COOKIE_EXPIRE_TIME);
+            SessionManager.addCookie(resp, "user_name", user.getName(), COOKIE_EXPIRE_TIME);
+            SessionManager.addCookie(resp, "user_surname", user.getSurname(), COOKIE_EXPIRE_TIME);
+            SessionManager.addCookie(resp, "user_photo", user.getPhotoUrl(), COOKIE_EXPIRE_TIME);
             logger.info(Integer.toString(user.getId()));
-            resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.jsp"));
+            
+            resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.html"));
         } catch (NoSuchUserException exception) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.html");
             PrintWriter out = resp.getWriter();

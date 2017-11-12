@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 14, 2017, 5:08:10 PM
+    Author     : nekres
+*/
+body{
+    background: url(../a2ef3a26270dc823d3841f3907ad9d2c-1600x900.jpg);
+    background-size: cover;
+}
+#u_button{
+    width: 400px;
+    border-color: black;
+    font-family: cursive;
+   
+}
+#header{
+    font-family: 'Indie Flower', cursive;
+    font-size:35pt;
+    color: white;
+    position: fixed;
+    top:0px;
+    width: 100%;
+    height: 5%%;
+    left: 0px;
+    background-color: black;
+}
+#avatar{
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+#avatar_img{
+    width: 100%;
+    height: 100%;
+}

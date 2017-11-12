@@ -1,10 +1,3 @@
-<%-- 
-    Document   : SuccessLogging
-    Created on : Aug 22, 2017, 9:52:18 PM
-    Author     : nekres
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,35 +5,43 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/css/styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+        <script src="js/CookieUtils.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
         <script type = "text/javascript" 
          src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-         <script type = "text/javascript" src = "/jquery/custom.js"></script>
-        <title>Success</title>
+        <title>Letter Service</title>
     </head>
     <body>
-        <%
-            String user = null;
-            if(session.getAttribute("user") == null){
-               response.sendRedirect("index.html");
-            }else{
-                user = (String)session.getAttribute("user");
-            }
-            %>
-            <div class="container">
-            <h2>Hi <%=user %>,login successful. Your session ID is <%=session.getId() %></h2>
+        <div id="header"><p align="center">Letter Service</p></div>
+        <div class="container" style="top:10%;position: absolute">
+                
+            <div class="row">
+                <div id="greeting" class="col-sm-12" align="center"></div></div>
             <br>
-            <div class="col-md-6" id="userlist"> <p align="center">Common account list</p></div>
-                <div id="msgwrap" class="col-md-6">
-            <div  id="messages"overflow: scroll;
-                  overflow-x:hidden;overflow-y:scroll;border-color: blueviolet;border: 1px solid black; word-wrap:break-word" ></div>
+            <div class="row">
+            <div id="avatar" class="col-sm-3"> 
+                <script type="text/javascript" language="javascript">
+                    $(document).ready(function (){
+                    var name = getCookie("user_name");
+                    var photo_url = getCookie("user_photo");
+                    $("#avatar").append("<img src=" + photo_url + "\" id=\"avatar_img\">");
+                    $("#greeting").append("<h3><kbd>Привет " + name + "</kbd></h3>")
+                });
+                    </script>
+            </div>  <div class="col-sm-4" id="userlist"> <p align="center">Список всех пользователей</p></div>
+                            <div id="msgwrap" class="col-sm-5">
+                    <div id="messages"  ></div>
                       <form action="msg.send" method="POST">
                 msg<input type="text" name="m_body" value="" size="20" />
                 uid<input type="text" name="receiver_id" value="" />
                 <input type="submit" value="Send" name="submit" class="" />
             </form>
             </div>
-                <script type="text/javascript" language="javascript">
+                </div>
+            <div class="row">
+            <script type="text/javascript" language="javascript">
                 $(document).ready(function (){
                     $.getJSON("msg.get?msgcount=5",function (msg){
                         $("#messages").html("<p>msg.id " + msg[0].id + ': ' + msg[0].body + "</p>"); 
@@ -49,7 +50,6 @@
                        $("#messages").append("<p>msg.id " + msg[i].id + ': ' + msg[i].body + "</p>");
                    }
                     });
-                    
                 })
                 </script>
                 <script type="text/javascript" language="javascript">
@@ -69,5 +69,6 @@
                 });
                 </script>
             </div>
+        </div>
     </body>
 </html>
