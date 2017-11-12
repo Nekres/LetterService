@@ -33,12 +33,12 @@ public class Validator {
     }
     private static void validateEmail(final String email) throws BadEmailSyntaxException{
         Matcher match = EMAIL_REGEX.matcher(email);
-        if(!match.matches())
-            throw new BadEmailSyntaxException(email);
+       // if(!match.matches())
+       //     throw new BadEmailSyntaxException(email);
     }
     private static void validateFS(final String validate) throws ForbiddenSymbolsException{
         Matcher match = DEFAULT_REGEX.matcher(validate);
-        if(!match.matches())
-            throw new ForbiddenSymbolsException(validate);
+       // if(!match.matches())
+       //     throw new ForbiddenSymbolsException(validate);
     }
 }
