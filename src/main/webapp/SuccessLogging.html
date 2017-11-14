@@ -44,10 +44,10 @@
             <script type="text/javascript" language="javascript">
                 $(document).ready(function (){
                     $.getJSON("msg.get?msgcount=5",function (msg){
-                        $("#messages").html("<p>msg.id " + msg[0].id + ': ' + msg[0].body + "</p>"); 
+                        $("#messages").html("<p><kbd>msg.id " + msg[0].id + ': ' + msg[0].body + "</p></kbd>"); 
                         var i;
                         for(i = 1; i <= msg.length;i++){
-                       $("#messages").append("<p>msg.id " + msg[i].id + ': ' + msg[i].body + "</p>");
+                       $("#messages").append("<p><kbd>msg.id " + msg[i].id + ': ' + msg[i].body + "</p></kbd>");
                    }
                     });
                 })
