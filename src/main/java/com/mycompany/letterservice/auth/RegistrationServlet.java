@@ -10,6 +10,7 @@ import com.mycompany.letterservice.entity.*;
 import com.mycompany.letterservice.exceptions.BadPropertiesException;
 import com.mycompany.letterservice.exceptions.LetterServiceException;
 import java.io.*;
+import java.net.URLEncoder;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -39,7 +40,6 @@ public class RegistrationServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/xml");
-        
         PrintWriter writer = resp.getWriter();
         //receiving fields
         String name = req.getParameter(USER_NAME);

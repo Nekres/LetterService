@@ -39,6 +39,7 @@ public class MessagingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         ObjectMapper mapper = new ObjectMapper();
         DatabaseManager manager = new DatabaseManager();
         Writer out = resp.getWriter();

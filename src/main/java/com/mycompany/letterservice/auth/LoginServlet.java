@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         logger.info(req.getServletPath());
         String email = req.getParameter(RegistrationServlet.USER_EMAIL);
         String password = req.getParameter(RegistrationServlet.USER_PASSWORD);
@@ -50,6 +51,7 @@ public class LoginServlet extends HttpServlet {
             SessionManager.addCookie(resp, "user_surname", user.getSurname(), COOKIE_EXPIRE_TIME);
             SessionManager.addCookie(resp, "user_photo", user.getPhotoUrl(), COOKIE_EXPIRE_TIME);
             logger.info(Integer.toString(user.getId()));
+            
             
             resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.html"));
         } catch (NoSuchUserException exception) {

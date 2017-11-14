@@ -39,6 +39,6 @@ public class Validator {
     private static void validateFS(final String validate) throws ForbiddenSymbolsException{
         Matcher match = DEFAULT_REGEX.matcher(validate);
        // if(!match.matches())
-       //     throw new ForbiddenSymbolsException(validate);
+       //git     throw new ForbiddenSymbolsException(validate);
     }
 }

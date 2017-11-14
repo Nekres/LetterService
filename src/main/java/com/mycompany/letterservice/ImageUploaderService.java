@@ -38,8 +38,8 @@ public class ImageUploaderService {
         Map uploadResult = cloud.uploader().upload(targetFile, ObjectUtils.emptyMap());
           logger.info("::" + uploadResult.entrySet().iterator().next());
           logger.info(uploadResult.get("url").toString());
-      targetFile.delete();
-      logger.info("Uploaded.\n");
+        targetFile.delete();
+        logger.info("Uploaded.\n");
       return uploadResult.get("url").toString();
     }
 }

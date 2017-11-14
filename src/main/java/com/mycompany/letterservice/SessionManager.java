@@ -5,6 +5,8 @@
  */
 package com.mycompany.letterservice;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,15 +29,14 @@ public class SessionManager {
         return null;
     }
     
-    public static void addCookie(HttpServletResponse response, String name, String value, int maxAge){
-        Cookie cookie = new Cookie(name, value);
+    public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) throws UnsupportedEncodingException{
+        Cookie cookie = new Cookie(name, URLEncoder.encode(value, "UTF-8"));
         cookie.setPath("/");
-        if(maxAge != 0)
         cookie.setMaxAge(maxAge);
         response.addCookie(cookie);
     }
     
-    public static void removeCookie(HttpServletResponse response, String name){
+    public static void removeCookie(HttpServletResponse response, String name) throws UnsupportedEncodingException{
         addCookie(response, name, null, 0);
     }
 }

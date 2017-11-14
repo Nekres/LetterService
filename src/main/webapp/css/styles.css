@@ -31,6 +31,8 @@ body{
 #avatar{
   position: relative;
   overflow: hidden;
+  max-height: 20%;
+  max-width: 15;
   margin: 0;
 }
 #avatar_img{

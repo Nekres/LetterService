@@ -24,9 +24,11 @@
             <div id="avatar" class="col-sm-3"> 
                 <script type="text/javascript" language="javascript">
                     $(document).ready(function (){
+                        alert(document.cookie);
                     var name = getCookie("user_name");
                     var photo_url = getCookie("user_photo");
-                    $("#avatar").append("<img src=" + photo_url + "\" id=\"avatar_img\">");
+                    alert(photo_url);
+                    $("#avatar").append("<img src=" + photo_url + " id=\"avatar_img\">");
                     $("#greeting").append("<h3><kbd>Привет " + name + "</kbd></h3>")
                 });
                     </script>
