@@ -16,6 +16,12 @@ body{
     -ms-background-size: cover;
      background-size: cover;
 }
+#messages{
+    overflow: scroll;
+    padding: 2px;
+    border: 2px solid white;
+    max-height: 400px;
+}
 #u_button{
     width: 400px;
     border-color: black;
