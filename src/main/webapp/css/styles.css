@@ -17,10 +17,11 @@ body{
      background-size: cover;
 }
 .cmessages{
-    display:inline-block;
+    display:block;
     overflow: scroll;
     padding: 2px;
     border: 2px solid white;
+    width: 100%;
 }
 #u_button{
     width: 400px;
@@ -39,7 +40,6 @@ body{
     left: 0px;
 }
 #avatar{
-  border:1px solid black;
   position: relative;
   overflow: hidden;
   max-height: 25%;
