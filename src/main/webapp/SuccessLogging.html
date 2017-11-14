@@ -19,7 +19,7 @@
         <div class="container" style="top:10%;position: absolute">
 
             <div class="row">
-                <div id="greeting" class="col-sm-12" align="center"></div></div>
+                <div id="greeting" class="col-sm-3" align="center"></div></div>
             <br>
             <div class="row">
                 <div id="avatar" class="col-sm-3"> 
@@ -31,9 +31,10 @@
                             $("#greeting").append("<h3><kbd>Привет " + name + "</kbd></h3>")
                         });
                     </script>
-                </div>  <div class="col-sm-4" id="userlist" > <p align="center">Список всех пользователей</p></div>
+                </div>  <div class="col-sm-4" id="userlist" > <h4 align="center"><kbd>Список всех пользователей</kbd></h4></div>
                 <div class="col-sm-5">
-                    <div id="messages"  >
+                    <h4 align="center"><kbd>Чатик<kbd></h4>
+                    <div id="messages" class="cmessages" >
                     </div>
                     <form action="msg.send" method="POST">
                         msg<input type="text" name="m_body" value="" size="20" />
@@ -61,6 +62,7 @@
                                 var ids = msg[c].id;
                                 console.log(ids);    
                                 $("#messages").append("<p><kbd>msg.id " + msg[c].id + ': ' + msg[c].body + "</p></kbd>");
+                                $("#messages").height(500);
                             }
                         });
                     })
@@ -76,7 +78,6 @@
                                     input.type = "button";
                                     input.id = "btn_id" + i;
                                     input.value = user[i].name + " with id: " + user[i].id;
-                                    alert(user[i].id);
                                     input.onclick = function(){openDialogBox(user[i].id);};
                                     input.setAttribute("class", "btn btn-primary btn-block");
                                     $("#userlist").append(input);
@@ -103,8 +104,6 @@
                                 $("#messages").append(str);
                                 console.log(str);
                             }
-                            $("#messages").height($("#messages").height() +1);
-                            $("#messages").height($("#messages").height() -1);
                         });
                         }
                 </script>
