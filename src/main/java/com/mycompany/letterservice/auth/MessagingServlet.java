@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.hibernate.Session;
 
 /**
  *
@@ -56,12 +57,13 @@ public class MessagingServlet extends HttpServlet {
         }
         
         if (req.getServletPath().equals(GET_MESSAGE)) {
+            String rec_id = req.getParameter(RECEIVER_ID);
             try {
-                logger.info("msg.get request come with " + line);
+                logger.info("msg.get request come with " + line + "rec_id" + rec_id);
                 int count = Integer.parseInt(line);
                 String user_id = session.getAttribute("curr_u_id").toString();
                 manager.beginTransaction();
-                List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id), count);
+                List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id),Integer.parseInt(rec_id), count);
                 if (messages.isEmpty()) {
                     out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("user have no messages yet.")));
                 }
@@ -84,7 +86,6 @@ public class MessagingServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-
             int user_id = Integer.parseInt(session.getAttribute(CURR_U_ID).toString());
             String messageBody = req.getParameter(MSG_BODY);
             int receiverId = Integer.parseInt(req.getParameter(RECEIVER_ID));

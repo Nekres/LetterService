@@ -56,11 +56,15 @@ public class DatabaseManager {
         return u;
     }
     
-    public final List<Message> getUserMessagesByUid(final int userId, final int count){
-        Query query = session.createQuery("FROM Message m where m.senderId = :userId or m.receiverId = :userId");
+    public final List<Message> getUserMessagesByUid(final int userId, final int rec_id, final int count){
+        Query query = session.createQuery("FROM Message m where m.senderId = :userId and m.receiverId = :rec_id");
+        Query aQuery = session.createQuery("FROM Message m where m.senderId = :rec_id and m.receiverId = :userId");
         query.setParameter("userId", userId);
-        query.setParameter("userId", userId);
+        query.setParameter("rec_id", rec_id);
+        aQuery.setParameter("userId", userId);
+        aQuery.setParameter("rec_id", rec_id);
         List<Message> list = query.list();
+        list.addAll(aQuery.list());
         return list;
     }
     public final User getUserById(final int id) throws NoSuchUserException{

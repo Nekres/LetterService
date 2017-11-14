@@ -32,6 +32,7 @@ public class SessionManager {
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) throws UnsupportedEncodingException{
         Cookie cookie = new Cookie(name, URLEncoder.encode(value, "UTF-8"));
         cookie.setPath("/");
+        if(maxAge != -1)
         cookie.setMaxAge(maxAge);
         response.addCookie(cookie);
     }

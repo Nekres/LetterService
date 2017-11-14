@@ -23,6 +23,7 @@ import javax.servlet.http.*;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     public static final int COOKIE_EXPIRE_TIME = 30*60;
+    public static final int COOKIE_NO_EXPIRE = -1;
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     @Override
@@ -46,12 +47,11 @@ public class LoginServlet extends HttpServlet {
             activeSession.put(session.getId(), session);
             
             SessionManager.addCookie(resp, "session_id", session.getId(), COOKIE_EXPIRE_TIME);
-            SessionManager.addCookie(resp, "user_id", Integer.toString(user.getId()), COOKIE_EXPIRE_TIME);
-            SessionManager.addCookie(resp, "user_name", user.getName(), COOKIE_EXPIRE_TIME);
-            SessionManager.addCookie(resp, "user_surname", user.getSurname(), COOKIE_EXPIRE_TIME);
-            SessionManager.addCookie(resp, "user_photo", user.getPhotoUrl(), COOKIE_EXPIRE_TIME);
+            SessionManager.addCookie(resp, "user_id", Integer.toString(user.getId()), COOKIE_NO_EXPIRE);
+            SessionManager.addCookie(resp, "user_name", user.getName(), COOKIE_NO_EXPIRE);
+            SessionManager.addCookie(resp, "user_surname", user.getSurname(), COOKIE_NO_EXPIRE);
+            SessionManager.addCookie(resp, "user_photo", user.getPhotoUrl(), COOKIE_NO_EXPIRE);
             logger.info(Integer.toString(user.getId()));
-            
             
             resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.html"));
         } catch (NoSuchUserException exception) {
