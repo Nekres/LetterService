@@ -8,8 +8,13 @@ and open the template in the editor.
     Author     : nekres
 */
 body{
-    background: url(../Touhou_Kochiya_Sanaenime_girls-305409.jpg)no-repeat;
+    background: url(../Touhou_Kochiya_Sanaenime_girls-305409.jpg);
     background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+     background-size: cover;
 }
 #u_button{
     width: 400px;
@@ -31,8 +36,8 @@ body{
   border:1px solid black;
   position: relative;
   overflow: hidden;
-  max-height: 20%;
-  max-width: 15;
+  max-height: 25%;
+  max-width: 100%;
   margin: 0;
 }
 #avatar_img{
@@ -41,7 +46,7 @@ body{
 }
 @media screen and (max-width: 768px) {   
     body{
-    	background: url(http://idealphotography.biz/wp-content/uploads/2017/02/30-christmas-wallpapers-for-iphones-for-amazing-iphone-wallpaper-christmas-design-768x1366.jpg)no-repeat;
+    	background: url(../808843554.jpg);
         background-size: cover;
     } 
 }
