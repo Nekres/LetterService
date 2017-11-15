@@ -9,20 +9,20 @@ package com.mycompany.letterservice.entity;
  *
  * @author nekres
  */
-public class Error {
+public class Status {
     
-    private String error;
+    private String status;
 
-    public Error(String error) {
-        this.error = error;
+    public Status(String status) {
+        this.status = status;
     }
     
-    public String getError() {
-        return error;
+    public String getStatus() {
+        return status;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     

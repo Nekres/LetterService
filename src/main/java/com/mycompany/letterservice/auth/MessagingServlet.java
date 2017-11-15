@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.hibernate.Session;
 
 /**
  *
@@ -47,11 +46,11 @@ public class MessagingServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         String line = req.getParameter(LAST_MESSAGES_COUNT);
         if (line == null || line.isEmpty()) {
-            out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("wrong params")));
+            out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("wrong params")));
             return;
         }
         if (session == null) {
-            out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("You need to log in to access this api.")));
+            out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("You need to log in to access this api.")));
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -65,13 +64,13 @@ public class MessagingServlet extends HttpServlet {
                 manager.beginTransaction();
                 List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id),Integer.parseInt(rec_id), count);
                 if (messages.isEmpty()) {
-                    out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("user have no messages yet.")));
+                    out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("user have no messages yet.")));
                 }
                 logger.info("LOAD MESSAGES: " + messages.toString());
                 out.write(mapper.writeValueAsString(messages));
             } catch (NumberFormatException nfe) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("")));
+                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("")));
             }finally{
                 manager.closeSession();
             }

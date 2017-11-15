@@ -39,7 +39,7 @@ public class UserManagerServlet extends HttpServlet {
             String name = req.getParameter("name");
             if (name == null) {
                 manager.commitAndClose();
-                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Error("null")));
+                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("null")));
                 return;
             }
             List<User> userList = manager.getUsersByName(name);

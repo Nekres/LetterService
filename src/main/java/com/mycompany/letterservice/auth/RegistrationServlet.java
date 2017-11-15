@@ -5,6 +5,7 @@
  */
 package com.mycompany.letterservice.auth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.letterservice.*;
 import com.mycompany.letterservice.entity.*;
 import com.mycompany.letterservice.exceptions.BadPropertiesException;
@@ -47,11 +48,13 @@ public class RegistrationServlet extends HttpServlet {
         String email = req.getParameter(USER_EMAIL);
         String password = req.getParameter(USER_PASSWORD);
         Part picture = req.getPart(PICTURE);
-        if(picture == null || name == null || password == null || surname == null){
+        
+        //jackson
+            ObjectMapper mapper = new ObjectMapper();
+        try {
+            if(name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || picture.getSize() == 0){
             throw new BadPropertiesException("Check your request parameters");
         }
-        
-        try {
             Validator.validate(email, Validator.Type.EMAIL);
             Validator.validate(name, Validator.Type.NAME);
             Validator.validate(password, Validator.Type.PASSWORD);
@@ -71,6 +74,8 @@ public class RegistrationServlet extends HttpServlet {
             acc.setEmail(email);
             acc.setUser(u);
             
+            
+            //db
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
             
@@ -78,11 +83,12 @@ public class RegistrationServlet extends HttpServlet {
             manager.persistObj(u);
             manager.persistObj(acc);
             
-            writer.append(ResponseWrapper.wrap("OK",ResponseWrapper.Type.RESPONSE,ResponseWrapper.Type.END_RESPONSE));
+            writer.append(mapper.writeValueAsString(new Status("Account successfully created")));
             manager.commitAndClose();
             logger.info("Saving to database: " + acc.toString());
         } catch (LetterServiceException ex) {
-            writer.append(ResponseWrapper.wrap(ex.getMessage(), ResponseWrapper.Type.ERROR, ResponseWrapper.Type.END_ERROR));
+            writer.append(mapper.writeValueAsString(new Status(ex.getMessage())));
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             logger.info("Exception with message: " + ex.getMessage());
         }
         }

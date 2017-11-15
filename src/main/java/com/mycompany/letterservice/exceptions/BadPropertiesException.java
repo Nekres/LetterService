@@ -17,10 +17,9 @@ public class BadPropertiesException extends LetterServiceException{
         this.message = message;
     }
     
-    
     @Override
     public String getMessage() {
-        return this.getMessage(); //To change body of generated methods, choose Tools | Templates.
+        return this.message;
     }
     
 }
