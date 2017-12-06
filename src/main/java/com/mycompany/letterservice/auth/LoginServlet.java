@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
             activeSession.put(session.getId(), session);
             
-            SessionManager.addCookie(resp, "session_id", session.getId(), COOKIE_EXPIRE_TIME);
+            SessionManager.addCookie(resp, "session_id", session.getId(), COOKIE_NO_EXPIRE);
             SessionManager.addCookie(resp, "user_id", Integer.toString(user.getId()), COOKIE_NO_EXPIRE);
             SessionManager.addCookie(resp, "user_name", user.getName(), COOKIE_NO_EXPIRE);
             SessionManager.addCookie(resp, "user_surname", user.getSurname(), COOKIE_NO_EXPIRE);

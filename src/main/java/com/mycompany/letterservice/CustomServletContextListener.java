@@ -8,6 +8,7 @@ package com.mycompany.letterservice;
 import java.util.HashMap;
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
+import org.eclipse.jetty.server.Server;
 
 /**
  *
@@ -15,9 +16,9 @@ import javax.servlet.annotation.WebListener;
  */
 @WebListener
 public class CustomServletContextListener implements ServletContextListener{
-    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        
         HashMap activeSessions = new HashMap();
         sce.getServletContext().setAttribute("activeSession", activeSessions);
         }

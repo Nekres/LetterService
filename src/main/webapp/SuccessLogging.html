@@ -22,27 +22,33 @@
                 <div id="greeting" class="col-sm-3" align="center"></div></div>
             <br>
             <div class="row">
-                <div id="avatar" class="col-sm-3"> 
+                                <div class="col-sm-3" > <h4 align="center"><kbd>Список всех пользователей</kbd></h4>
+                    <div id="userlist"></div></div>
+                <div class="col-sm-6">
+                    <h4 align="center"><kbd>Чатик<kbd></h4>
+                    <div id="messages" class="cmessages" >
+                    </div>
+                                <br>
+                    
+                </div>
+                <div id="avatar" class="col-sm-2"> 
                     <script type="text/javascript" language="javascript">
                         $(document).ready(function () {
                             var name = getCookie("user_name");
                             var photo_url = getCookie("user_photo");
                             $("#avatar").append("<img src=" + photo_url + " id=\"avatar_img\">");
-                            $("#greeting").append("<h3><kbd>Привет " + name + "</kbd></h3>")
+                            $("#greeting").append("<h3><kbd>Привет, " + name + "</kbd></h3>")
                         });
                     </script>
-                </div>  <div class="col-sm-4" id="userlist" > <h4 align="center"><kbd>Список всех пользователей</kbd></h4></div>
-                <div class="col-sm-5">
-                    <h4 align="center"><kbd>Чатик<kbd></h4>
-                    <div id="messages" class="cmessages" >
-                    </div>
-                    <form action="msg.send" method="POST">
-                        msg<input type="text" name="m_body" value="" size="20" />
-                        uid<input type="text" name="receiver_id" value="" />
-                        <input type="submit" value="Send" name="submit" class="" />
-                    </form>
-                </div>
+                </div>  
+
             </div>
+            <div class="row">
+            <form action="msg.send" method="POST">
+                <kbd>msg</kbd><input type="text" name="m_body" value="" height="100"/>
+                            uid<input type="text" name="receiver_id" value="" />
+                        <input type="submit" value="Send" name="submit" class="" />
+                    </form></div>
             <div class="row">
                 <script type="text/javascript" language="javascript">
                     $(document).ready(function () {
@@ -80,6 +86,7 @@
                                     input.onclick = function(){openDialogBox(user[i].id);};
                                     input.setAttribute("class", "btn btn-primary btn-block");
                                     $("#userlist").append(input);
+                                    $("#userlist").height(400);
                                 }
                             });
                         });

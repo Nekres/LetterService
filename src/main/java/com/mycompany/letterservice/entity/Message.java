@@ -32,7 +32,6 @@ public class Message implements Serializable{
     private int receiverId;
     @Column(name = "date", nullable = false)
     private Date date;
-    
     @Column(name = "body",length = 1000)
     private String body;
     @Id
