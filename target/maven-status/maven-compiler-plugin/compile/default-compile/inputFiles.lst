@@ -1,4 +1,3 @@
-/home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/entity/Error.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/exceptions/LetterServiceException.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/exceptions/AuthenticationRequiresException.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/exceptions/NoSuchUserException.java
@@ -9,6 +8,7 @@
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/SessionManager.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/exceptions/EmptyDialogsException.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/auth/MessagingServlet.java
+/home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/entity/Status.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/DatabaseManager.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/entity/Account.java
 /home/nekres/Documents/LetterService/src/main/java/com/mycompany/letterservice/exceptions/ForbiddenSymbolsException.java

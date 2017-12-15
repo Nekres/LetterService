@@ -8,21 +8,25 @@ and open the template in the editor.
     Author     : nekres
 */
 body{
-    background: url(http://www.gandex.ru/upl/oboi/gandex.ru-13546_12b7b7e6b25cbcf31bbf7afbf2e90fa3.jpg);
+   // background: url(http://www.gandex.ru/upl/oboi/gandex.ru-13546_12b7b7e6b25cbcf31bbf7afbf2e90fa3.jpg);
+   background-color: dimgrey;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     -ms-background-size: cover;
      background-size: cover;
+  
 }
 .cmessages{
     display:block;
     overflow: scroll;
-    padding: 2px;
-    border: 2px solid white;
-    width: 100%;
+    background: url(http://www.gandex.ru/upl/oboi/gandex.ru-13546_12b7b7e6b25cbcf31bbf7afbf2e90fa3.jpg);
+    border: 2px solid black;
     background-color: white;
+    max-width: 100%;
+    max-height: 80%;
+    padding: 0;
 }
 #u_button{
     width: 400px;
@@ -32,15 +36,16 @@ body{
 }
 #header{
     font-family: 'Indie Flower', cursive;
-    border:1px solid white;
-    font-size:50pt;
+    font-size:22pt;
     color: white;
-    position: fixed;
-    top:0px;
-    width: 100%;
-    height: 20%;
-    left: 0px;
-    background-color: black;
+    background-color: gray;
+    padding: 0px;
+    border: 1px solid black;
+}
+#greeting{
+    font-family: 'Indie Flower', cursive;
+    font-size: 15pt;
+    border:1px solid white;
 }
 #avatar{
   position: relative;
@@ -50,9 +55,12 @@ body{
   margin: 0;
 }
 #userlist{
+     padding: 0;
     overflow: scroll;
     display:block;
     overflow-x: hidden;
+    width: 100%;
+    border: 1px solid black;
 }
 #avatar_img{
     width: 100%;

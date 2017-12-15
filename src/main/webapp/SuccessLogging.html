@@ -15,29 +15,27 @@
         <title>Letter Service</title>
     </head>
     <body>
-        <div id="header"><p align="center">Letter Service</p></div>
-        <div class="container" style="top:10%;position: absolute">
+        <div class="container-fluid" >
+            <div class ="row" id="header"> <div id="greeting" class="col-sm-2"></div>
+                <div class="col-sm-2 ">Status: online</div>
+                
+                <div class="col-sm-8">Letter Service</div> 
+                </div>
 
             <div class="row">
-                <div id="greeting" class="col-sm-3" align="center"></div></div>
-            <br>
-            <div class="row">
-                                <div class="col-sm-3" > <h4 align="center"><kbd>Список всех пользователей</kbd></h4>
+                                <div class="col-sm-2" > 
                     <div id="userlist"></div></div>
-                <div class="col-sm-6">
-                    <h4 align="center"><kbd>Чатик<kbd></h4>
+                    <div class="col-sm-10" style="padding: 0">
                     <div id="messages" class="cmessages" >
                     </div>
-                                <br>
-                    
-                </div>
-                <div id="avatar" class="col-sm-2"> 
+                                </div>
+                <div id="avatar" > 
                     <script type="text/javascript" language="javascript">
                         $(document).ready(function () {
                             var name = getCookie("user_name");
                             var photo_url = getCookie("user_photo");
                             $("#avatar").append("<img src=" + photo_url + " id=\"avatar_img\">");
-                            $("#greeting").append("<h3><kbd>Привет, " + name + "</kbd></h3>")
+                            $("#greeting").append("<p>Привет, " + name + "</p>")
                         });
                     </script>
                 </div>  
@@ -45,7 +43,7 @@
             </div>
             <div class="row">
             <form action="msg.send" method="POST">
-                <kbd>msg</kbd><input type="text" name="m_body" value="" height="100"/>
+                <kbd>msg</kbd><input type="text" name="m_body" value="" />
                             uid<input type="text" name="receiver_id" value="" />
                         <input type="submit" value="Send" name="submit" class="" />
                     </form></div>
@@ -67,16 +65,16 @@
                                 var ids = msg[c].id;
                                 console.log(ids);    
                                 $("#messages").append("<p><kbd>msg.id " + msg[c].id + ': ' + msg[c].body + "</p></kbd>");
-                                $("#messages").height(400);
+                                $("#messages").height(500);
+                               
                             }
                         });
                     })
                 </script>
                 <script type="text/javascript" language="javascript">
                     $(document).ready(function () {
-                        $("#loadUsers").ready(function () {
+                        $("#userlist").ready(function () {
                             $.getJSON("users.all?", function (user) {
-                                $("#loadUsers").html('');
                                 for (let i = 0; i < user.length; i++) {
                                     var id = user[i].id;
                                     var input = document.createElement("input");
@@ -86,7 +84,7 @@
                                     input.onclick = function(){openDialogBox(user[i].id);};
                                     input.setAttribute("class", "btn btn-primary btn-block");
                                     $("#userlist").append(input);
-                                    $("#userlist").height(400);
+                                    $("#userlist").height(500);
                                 }
                             });
                         });

@@ -6,11 +6,31 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/jquery.form.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="js/apiFunctions.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body{
+                background: url("Touhou_Kochiya_Sanae_Tatara_Kogasa_cleavage_ass_yuri_lesbians_anime_girls-305409.jpg")no-repeat;
+                background-size: cover;
+            }
+    </style>
         <script type="text/javascript">
+             $(document).ready(function (){
+        $("#register_form").ajaxForm({
+            url : 'register',
+            dataType : 'json',
+            success: function (data){
+                swal("Letter Service","Отлично, аккаунт зарегистрирован","success");
+            },
+            error : function(responseText){
+                var obj = JSON.parse(responseText.responseText);
+                swal("Letter Service", "Проверьте правильность введенных данных. Server message: " + obj.status,"error");   
+            }
+        });
+    });
             $(function () {
-
-                // We can attach the `fileselect` event to all file inputs on the page
                 $(document).on('change', ':file', function () {
                     var input = $(this),
                             numFiles = input.get(0).files ? input.get(0).files.length : 1,
@@ -18,7 +38,6 @@
                     input.trigger('fileselect', [numFiles, label]);
                 });
 
-                // We can watch for our custom `fileselect` event like this
                 $(document).ready(function () {
                     $(':file').on('fileselect', function (event, numFiles, label) {
 
@@ -44,31 +63,26 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="register" method="post" class="form-inline" enctype="multipart/form-data">
-                            Login<br>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="text" name="shortName" class="form-control" placeholder="Short name">
-                            </div><br>
-                            Name<br>
+                        <form action="register" id="register_form" method="post" class="form-inline"  enctype="multipart/form-data">
+                            <kbd>Name</kbd><br>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input type="text" name="name" class="form-control" placeholder="Name">
-                            </div><br>Surname<br>
+                            </div><br><kbd>Surname</kbd><br>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input type="text" name="surname" class="form-control" placeholder="Surname">
                             </div>
-                            <br>Password<br>
+                            <br><kbd>Password</kbd><br>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input type="password" name="password" class="form-control" placeholder="Password">
-                            </div><br>Email<br>
+                            </div><br><kbd>Email</kbd><br>
                             <div class="input-group">
                                 <span class="input-group-addon">@</span>
                                 <input type="email" name="email" class="form-control" id="email" placeholder="Email">
                             </div><br>
-                            Load your photo<br>
+                            <kbd>Load your photo</kbd><br>
                             <div class="input-group">
                                 <label class="input-group-btn">
                                     <span class="btn btn-primary">
@@ -83,9 +97,9 @@
                     <div class="col-md-6">
                         <br><p><kbd>Login form</kbd></p>
                         <form action="login" method="post" class="form-inline">
-                            Email:<br>
+                            <kbd>Email:</kbd><br>
                             <input type="email" name="email" class="form-control" id="email"> 
-                            <br>Password:<br>
+                            <br><kbd>Password:</kbd><br>
                             <input type="password" name ="password" class="form-control">
                             <br><input type="submit" value="Login" class="btn btn-info">
                         </form>
@@ -93,5 +107,6 @@
                 </div>
             </div>
         </div>
+        
     </body>
 </html>

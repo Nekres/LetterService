@@ -8,7 +8,6 @@ package com.mycompany.letterservice;
 import java.util.HashMap;
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
-import org.eclipse.jetty.server.Server;
 
 /**
  *
