@@ -28,6 +28,11 @@
                     <div class="col-sm-10" style="padding: 0">
                     <div id="messages" class="cmessages" >
                     </div>
+                        <form action="msg.send" method="POST">
+                <textarea class="form-control" rows="1" name="m_body"></textarea>
+                            <input type="text" name="receiver_id" value="" />
+                        <input type="submit" value="Send" name="submit" class="" />
+                    </form>
                                 </div>
                 <div id="avatar" > 
                     <script type="text/javascript" language="javascript">
@@ -41,12 +46,6 @@
                 </div>  
 
             </div>
-            <div class="row">
-            <form action="msg.send" method="POST">
-                <kbd>msg</kbd><input type="text" name="m_body" value="" />
-                            uid<input type="text" name="receiver_id" value="" />
-                        <input type="submit" value="Send" name="submit" class="" />
-                    </form></div>
             <div class="row">
                 <script type="text/javascript" language="javascript">
                     $(document).ready(function () {
