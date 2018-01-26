@@ -10,6 +10,7 @@ import com.mycompany.letterservice.DatabaseManager;
 import com.mycompany.letterservice.entity.Message;
 import com.mycompany.letterservice.entity.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +88,15 @@ public class MessagingServlet extends HttpServlet {
             }
             int user_id = Integer.parseInt(session.getAttribute(CURR_U_ID).toString());
             String messageBody = req.getParameter(MSG_BODY);
-            int receiverId = Integer.parseInt(req.getParameter(RECEIVER_ID));
+            int receiverId = 0;
+            try{
+            receiverId = Integer.parseInt(req.getParameter(RECEIVER_ID));
+            }catch(NumberFormatException ex){
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                PrintWriter out = resp.getWriter();
+                ObjectMapper mapper = new ObjectMapper();
+                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("Bad request.")));
+            }
             logger.info("\nHandle user with user_id: " + user_id + "and msg_body: " + messageBody + "\n + receiver_id :" + receiverId);
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();

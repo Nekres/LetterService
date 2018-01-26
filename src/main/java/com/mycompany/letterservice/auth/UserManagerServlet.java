@@ -36,14 +36,14 @@ public class UserManagerServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         manager.beginTransaction();
         if (req.getServletPath().equals(USERS_GET)) {
-            String name = req.getParameter("name");
-            if (name == null) {
+            String id = req.getParameter("id");
+            if (id == null) {
                 manager.commitAndClose();
                 out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("null")));
                 return;
             }
-            List<User> userList = manager.getUsersByName(name);
-            String json = mapper.writeValueAsString(userList);
+            User user = manager.getUserById(Integer.parseInt(id));
+            String json = mapper.writeValueAsString(user);
             out.write(json);
         }
         if (req.getServletPath().equals(USERS_ALL)) {

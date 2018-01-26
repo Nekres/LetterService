@@ -16,57 +16,78 @@
     </head>
     <body>
         <div class="container-fluid" >
-            <div class ="row" id="header"> <div id="greeting" class="col-sm-2"></div>
-                <div class="col-sm-2 ">Status: online</div>
-                
-                <div class="col-sm-8">Letter Service</div> 
-                </div>
+            <!--            <div class ="row" id="header"> <div id="greeting" class="col-sm-2"></div>
+                            <div class="col-sm-2 ">Status: online</div>
+                            
+                            <div class="col-sm-8">Letter Service</div> 
+                            </div>-->
 
             <div class="row">
-                                <div class="col-sm-2" > 
+                <div class="col-sm-2" > 
                     <div id="userlist"></div></div>
-                    <div class="col-sm-10" style="padding: 0">
+                <div class="col-sm-8" style="padding: 0">
                     <div id="messages" class="cmessages" >
                     </div>
-                                </div>
+                    <form action="msg.send" method="POST" id="message_form">
+                        <textarea class="form-control" rows="3" name="m_body" id="message_body_field"></textarea>
+                        <input type="hidden" name="receiver_id" value="" id="receiver_id" />
+                        <input type="submit" value="Send" name="send" class="" />
+                    </form>
+                </div>
                 <div id="avatar" > 
                     <script type="text/javascript" language="javascript">
                         $(document).ready(function () {
                             var name = getCookie("user_name");
                             var photo_url = getCookie("user_photo");
                             $("#avatar").append("<img src=" + photo_url + " id=\"avatar_img\">");
-                            $("#greeting").append("<p>Привет, " + name + "</p>")
+
+                            $("#message_form").submit(function (e)
+                            {
+                                alert(decodeURIComponent($('#message_form').serialize()));
+                                e.preventDefault();
+                                $.ajax({
+                                    type: 'post',
+                                    contentType: "application/x-www-form-urlencoded;charset=ISO-8859-15",
+                                    url: 'msg.send',
+                                    data: decodeURIComponent($('#message_form').serialize()),
+
+                                    cache: false,
+                                    success:
+                                            function (url) {
+                                                alert(url);
+                                            }
+                                });
+                                return false;
+                            });
                         });
                     </script>
                 </div>  
 
             </div>
             <div class="row">
-            <form action="msg.send" method="POST">
-                <kbd>msg</kbd><input type="text" name="m_body" value="" />
-                            uid<input type="text" name="receiver_id" value="" />
-                        <input type="submit" value="Send" name="submit" class="" />
-                    </form></div>
-            <div class="row">
                 <script type="text/javascript" language="javascript">
                     $(document).ready(function () {
-                        $.getJSON("msg.get?msgcount=5&receiver_id=5", function (message) {
+                        $.getJSON("msg.get?msgcount=5&receiver_id=1", function (message) {
                             var msg = message;
-                            for(var j = 0; j < msg.length;j++){
-                            for(var g = 0; g < msg.length-1;g++){
-                                if(msg[g].id > msg[g+1].id){
-                                    var temp = msg[g];
-                                    msg[g] = msg[g+1];
-                                    msg[g+1] = temp;
+                            for (var j = 0; j < msg.length; j++) {
+                                for (var g = 0; g < msg.length - 1; g++) {
+                                    if (msg[g].id > msg[g + 1].id) {
+                                        var temp = msg[g];
+                                        msg[g] = msg[g + 1];
+                                        msg[g + 1] = temp;
+                                    }
                                 }
-                            }}
-                        $("#messages").html("<p><kbd>msg.id " + msg[0].id + ': ' + msg[0].body + "</p></kbd>");
+                            }
+                            $("#receiver_id").val(1);
+                            var date = new Date(msg[0].date);
+                            $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + msg[0].body + "</p>");
                             for (var c = 1; c < msg.length; c++) {
                                 var ids = msg[c].id;
-                                console.log(ids);    
-                                $("#messages").append("<p><kbd>msg.id " + msg[c].id + ': ' + msg[c].body + "</p></kbd>");
+                                console.log(ids);
+                                var date = new Date(msg[c].date);
+                                $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + msg[c].body + "</p>");
                                 $("#messages").height(500);
-                               
+
                             }
                         });
                     })
@@ -79,9 +100,12 @@
                                     var id = user[i].id;
                                     var input = document.createElement("input");
                                     input.type = "button";
+                                    input.style = "color:#48d8a0";
                                     input.id = "btn_id" + i;
                                     input.value = user[i].name + " with id: " + user[i].id;
-                                    input.onclick = function(){openDialogBox(user[i].id);};
+                                    input.onclick = function () {
+                                        openDialogBox(user[i].id);
+                                    };
                                     input.setAttribute("class", "btn btn-primary btn-block");
                                     $("#userlist").append(input);
                                     $("#userlist").height(500);
@@ -89,27 +113,29 @@
                             });
                         });
                     });
-                    function openDialogBox(recipient_id){
-    var messagesBox = document.getElementById("messages").value;
-    $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {
-                            for(var j = 0; j < msg.length;j++)
-                            for(var i = 0; i < msg.length-1;i++){
-                                if(msg[i].id > msg[i+1].id){
-                                    var temp = msg[i];
-                                    msg[i] = msg[i+1];
-                                    msg[i+1] = temp;
+                    function openDialogBox(recipient_id) {
+                        $("#receiver_id").val(recipient_id);
+                        alert($("#receiver_id").val())
+                        var messagesBox = document.getElementById("messages").value;
+                        $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {
+                            for (var j = 0; j < msg.length; j++)
+                                for (var i = 0; i < msg.length - 1; i++) {
+                                    if (msg[i].id > msg[i + 1].id) {
+                                        var temp = msg[i];
+                                        msg[i] = msg[i + 1];
+                                        msg[i + 1] = temp;
+                                    }
                                 }
-                            }
-                            $("#messages").html("<p><kbd>msg.id " + msg[0].id + ': ' + msg[0].body + "</p></kbd>");
+                            $("#messages").html("<p >msg.id " + msg[0].id + ': ' + msg[0].body + "</p>");
                             var g;
                             for (var g = 1; g < msg.length; g++) {
                                 console.log(msg[g].id);
-                                var str = "<p><kbd>msg.id " + msg[g].id + ': ' + msg[g].body + "</p></kbd>";
+                                var str = "<p>msg.id " + msg[g].id + ': ' + msg[g].body + "</p>";
                                 $("#messages").append(str);
                                 console.log(str);
                             }
                         });
-                        }
+                    }
                 </script>
             </div>
         </div>

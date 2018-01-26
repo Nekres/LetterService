@@ -8,34 +8,36 @@ and open the template in the editor.
     Author     : nekres
 */
 body{
-   // background: url(http://www.gandex.ru/upl/oboi/gandex.ru-13546_12b7b7e6b25cbcf31bbf7afbf2e90fa3.jpg);
-   background-color: dimgrey;
+
+    background-color: #91ab6d;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     -ms-background-size: cover;
-     background-size: cover;
-  
+    background-size: cover;
+    padding: 10px;
 }
 .cmessages{
     display:block;
     overflow: scroll;
-    background: url(http://www.gandex.ru/upl/oboi/gandex.ru-13546_12b7b7e6b25cbcf31bbf7afbf2e90fa3.jpg);
-    border: 2px solid black;
-    background-color: white;
+    font-family: monospace;
+    color:#48d8a0;
+    border: 2px solid #272b38;
+    background-color: #272b38;
     max-width: 100%;
     max-height: 80%;
     padding: 0;
+    border-radius: 5px;
 }
 #u_button{
     width: 400px;
     border-color: black;
     font-family: cursive;
-   
+}
+p{
 }
 #header{
-    font-family: 'Indie Flower', cursive;
     font-size:22pt;
     color: white;
     background-color: gray;
@@ -43,21 +45,21 @@ body{
     border: 1px solid black;
 }
 #greeting{
-    font-family: 'Indie Flower', cursive;
     font-size: 15pt;
     border:1px solid white;
 }
 #avatar{
-  position: relative;
-  overflow: hidden;
-  max-height: 25%;
-  max-width: 100%;
-  margin: 0;
+    position: relative;
+    overflow: hidden;
+    max-height: 25%;
+    max-width: 100%;
+    margin: 0;
 }
 #userlist{
-     padding: 0;
+    padding: 0;
     overflow: scroll;
     display:block;
+    color:#48d8a0;
     overflow-x: hidden;
     width: 100%;
     border: 1px solid black;
@@ -68,8 +70,52 @@ body{
 }
 @media screen and (max-width: 768px) {   
     body{
-    	background: url(../808843554.jpg);
+        background: url(../808843554.jpg);
         background-size: cover;
     } 
 }
+#messages::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #272b38;
+}
 
+#messages::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #272b38;
+}
+
+#messages::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+#message_body_field{
+    background-color: #555;
+    color:#48d8a0;
+    height:100%;
+}
+
+
+#userlist::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #272b38;
+}
+
+#userlist::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #272b38;
+}
+
+#userlist::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}

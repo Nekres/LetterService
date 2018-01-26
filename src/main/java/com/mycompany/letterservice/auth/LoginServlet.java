@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
             
             resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.html"));
         } catch (NoSuchUserException exception) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.html");
+            RequestDispatcher dispatcher = ctx.getRequestDispatcher("/index.html");
             PrintWriter out = resp.getWriter();
             out.println("<font color=red>ERROR</font>");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
