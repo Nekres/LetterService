@@ -12,6 +12,7 @@ import com.mycompany.letterservice.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -41,6 +42,7 @@ public class MessagingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         ObjectMapper mapper = new ObjectMapper();
         DatabaseManager manager = new DatabaseManager();
         Writer out = resp.getWriter();
@@ -80,6 +82,7 @@ public class MessagingServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         if (req.getServletPath().equals(SEND_MESSAGE)) {
             HttpSession session = req.getSession(false);
             if (session == null) {
@@ -87,10 +90,10 @@ public class MessagingServlet extends HttpServlet {
                 return;
             }
             int user_id = Integer.parseInt(session.getAttribute(CURR_U_ID).toString());
-            String messageBody = req.getParameter(MSG_BODY);
+            String messageBody = URLDecoder.decode(req.getParameter(MSG_BODY),"UTF-8");
             int receiverId = 0;
             try{
-            receiverId = Integer.parseInt(req.getParameter(RECEIVER_ID));
+                receiverId = Integer.parseInt(req.getParameter(RECEIVER_ID));
             }catch(NumberFormatException ex){
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 PrintWriter out = resp.getWriter();

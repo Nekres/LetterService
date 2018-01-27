@@ -34,7 +34,7 @@
                         <input type="submit" value="Send" name="send" class="" />
                     </form>
                 </div>
-                <div id="avatar" > 
+                <div id="avatar" class="col-sm-2"> 
                     <script type="text/javascript" language="javascript">
                         $(document).ready(function () {
                             var name = getCookie("user_name");
@@ -43,14 +43,12 @@
 
                             $("#message_form").submit(function (e)
                             {
-                                alert(decodeURIComponent($('#message_form').serialize()));
                                 e.preventDefault();
                                 $.ajax({
                                     type: 'post',
-                                    contentType: "application/x-www-form-urlencoded;charset=ISO-8859-15",
+                                    contentType: "application/x-www-form-urlencoded ; charset=UTF-8",
                                     url: 'msg.send',
-                                    data: decodeURIComponent($('#message_form').serialize()),
-
+                                    data: encodeURI($('#message_form').serialize()),
                                     cache: false,
                                     success:
                                             function (url) {
@@ -80,12 +78,12 @@
                             }
                             $("#receiver_id").val(1);
                             var date = new Date(msg[0].date);
-                            $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + msg[0].body + "</p>");
+                            $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
                             for (var c = 1; c < msg.length; c++) {
                                 var ids = msg[c].id;
                                 console.log(ids);
                                 var date = new Date(msg[c].date);
-                                $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + msg[c].body + "</p>");
+                                $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
                                 $("#messages").height(500);
 
                             }
@@ -126,11 +124,14 @@
                                         msg[i + 1] = temp;
                                     }
                                 }
-                            $("#messages").html("<p >msg.id " + msg[0].id + ': ' + msg[0].body + "</p>");
-                            var g;
+                            var date = new Date(msg[0].date);
+                            $("#messages").html("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
+                            
                             for (var g = 1; g < msg.length; g++) {
                                 console.log(msg[g].id);
-                                var str = "<p>msg.id " + msg[g].id + ': ' + msg[g].body + "</p>";
+                                var date = new Date(msg[g].date);
+                                
+                                var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[g].body) + "</p>";
                                 $("#messages").append(str);
                                 console.log(str);
                             }
