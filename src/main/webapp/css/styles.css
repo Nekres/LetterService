@@ -48,13 +48,6 @@ p{
     font-size: 15pt;
     border:1px solid white;
 }
-#avatar{
-    position: relative;
-    overflow: hidden;
-    max-height: 25%;
-    max-width: 100%;
-    margin: 0;
-}
 /*#userlist{
     background: url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
 }*/
