@@ -12,13 +12,13 @@ and open the template in the editor.
     height: 100%;
 }
 .general_pic{
-    content:url("https://pp.userapi.com/c626419/v626419615/6c7a1/dCMcjopQ7y4.jpg");
+    content:url(../main.jpg);
     max-width: 100%;
     height: auto;
 }
 @media screen and (max-width: 1200px) {   
     .general_pic{
-        content:url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
+        content:url(../vertical.jpg);
         max-width: 100%;
     height: auto;
     }
