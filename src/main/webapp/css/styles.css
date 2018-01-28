@@ -7,39 +7,6 @@ and open the template in the editor.
     Created on : Sep 14, 2017, 5:08:10 PM
     Author     : nekres
 */
-body{
-
-    background-color: #91ab6d;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
-    background-size: cover;
-    padding: 10px;
-}
-.cmessages{
-    display:block;
-    overflow: scroll;
-    font-family: monospace;
-    color:#48d8a0;
-    border: 2px solid #272b38;
-    background-color: #272b38;
-    position: inherit; 
-    height: 450px;
-    padding: 0;
-    border-radius: 5px;
-}
-#u_button{
-    width: 400px;
-    border-color: black;
-    font-family: cursive;
-}
-p{
-}
-/*#userlist{
-    background: url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
-}*/
 #avatar_img{
     width: 100%;
     height: 100%;
@@ -50,10 +17,6 @@ p{
     height: auto;
 }
 @media screen and (max-width: 768px) {   
-    body{
-        background: url(../808843554.jpg);
-        background-size: cover;
-    } 
     .general_pic{
         content:url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
         max-width: 100%;
