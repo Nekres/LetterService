@@ -12,10 +12,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             body{
-                background: url("Touhou_Kochiya_Sanae_Tatara_Kogasa_cleavage_ass_yuri_lesbians_anime_girls-305409.jpg")no-repeat;
+                background: url("https://pp.userapi.com/c626419/v626419615/6c7a1/dCMcjopQ7y4.jpg")no-repeat;
                 background-size: cover;
             }
-    </style>
+            @media screen and (max-width: 768px) {   
+                body{
+                    background: url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
+                    background-size: cover;
+                }
+                  input[type="text"],input[type="email"],input[type="password"],input[type="file"]{
+                    
+                    background-color: transparent  !important;
+                }
+            }
+        </style>
         <script type="text/javascript">
              $(document).ready(function (){
         $("#register_form").ajaxForm({
@@ -62,7 +72,7 @@
         <div class="container-fluid">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <form action="register" id="register_form" method="post" class="form-inline"  enctype="multipart/form-data">
                             <kbd>Name</kbd><br>
                             <div class="input-group">
@@ -86,7 +96,7 @@
                             <div class="input-group">
                                 <label class="input-group-btn">
                                     <span class="btn btn-primary">
-                                        Browse<input type="file" name="picture" style="display: none;" multiple>
+                                        Browse<input type="file" name="picture" class="hidden" style="display: none;background: transparent;" multiple >
                                     </span>
                                 </label>
                                 <input type="text" class="form-control" readonly>
@@ -94,7 +104,7 @@
                             <input type="submit" value="Make an account" class="btn btn-info">
                         </form>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <br><p><kbd>Login form</kbd></p>
                         <form action="login" method="post" class="form-inline">
                             <kbd>Email:</kbd><br>

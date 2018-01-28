@@ -37,17 +37,6 @@ body{
 }
 p{
 }
-#header{
-    font-size:22pt;
-    color: white;
-    background-color: gray;
-    padding: 0px;
-    border: 1px solid black;
-}
-#greeting{
-    font-size: 15pt;
-    border:1px solid white;
-}
 /*#userlist{
     background: url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
 }*/
