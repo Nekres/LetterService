@@ -63,6 +63,18 @@
                     });
                     return false;
                 });
+                    $.getJSON("users.all?", function (user) {
+                        for (let i = 0; i < user.length; i++) {
+                            var input = document.createElement("a");
+                            var linkText = document.createTextNode(user[i].name);
+                            input.appendChild(linkText);
+                            input.href = "#";
+                            input.title = user[i].id;
+                            input.setAttribute("class", "ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-left");
+                            input.setAttribute("data-transition", "slide");
+                            $("#userlist").append(input);
+                        }
+                    });
             });
         </script>
         <!--
@@ -97,24 +109,8 @@
      </script>
         -->            <script type="text/javascript" language="javascript">
             $(document).ready(function () {
-                $("#userlist").ready(function () {
-                    $.getJSON("users.all?", function (user) {
-                        for (let i = 0; i < user.length; i++) {
-                            var input = document.createElement("a");
-                            var linkText = document.createTextNode(user[i].name);
-                            input.appendChild(linkText);
-                            input.href = "";
-                            input.title = user[i].id;
-                            input.onclick = function () {
-                                openDialogBox(user[i].id);
-                            };
-                            input.setAttribute("class", "ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-left");
-                            input.setAttribute("data-transition", "slide");
-                            $("#userlist").append(input);
-                            $("#userlist").height(500);
-                        }
-                    });
-                });
+                alert();
+                
             });
             function openDialogBox(recipient_id) {
                 $("#messages").empty();
