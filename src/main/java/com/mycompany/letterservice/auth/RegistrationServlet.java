@@ -11,7 +11,6 @@ import com.mycompany.letterservice.entity.*;
 import com.mycompany.letterservice.exceptions.BadPropertiesException;
 import com.mycompany.letterservice.exceptions.LetterServiceException;
 import java.io.*;
-import java.net.URLEncoder;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.logging.Logger;

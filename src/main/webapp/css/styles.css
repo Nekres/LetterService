@@ -25,9 +25,8 @@ body{
     color:#48d8a0;
     border: 2px solid #272b38;
     background-color: #272b38;
-    max-width: 100%;
-    max-height: 80%;
-    min-height: 80%;
+    position: inherit; 
+    height: 450px;
     padding: 0;
     border-radius: 5px;
 }
@@ -56,24 +55,28 @@ p{
     max-width: 100%;
     margin: 0;
 }
-#userlist{
-    padding: 0;
-    overflow: scroll;
-    display:block;
-    color:#48d8a0;
-    overflow-x: hidden;
-    width: 100%;
-    border: 1px solid black;
-}
+/*#userlist{
+    background: url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
+}*/
 #avatar_img{
     width: 100%;
     height: 100%;
+}
+.general_pic{
+    content:url("https://pp.userapi.com/c626419/v626419615/6c7a1/dCMcjopQ7y4.jpg");
+    max-width: 100%;
+    height: auto;
 }
 @media screen and (max-width: 768px) {   
     body{
         background: url(../808843554.jpg);
         background-size: cover;
     } 
+    .general_pic{
+        content:url("https://pp.userapi.com/c626924/v626924615/2f247/k9I_Q8eX-4A.jpg");
+        max-width: 100%;
+    height: auto;
+    }
 }
 #messages::-webkit-scrollbar-track
 {

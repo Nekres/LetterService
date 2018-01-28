@@ -2,39 +2,42 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
         <script src="js/CookieUtils.js"></script>
         <script src="js/apiFunctions.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
-        <script type = "text/javascript" 
-        src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <title>Letter Service</title>
     </head>
     <body>
-        <div class="container-fluid" >
-            <!--            <div class ="row" id="header"> <div id="greeting" class="col-sm-2"></div>
-                            <div class="col-sm-2 ">Status: online</div>
-                            
-                            <div class="col-sm-8">Letter Service</div> 
-                            </div>-->
+        <div data-role="page">
+            <div data-role="header">
+                <a href="#userlist" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Contacts</a>
+    <h1>Letter Service</h1>
+    <a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">Logout</a>
 
-            <div class="row">
-                <div class="col-sm-2" > 
-                    <div id="userlist"></div></div>
-                <div class="col-sm-8" style="padding: 0">
-                    <div id="messages" class="cmessages" >
-                    </div>
-                    <form action="msg.send" method="POST" id="message_form">
-                        <textarea class="form-control" rows="3" name="m_body" id="message_body_field"></textarea>
+  </div>
+            <div data-role="main" class="ui-content" id="general_page">
+                <img class="general_pic">
+  </div>
+            <div data-role="panel" id="userlist" > 
+                <h2>Привет, Алиночка</h2>
+                <div id="avatar"> </div>
+  </div>
+          
+<!--            <div id="messages" class="cmessages" ></div> -->
+        </div>
+                    
+<!--                    <form action="msg.send" method="POST" id="message_form" >
+                        <textarea  rows="3" name="m_body" id="message_body_field"></textarea>
                         <input type="hidden" name="receiver_id" value="" id="receiver_id" />
-                        <input type="submit" value="Send" name="send" class="" />
+                        <input type="submit" value="Send" name="send" />
                     </form>
-                </div>
-                <div id="avatar" class="col-sm-2"> 
+
+-->                
                     <script type="text/javascript" language="javascript">
                         $(document).ready(function () {
                             var name = getCookie("user_name");
@@ -59,86 +62,83 @@
                             });
                         });
                     </script>
-                </div>  
+               <!--
+                    
+            <script type="text/javascript" language="javascript">
+                $(document).ready(function () {
+                    $.getJSON("msg.get?msgcount=5&receiver_id=1", function (message) {
 
-            </div>
-            <div class="row">
-                <script type="text/javascript" language="javascript">
-                    $(document).ready(function () {
-                        $.getJSON("msg.get?msgcount=5&receiver_id=1", function (message) {
-                            var msg = message;
-                            for (var j = 0; j < msg.length; j++) {
-                                for (var g = 0; g < msg.length - 1; g++) {
-                                    if (msg[g].id > msg[g + 1].id) {
-                                        var temp = msg[g];
-                                        msg[g] = msg[g + 1];
-                                        msg[g + 1] = temp;
-                                    }
+                        var msg = message;
+                        for (var j = 0; j < msg.length; j++) {
+                            for (var g = 0; g < msg.length - 1; g++) {
+                                if (msg[g].id > msg[g + 1].id) {
+                                    var temp = msg[g];
+                                    msg[g] = msg[g + 1];
+                                    msg[g + 1] = temp;
                                 }
                             }
-                            $("#receiver_id").val(1);
-                            var date = new Date(msg[0].date);
-                            $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
-                            for (var c = 1; c < msg.length; c++) {
-                                var ids = msg[c].id;
-                                console.log(ids);
-                                var date = new Date(msg[c].date);
-                                $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
-                                $("#messages").height(500);
+                        }
+                        $("#receiver_id").val(1);
+                        var date = new Date(msg[0].date);
+                        $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
+                        for (var c = 1; c < msg.length; c++) {
+                            var ids = msg[c].id;
+                            console.log(ids);
+                            var date = new Date(msg[c].date);
+                            $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
+                            $("#messages").height(500);
 
+                        }
+                    });
+                })
+            </script>
+-->            <script type="text/javascript" language="javascript">
+                $(document).ready(function () {
+                    $("#userlist").ready(function () {
+                        $.getJSON("users.all?", function (user) {
+                            for (let i = 0; i < user.length; i++) {
+                                var input = document.createElement("a");
+                                var linkText = document.createTextNode(user[i].name);
+                                input.appendChild(linkText);
+                                input.href = "";
+                                input.title = user[i].id;
+                                input.onclick = function () {
+                                    openDialogBox(user[i].id);
+                                };
+                                input.setAttribute("class", "ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-left");
+                                input.setAttribute("data-transition", "slide");
+                                $("#userlist").append(input);
+                                $("#userlist").height(500);
                             }
-                        });
-                    })
-                </script>
-                <script type="text/javascript" language="javascript">
-                    $(document).ready(function () {
-                        $("#userlist").ready(function () {
-                            $.getJSON("users.all?", function (user) {
-                                for (let i = 0; i < user.length; i++) {
-                                    var id = user[i].id;
-                                    var input = document.createElement("input");
-                                    input.type = "button";
-                                    input.style = "color:#48d8a0";
-                                    input.id = "btn_id" + i;
-                                    input.value = user[i].name + " with id: " + user[i].id;
-                                    input.onclick = function () {
-                                        openDialogBox(user[i].id);
-                                    };
-                                    input.setAttribute("class", "btn btn-primary btn-block");
-                                    $("#userlist").append(input);
-                                    $("#userlist").height(500);
-                                }
-                            });
                         });
                     });
-                    function openDialogBox(recipient_id) {
-                        $("#receiver_id").val(recipient_id);
-                        alert($("#receiver_id").val())
-                        var messagesBox = document.getElementById("messages").value;
-                        $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {
-                            for (var j = 0; j < msg.length; j++)
-                                for (var i = 0; i < msg.length - 1; i++) {
-                                    if (msg[i].id > msg[i + 1].id) {
-                                        var temp = msg[i];
-                                        msg[i] = msg[i + 1];
-                                        msg[i + 1] = temp;
-                                    }
+                });
+                function openDialogBox(recipient_id) {
+                    $("#messages").empty();
+                    $("#receiver_id").val(recipient_id);
+                    var messagesBox = document.getElementById("messages").value;
+                    $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {
+                        for (var j = 0; j < msg.length; j++)
+                            for (var i = 0; i < msg.length - 1; i++) {
+                                if (msg[i].id > msg[i + 1].id) {
+                                    var temp = msg[i];
+                                    msg[i] = msg[i + 1];
+                                    msg[i + 1] = temp;
                                 }
-                            var date = new Date(msg[0].date);
-                            $("#messages").html("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
-                            
-                            for (var g = 1; g < msg.length; g++) {
-                                console.log(msg[g].id);
-                                var date = new Date(msg[g].date);
-                                
-                                var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[g].body) + "</p>";
-                                $("#messages").append(str);
-                                console.log(str);
                             }
-                        });
-                    }
-                </script>
-            </div>
-        </div>
-    </body>
+                        var date = new Date(msg[0].date);
+                        $("#messages").html("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
+
+                        for (var g = 1; g < msg.length; g++) {
+                            console.log(msg[g].id);
+                            var date = new Date(msg[g].date);
+
+                            var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[g].body) + "</p>";
+                            $("#messages").append(str);
+                            console.log(str);
+                        }
+                    });
+                }
+            </script>
+</body>
 </html>
