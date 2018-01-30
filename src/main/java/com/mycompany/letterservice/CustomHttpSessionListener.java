@@ -5,10 +5,12 @@
  */
 package com.mycompany.letterservice;
 
+import java.util.Date;
 import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.*;
+import org.jboss.logging.Logger;
 
 /**
  *
@@ -16,14 +18,16 @@ import javax.servlet.http.*;
  */
 @WebListener
 public class CustomHttpSessionListener implements HttpSessionListener{
-
+    private final Logger logger = Logger.getLogger("SessionListener");
     @Override
     public void sessionCreated(HttpSessionEvent hse) {
         HttpSession session = hse.getSession();
+        session.setMaxInactiveInterval(1 * 60 * 60);
         ServletContext ctx = session.getServletContext();
         HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
         activeSession.put(session.getId(), session);
         ctx.setAttribute("activeSession", activeSession);
+        logger.info("Session created " + new Date().toString());
     }
 
     @Override
@@ -32,6 +36,7 @@ public class CustomHttpSessionListener implements HttpSessionListener{
         ServletContext ctx = session.getServletContext();
         HashMap<String, HttpSession> map = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
         map.remove(session.getId());
+        logger.info("Session destroyed " + new Date().toString());
     }
     
 }

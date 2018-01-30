@@ -13,6 +13,7 @@
 /home/nrs/Documents/Java/LetterService/src/main/java/com/mycompany/letterservice/exceptions/EmailAlreadyExistException.java
 /home/nrs/Documents/Java/LetterService/src/main/java/com/mycompany/letterservice/DatabaseManager.java
 /home/nrs/Documents/Java/LetterService/src/main/java/com/mycompany/letterservice/auth/UserManagerServlet.java
+/home/nrs/Documents/Java/LetterService/src/main/java/com/mycompany/letterservice/auth/LogoutServlet.java
 /home/nrs/Documents/Java/LetterService/src/main/java/com/mycompany/letterservice/entity/User.java
 /home/nrs/Documents/Java/LetterService/src/main/java/com/mycompany/letterservice/exceptions/BadPropertiesException.java
 /home/nrs/Documents/Java/LetterService/src/main/java/com/mycompany/letterservice/ImageUploaderService.java

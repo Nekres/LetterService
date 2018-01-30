@@ -89,6 +89,7 @@ public class MessagingServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
+            
             int user_id = Integer.parseInt(session.getAttribute(CURR_U_ID).toString());
             String messageBody = URLDecoder.decode(req.getParameter(MSG_BODY),"UTF-8");
             int receiverId = 0;
@@ -98,9 +99,11 @@ public class MessagingServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 PrintWriter out = resp.getWriter();
                 ObjectMapper mapper = new ObjectMapper();
-                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("Bad request.")));
+                out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("You have to specify 'receiver_id'.")));
             }
-            logger.info("\nHandle user with user_id: " + user_id + "and msg_body: " + messageBody + "\n + receiver_id :" + receiverId);
+            
+            logger.info("\nMessage send: user_id: " + user_id + "and msg_body: " + messageBody + "\n + receiver_id :" + receiverId);
+            
             DatabaseManager manager = new DatabaseManager();
             manager.beginTransaction();
             User currentUser = manager.getUserById(receiverId);

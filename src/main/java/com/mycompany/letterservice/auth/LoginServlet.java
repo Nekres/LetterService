@@ -24,8 +24,28 @@ import javax.servlet.http.*;
 public class LoginServlet extends HttpServlet {
     public static final int COOKIE_EXPIRE_TIME = 30*60;
     public static final int COOKIE_NO_EXPIRE = -1;
+    public static final String SESSION_PARAM = "session";
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext ctx = req.getServletContext();
+        String session = req.getParameter(SESSION_PARAM);
+        if(session == null){
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
+        logger.info("Login attempt...");
+        logger.info("Session id: " + session);
+        if(!activeSession.containsKey(session)){
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            logger.info("Login attempt result: Unathorized.");
+        }else{
+            logger.info("Login attempt result: Success.");
+        }
+    }
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

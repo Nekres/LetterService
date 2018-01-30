@@ -16,3 +16,14 @@ function registrationCallback(){
         });
     });
 }
+function unathorizedCheck(){
+    $(document).ready(function(){
+        var request = $.ajax({
+            url:'login',
+            data: 'session=' + getCookie("session_id")
+        });
+        request.fail(function(jqXHR, textStatus) {
+            window.location.replace("index.html");
+        });
+    });
+}
