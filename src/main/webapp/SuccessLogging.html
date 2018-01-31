@@ -54,13 +54,12 @@
                 var body = $("#mbody").val();
                 //clear field
                 $("#mbody").val('');
-                alert(body);
                 $.ajax({
                     type:"POST",
                     url:"msg.send",
                     data:"m_body=" + body + "&receiver_id=" + receiver_id,
                     success: function (data, textStatus, jqXHR) {
-                        alert("Message send!")
+                        openDialogBox(receiver_id); 
                     }
                 });
             }
@@ -89,7 +88,6 @@
                         cache: false,
                         success:
                                 function (url) {
-                                    alert("Message successfully send.");
                                 }
                     });
                     return false;
@@ -134,7 +132,6 @@
                      var date = new Date(msg[c].date);
                      $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
                      $("#general_page").height(500);
-
                  }
                  
              });
@@ -148,7 +145,6 @@
                 $("#general_page").empty();
                 $("#receiver_id").val(recipient_id);
                 var messagesBox = document.getElementById("general_page").value;
-                alert('msgload');
                 $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {
                     for (var j = 0; j < msg.length; j++)
                         for (var i = 0; i < msg.length - 1; i++) {
@@ -171,6 +167,8 @@
                         console.log(str);
                     }
                 });
+                var objDiv = document.getElementById("general_page");
+                        objDiv.scrollTop = objDiv.scrollHeight;
             }
         </script>
     </body>
