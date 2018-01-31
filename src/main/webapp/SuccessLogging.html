@@ -22,15 +22,20 @@
 
             </div>
             <div data-role="main" class="ui-content" id="general_page">
-                <img class="general_pic">
+                
             </div>
             <div data-role="panel" id="userlist" >
                 <h2 id="greeting">Привет, </h2>
                 <div id="avatar"> </div>
             </div>
-
+    <div data-role="footer">
+        <p>Сообщение:</p>
+        <textarea name="addinfo" id="mbody" ></textarea>
+        <a href="#" class="ui-btn" onclick="sendMsg()">Отправить</a>
+        <input type="hidden" name = "receiver_id" value="1" id="receiver_id">
+</div>
+    </div>
             <!--            <div id="messages" class="cmessages" ></div> -->
-        </div>
 
         <!--                    <form action="msg.send" method="POST" id="message_form" >
                                 <textarea  rows="3" name="m_body" id="message_body_field"></textarea>
@@ -44,6 +49,21 @@
             var delete_cookie = function (name) {
                 document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             };
+            function sendMsg(){
+                var receiver_id = $("#receiver_id").val();
+                var body = $("#mbody").val();
+                //clear field
+                $("#mbody").val('');
+                alert(body);
+                $.ajax({
+                    type:"POST",
+                    url:"msg.send",
+                    data:"m_body=" + body + "&receiver_id=" + receiver_id,
+                    success: function (data, textStatus, jqXHR) {
+                        alert("Message send!")
+                    }
+                });
+            }
             function logout(){
                 $.ajax({
                     type:"POST",
@@ -90,10 +110,9 @@
         </script>
         <!--
              
-     <script type="text/javascript" language="javascript">
+-->     <script type="text/javascript" language="javascript">
          $(document).ready(function () {
              $.getJSON("msg.get?msgcount=5&receiver_id=1", function (message) {
-
                  var msg = message;
                  for (var j = 0; j < msg.length; j++) {
                      for (var g = 0; g < msg.length - 1; g++) {
@@ -104,26 +123,28 @@
                          }
                      }
                  }
+                 
                  $("#receiver_id").val(1);
                  var date = new Date(msg[0].date);
-                 $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
-                 for (var c = 1; c < msg.length; c++) {
+                 $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
+                    for (var c = 1; c < msg.length; c++) {
                      var ids = msg[c].id;
                      console.log(ids);
                      var date = new Date(msg[c].date);
-                     $("#messages").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
-                     $("#messages").height(500);
+                     $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
+                     $("#general_page").height(500);
 
                  }
+                 
              });
          })
-     </script>
+     </script><!--
         -->            <script type="text/javascript" language="javascript">
             $(document).ready(function () {
                 
             });
             function openDialogBox(recipient_id) {
-                $("#messages").empty();
+                $("#general_page").empty();
                 $("#receiver_id").val(recipient_id);
                 var messagesBox = document.getElementById("messages").value;
                 $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {

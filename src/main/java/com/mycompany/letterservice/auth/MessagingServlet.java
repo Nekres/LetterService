@@ -68,9 +68,10 @@ public class MessagingServlet extends HttpServlet {
                 List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id),Integer.parseInt(rec_id), count);
                 if (messages.isEmpty()) {
                     out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("user have no messages yet.")));
-                }
+                }else{
                 logger.info("LOAD MESSAGES: " + messages.toString());
                 out.write(mapper.writeValueAsString(messages));
+                }
             } catch (NumberFormatException nfe) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("")));
