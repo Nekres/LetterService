@@ -14,8 +14,8 @@
         <title>Letter Service</title>
     </head>
     <body>
-        <div data-role="page">
-            <div data-role="header">
+        <div data-role="page" id="page">
+            <div data-role="header" data-position="fixed">
                 <a href="#userlist" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Contacts</a>
                 <h1>Letter Service</h1>
                 <a href="#" onclick="logout()" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">Logout</a>
@@ -28,7 +28,7 @@
                 <h2 id="greeting">Привет, </h2>
                 <div id="avatar"> </div>
             </div>
-    <div data-role="footer">
+    <div data-role="footer" id="footer" data-position="fixed">
         <p>Сообщение:</p>
         <textarea name="addinfo" id="mbody" ></textarea>
         <a href="#" class="ui-btn" onclick="sendMsg()">Отправить</a>
@@ -101,6 +101,7 @@
                             input.appendChild(linkText);
                             input.href = "#";
                             input.title = user[i].id;
+                            input.onclick = function(){openDialogBox(user[i].id);};
                             input.setAttribute("class", "ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-left");
                             input.setAttribute("data-transition", "slide");
                             $("#userlist").append(input);
@@ -146,7 +147,8 @@
             function openDialogBox(recipient_id) {
                 $("#general_page").empty();
                 $("#receiver_id").val(recipient_id);
-                var messagesBox = document.getElementById("messages").value;
+                var messagesBox = document.getElementById("general_page").value;
+                alert('msgload');
                 $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {
                     for (var j = 0; j < msg.length; j++)
                         for (var i = 0; i < msg.length - 1; i++) {
@@ -156,15 +158,16 @@
                                 msg[i + 1] = temp;
                             }
                         }
+                    
                     var date = new Date(msg[0].date);
-                    $("#messages").html("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
+                    $("#general_page").html("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
 
                     for (var g = 1; g < msg.length; g++) {
                         console.log(msg[g].id);
                         var date = new Date(msg[g].date);
 
                         var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[g].body) + "</p>";
-                        $("#messages").append(str);
+                        $("#general_page").append(str);
                         console.log(str);
                     }
                 });
