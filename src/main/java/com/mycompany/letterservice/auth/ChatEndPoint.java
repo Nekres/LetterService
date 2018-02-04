@@ -17,7 +17,6 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author nrs
  */
-@ApplicationScoped
 @ServerEndpoint("/listener")
 public class ChatEndPoint {
     private final Logger logger = Logger.getLogger(this.getClass().getName());

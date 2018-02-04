@@ -21,13 +21,12 @@ import org.hibernate.query.Query;
  */
 public class DatabaseManager {
     private static final Logger logger = Logger.getLogger(DatabaseManager.class.getName());
-    static Configuration c = new Configuration();
-    static {c.configure("hibernate.cfg.xml");}
-    static SessionFactory factory = c.buildSessionFactory();
-    Session session;
-    Transaction transact;
-    public DatabaseManager() {
-        session = factory.openSession();
+
+    private final SessionFactory factory;
+    private Session session;
+    private Transaction transact;
+    public DatabaseManager(final SessionFactory factory) {
+        this.factory = factory;
     }
     
     public final void persistObj(final Object obj) throws PropertyValueException{
@@ -106,6 +105,7 @@ public class DatabaseManager {
         return list;
     }
     public final Transaction beginTransaction(){
+        session = factory.openSession();
         return transact = session.beginTransaction();
     }
     public final void commitAndClose(){

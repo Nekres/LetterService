@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -25,6 +26,7 @@ public class LoginServlet extends HttpServlet {
     public static final int COOKIE_EXPIRE_TIME = 30*60;
     public static final int COOKIE_NO_EXPIRE = -1;
     public static final String SESSION_PARAM = "session";
+    
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     @Override
@@ -53,8 +55,9 @@ public class LoginServlet extends HttpServlet {
         logger.info(req.getServletPath());
         String email = req.getParameter(RegistrationServlet.USER_EMAIL);
         String password = req.getParameter(RegistrationServlet.USER_PASSWORD);
-        DatabaseManager manager = new DatabaseManager();
         ServletContext ctx = req.getServletContext();
+        SessionFactory sessionFactory = (SessionFactory)ctx.getAttribute("sessionFactory");
+        DatabaseManager manager = new DatabaseManager(sessionFactory);
         
         try {
             manager.beginTransaction();

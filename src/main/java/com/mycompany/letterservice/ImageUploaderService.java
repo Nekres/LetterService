@@ -27,17 +27,20 @@ public class ImageUploaderService {
     public static final Cloudinary cloud = new Cloudinary(ObjectUtils.asMap("cloud_name",CLOUD_NAME,"api_key",CLOUD_API_KEY,
             "api_secret",API_SECRET));
     
-    public static String upload(final InputStream input, int size, String pictureName) throws IOException{
+    public String upload(final InputStream input, int size, String pictureName) throws IOException{
         logger.info("File uploading started.");
+        
         File tmp = new File(TEMP_FILES);
         if(!tmp.exists())
             tmp.mkdir();
         File targetFile = new File(TEMP_FILES + File.separator + pictureName);
         targetFile.createNewFile();
         FileUtils.copyInputStreamToFile(input, targetFile);
+        
         Map uploadResult = cloud.uploader().upload(targetFile, ObjectUtils.emptyMap());
           logger.info("::" + uploadResult.entrySet().iterator().next());
           logger.info(uploadResult.get("url").toString());
+          
         targetFile.delete();
         logger.info("Uploaded.\n");
       return uploadResult.get("url").toString();

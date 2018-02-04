@@ -11,11 +11,13 @@ import com.mycompany.letterservice.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -32,7 +34,10 @@ public class UserManagerServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         ObjectMapper mapper = new ObjectMapper();
-        DatabaseManager manager = new DatabaseManager();
+        ServletContext context = req.getServletContext();
+        SessionFactory sessionFactory = (SessionFactory) context.getAttribute("sessionFactory");
+
+        DatabaseManager manager = new DatabaseManager(sessionFactory);
         PrintWriter out = resp.getWriter();
         manager.beginTransaction();
         if (req.getServletPath().equals(USERS_GET)) {

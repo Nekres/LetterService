@@ -14,11 +14,13 @@ import java.io.*;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.servlet.http.Part;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -33,10 +35,13 @@ public class RegistrationServlet extends HttpServlet {
     public static final String USER_EMAIL = "email";
     public static final String USER_PASSWORD = "password";
     public static final String PICTURE = "picture";
+    
     public static final Logger logger = Logger.getLogger(RegistrationServlet.class.getName());
+    public static final ImageUploaderService imageService = new ImageUploaderService();
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext context = req.getServletContext();
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/xml");
@@ -60,7 +65,7 @@ public class RegistrationServlet extends HttpServlet {
              //upload avatar if validation passed
             String pictureName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
             InputStream filestream = picture.getInputStream();
-            String photoUrl = ImageUploaderService.upload(filestream, (int)picture.getSize(), pictureName);
+            String photoUrl = imageService.upload(filestream, (int)picture.getSize(), pictureName);
             
             User u = new User();
             u.setName(name);
@@ -75,7 +80,8 @@ public class RegistrationServlet extends HttpServlet {
             
             
             //db
-            DatabaseManager manager = new DatabaseManager();
+            SessionFactory sessionFactory = (SessionFactory)context.getAttribute("sessionFactory");
+            DatabaseManager manager = new DatabaseManager(sessionFactory);
             manager.beginTransaction();
             
             manager.checkOnEmailExist(email);

@@ -22,9 +22,13 @@
 		</repository>
 	</repositories>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.typesafe.play/play -->
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-websocket -->
+<dependency>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-websocket</artifactId>
+    <version>8.2.0.v20160908</version>
+</dependency>
 
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 <dependency>
     <groupId>commons-io</groupId>
     <artifactId>commons-io</artifactId>

@@ -16,12 +16,14 @@ import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -44,7 +46,11 @@ public class MessagingServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         ObjectMapper mapper = new ObjectMapper();
-        DatabaseManager manager = new DatabaseManager();
+
+        ServletContext context = req.getServletContext();
+        SessionFactory sessionFactory = (SessionFactory) context.getAttribute("sessionFactory");
+
+        DatabaseManager manager = new DatabaseManager(sessionFactory);
         Writer out = resp.getWriter();
         HttpSession session = req.getSession(false);
         String line = req.getParameter(LAST_MESSAGES_COUNT);
@@ -57,7 +63,7 @@ public class MessagingServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        
+
         if (req.getServletPath().equals(GET_MESSAGE)) {
             String rec_id = req.getParameter(RECEIVER_ID);
             try {
@@ -65,17 +71,17 @@ public class MessagingServlet extends HttpServlet {
                 int count = Integer.parseInt(line);
                 String user_id = session.getAttribute("curr_u_id").toString();
                 manager.beginTransaction();
-                List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id),Integer.parseInt(rec_id), count);
+                List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id), Integer.parseInt(rec_id), count);
                 if (messages.isEmpty()) {
                     out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("user have no messages yet.")));
-                }else{
-                logger.info("LOAD MESSAGES: " + messages.toString());
-                out.write(mapper.writeValueAsString(messages));
+                } else {
+                    logger.info("LOAD MESSAGES: " + messages.toString());
+                    out.write(mapper.writeValueAsString(messages));
                 }
             } catch (NumberFormatException nfe) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("")));
-            }finally{
+            } finally {
                 manager.closeSession();
             }
         }
@@ -90,22 +96,25 @@ public class MessagingServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-            
+
             int user_id = Integer.parseInt(session.getAttribute(CURR_U_ID).toString());
-            String messageBody = URLDecoder.decode(req.getParameter(MSG_BODY),"UTF-8");
+            String messageBody = URLDecoder.decode(req.getParameter(MSG_BODY), "UTF-8");
             int receiverId = 0;
-            try{
+            try {
                 receiverId = Integer.parseInt(req.getParameter(RECEIVER_ID));
-            }catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 PrintWriter out = resp.getWriter();
                 ObjectMapper mapper = new ObjectMapper();
                 out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("You have to specify 'receiver_id'.")));
             }
-            
+
             logger.info("\nMessage send: user_id: " + user_id + "and msg_body: " + messageBody + "\n + receiver_id :" + receiverId);
-            
-            DatabaseManager manager = new DatabaseManager();
+
+            ServletContext context = req.getServletContext();
+            SessionFactory sessionFactory = (SessionFactory) context.getAttribute("sessionFactory");
+            DatabaseManager manager = new DatabaseManager(sessionFactory);
+
             manager.beginTransaction();
             User currentUser = manager.getUserById(receiverId);
             Message m = new Message(user_id, receiverId, new Date(), messageBody);
