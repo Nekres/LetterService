@@ -22,12 +22,6 @@
 		</repository>
 	</repositories>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-websocket -->
-<dependency>
-    <groupId>org.eclipse.jetty</groupId>
-    <artifactId>jetty-websocket</artifactId>
-    <version>8.2.0.v20160908</version>
-</dependency>
 
 <dependency>
     <groupId>commons-io</groupId>
@@ -90,6 +84,14 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
+<dependency>
+    <groupId>javax.websocket</groupId>
+    <artifactId>javax.websocket-api</artifactId>
+    <version>1.1</version>
+    <scope>provided</scope>
+</dependency>
+
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
