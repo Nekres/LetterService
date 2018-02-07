@@ -8,6 +8,7 @@ var socket = null;
 var socketStatus = false;
 function doConnect() {
     var protocol;
+    var loc = window.location;
     if (loc.protocol === "https:") {  
                 protocol = "wss:";  
             } else {  
