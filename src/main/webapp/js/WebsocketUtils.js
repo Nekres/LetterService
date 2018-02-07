@@ -16,6 +16,7 @@ function doConnect() {
     } else {
         alert("websockets not suppored in ur browser");
     }
+    alert("success");
     socket.onopen = function () {
         socketStatus = true;
         socket.send("jsk");
