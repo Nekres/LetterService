@@ -10,5 +10,6 @@ package com.mycompany.letterservice.auth.websocket;
  * @author nrs
  */
 public class EventSubscriber {
-    private final ChatEndPoint
+//    private final ChatEndPoint chatEndPoint;
+//    private final Set<
 }
