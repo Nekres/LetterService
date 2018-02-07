@@ -26,10 +26,10 @@ public class CustomServletContextListener implements ServletContextListener{
         logger.warn("");
         ServletContext context = sce.getServletContext();
         
-//        Configuration c = new Configuration();
-//        c.configure("hibernate.cfg.xml");
-//        SessionFactory factory = c.buildSessionFactory();
-//        context.setAttribute("sessionFactory", factory);
+        Configuration c = new Configuration();
+        c.configure("hibernate.cfg.xml");
+        SessionFactory factory = c.buildSessionFactory();
+        context.setAttribute("sessionFactory", factory);
                 
         HashMap activeSessions = new HashMap();
         context.setAttribute("activeSession", activeSessions);
