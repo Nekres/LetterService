@@ -7,7 +7,14 @@
 var socket = null;
 var socketStatus = false;
 function doConnect() {
-    var uri = 'ws://localhost:' + window.location.port + "/listener";
+    var protocol;
+    if (loc.protocol === "https:") {  
+                protocol = "wss:";  
+            } else {  
+                protocol = "ws:";  
+            }  
+    var uri = protocol + '//' + window.location.host + "/listener";
+    alert(uri); 
     if ('WebSocket' in window) {
         socket = new WebSocket(uri);
     } else if ('MozWebSocket' in window) {
@@ -15,7 +22,6 @@ function doConnect() {
     } else {
         alert("websockets not suppored in ur browser");
     }
-    alert("success");
     socket.onopen = function () {
         socketStatus = true;
         socket.send("jsk");
