@@ -43,7 +43,7 @@ public class ChatEndPoint {
         }
     }
     @OnClose
-    public void close(Session session){
+    public void onClose(Session session){
         logger.info("OnClose: " + session.toString());
         
         chatEndPoints.remove(this);
@@ -66,5 +66,15 @@ public class ChatEndPoint {
     }
     @OnError
     public void onError(Session session, Throwable throwable) {
+    }
+    
+    void close() {
+        synchronized (this.session) {
+            try {
+                this.session.close();
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

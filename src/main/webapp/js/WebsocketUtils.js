@@ -7,8 +7,8 @@
 var socket = null;
 var socketStatus = false;
 function doConnect() {
-    var uri = 'ws://' + window.location.host + "/letter/listener";
-
+    var uri = 'ws://' + window.location.host + "/listener";
+    alert(uri); 
     if ('WebSocket' in window) {
         socket = new WebSocket(uri);
     } else if ('MozWebSocket' in window) {
