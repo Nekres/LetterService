@@ -12,6 +12,6 @@ import java.util.HashSet;
  * @author nrs
  */
 public class EventSubscriber {
-    private final ChatEndPoint chatEndPoint;
-    private final Set<ChatEndPoint> subscribeOnList = new HashSet<>();
+    //private final ChatEndPoint chatEndPoint;
+   // private final Set<ChatEndPoint> subscribeOnList = new HashSet<>();
 }
