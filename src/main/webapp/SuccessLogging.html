@@ -16,22 +16,28 @@
     </head>
     <body>
         <div data-role="page" id="page">
-            <div data-role="header" data-position="fixed">
+            
+            <div data-role="header" data-position="fixed"  data-theme="b">
                 <a href="#userlist" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Contacts</a>
                 <h1>Letter Service</h1>
                 <a href="#" onclick="logout()" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">Logout</a>
-
-            </div>
-            <div data-role="main" class="ui-content" id="general_page">
+                
+            </div>  
+            <div data-role="header"  data-theme="b">
+                     <h2 id="typing_status"></h2></div>
+            
+            <div data-role="main" class="ui-content" id="general_page" data-theme="b">
                 
             </div>
-            <div data-role="panel" id="userlist" >
+            
+            <div data-role="panel" id="userlist" data-theme="b" >
                 <h2 id="greeting">Привет, </h2>
                 <div id="avatar"> </div>
             </div>
-    <div data-role="footer" id="footer" data-position="fixed">
+            
+    <div data-role="footer" id="footer" data-position="fixed" data-theme="b">
         <p>Сообщение:</p>
-        <textarea name="addinfo" id="mbody" ></textarea>
+        <textarea name="addinfo" id="mbody" oninput="input()"></textarea>
         <a href="#" class="ui-btn" onclick="sendMsg()">Отправить</a>
         <input type="hidden" name = "receiver_id" value="1" id="receiver_id">
 </div>
