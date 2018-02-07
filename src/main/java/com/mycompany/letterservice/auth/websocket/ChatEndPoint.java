@@ -33,6 +33,7 @@ public class ChatEndPoint {
         
         logger.info("OnOpen: " + session.getId());
         HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
+        logger.info(httpSession.getAttribute("user_name"));
         if(httpSession == null){
             try {
                 session.close();

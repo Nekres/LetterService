@@ -55,7 +55,13 @@ function updateTarget(target) {
     }
 }
 function input() {
-    socket.send('');
+    if(!socketStatus){
+        doConnect();
+        setTimeout(input,1);
+    }else{
+        socket.send('');
+    }
+    
 }
 
     
