@@ -15,7 +15,7 @@ import java.io.Writer;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -9,7 +9,7 @@ import com.mycompany.letterservice.SessionManager;
 import static com.mycompany.letterservice.auth.LoginServlet.COOKIE_NO_EXPIRE;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

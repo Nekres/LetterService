@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -38,7 +37,7 @@ public class ChatEndPoint {
             try {
                 session.close();
             } catch (IOException ex) {
-                logger.log(Level.SEVERE, null, ex);
+                logger.debug("ioex", ex);
             }
         }
     }
@@ -61,7 +60,7 @@ public class ChatEndPoint {
         try {
             this.session.getBasicRemote().sendText(message);
         } catch (IOException ex) {
-            logger.log(Level.SEVERE, null, ex);
+            logger.debug("",ex);
         }
     }
     @OnError
@@ -73,7 +72,7 @@ public class ChatEndPoint {
             try {
                 this.session.close();
             } catch (IOException ex) {
-                logger.log(Level.SEVERE, null, ex);
+                logger.debug("",ex);
             }
         }
     }

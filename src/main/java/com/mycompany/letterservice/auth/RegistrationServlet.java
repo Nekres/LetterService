@@ -13,7 +13,7 @@ import com.mycompany.letterservice.exceptions.LetterServiceException;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;

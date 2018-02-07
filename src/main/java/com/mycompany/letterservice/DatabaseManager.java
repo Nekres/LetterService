@@ -9,7 +9,7 @@ import com.mycompany.letterservice.auth.RegistrationServlet;
 import com.mycompany.letterservice.entity.*;
 import com.mycompany.letterservice.exceptions.*;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javax.persistence.NoResultException;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
