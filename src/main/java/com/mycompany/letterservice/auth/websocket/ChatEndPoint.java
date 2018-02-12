@@ -6,6 +6,7 @@
 package com.mycompany.letterservice.auth.websocket;
 
 import com.mycompany.letterservice.auth.config.HttpSessionConfigurator;
+import com.mycompany.letterservice.entity.User;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,6 +26,7 @@ public class ChatEndPoint {
     private Session session;
     
     private static final Set<ChatEndPoint> chatEndPoints = Collections.synchronizedSet(new HashSet());
+    private static final Map<User, ChatEndPoint>
     
     @OnOpen
     public void open(Session session, EndpointConfig config){
