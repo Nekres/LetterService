@@ -9,20 +9,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.letterservice.DatabaseManager;
 import com.mycompany.letterservice.entity.Message;
 import com.mycompany.letterservice.entity.User;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.io.Writer;
 import java.net.URLDecoder;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import org.apache.log4j.Logger;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import org.hibernate.SessionFactory;
 
 /**

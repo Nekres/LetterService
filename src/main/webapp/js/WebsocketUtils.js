@@ -29,7 +29,7 @@ function doConnect() {
     socket.onmessage = function (event) {
         var elem = document.getElementById("typing_status");
         elem.innerHTML = "typing...";
-        setTimeout(clearStatus,1000);
+        setTimeout(clearStatus,1300);
     };
     socket.onclose = function (event) {
         setConnected(false);

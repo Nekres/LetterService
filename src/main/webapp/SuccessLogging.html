@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png">
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
         <script src="js/CookieUtils.js"></script>
         <script src="js/apiFunctions.js"></script>
@@ -11,77 +12,140 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="/js/audiojs/audio.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <title>Letter Service</title>
     </head>
     <body>
-        <div data-role="page" id="page">
-            
-            <div data-role="header" data-position="fixed"  data-theme="b">
-                <a href="#userlist" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-home ui-btn-icon-left">Contacts</a>
-                <h1>Letter Service</h1>
-                <a href="#" onclick="logout()" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">Logout</a>
-                
-            </div>  
-            <div data-role="header"  data-theme="b">
-                     <h2 id="typing_status"></h2></div>
-            
-            <div data-role="main" class="ui-content" id="general_page" data-theme="b">
-                
-            </div>
-            
-            <div data-role="panel" id="userlist" data-theme="b" >
-                <h2 id="greeting">Привет, </h2>
-                <div id="avatar"> </div>
-            </div>
-            
-    <div data-role="footer" id="footer" data-position="fixed" data-theme="b">
-        <p>Сообщение:</p>
-        <textarea name="addinfo" id="mbody" oninput="input()"></textarea>
-        <a href="#" class="ui-btn" onclick="sendMsg()">Отправить</a>
-        <input type="hidden" name = "receiver_id" value="1" id="receiver_id">
-</div>
-    </div>
-            <!--            <div id="messages" class="cmessages" ></div> -->
+        <div data-role="page" id="page" data-theme="b">
 
-        <!--                    <form action="msg.send" method="POST" id="message_form" >
-                                <textarea  rows="3" name="m_body" id="message_body_field"></textarea>
-                                <input type="hidden" name="receiver_id" value="" id="receiver_id" />
-                                <input type="submit" value="Send" name="send" />
-                            </form>
+            <div data-role="header" data-position="fixed"  data-theme="b">
+                <a href="#users" data-role="button" data-icon="home" data-iconpos="left">Contacts</a>
+                <h1>Letter Service</h2>
+                    <a href="#" onclick="logout()" data-role="button" data-icon="home" data-iconpos="left" >Logout</a>
+                           
+            </div>  
+
+
+
+            <div data-role="content" class="ui-content" id="general_page" style="overflow:hidden" >
+                
+            </div>
+            <div data-role="footer" id="footer" data-position="fixed" data-theme="b">
+                <p>Message</p>
+                <textarea name="addinfo" id="mbody" oninput="input()"></textarea>
+                <a href="#"  data-role="button" data-icon="check" onclick="sendMsg()">Send</a>
+                <input type="hidden" name = "receiver_id" value="1" id="receiver_id">
+                <a href="#" id="typing_status"></a>
+                
+            </div>
+            <div data-role="panel" data-theme="b" id="users">
+                <h2 id="greeting"></h2>
+                <div id="avatar"> </div>
+                <input type="search" name="search" id="searc-basic" value="" />
+                        <a href="#info_page"  data-role="button" data-transition="flip">Edit</a>
+                        <a href="#music"  data-role="button" data-transition="flip">Music Player</a>
+<!--                </div>-->
+                <div id="userlist">
+                    <h3>Contacts</h3>
+                </div>
+	
+        </div>
+        </div>
+        <div data-role="page" id="info_page" data-theme="b">
+            <div data-role="header">
+                <a href="#" data-icon="arrow-l" data-iconpos="left" data-rel="back" data-transition="slide" data-direction="reverse">Back</a>
+        <h1>Information</h1>
+    </div>
+    <div data-role="content" id="info_content">
+        <div class="ui-grid-a">
+	<div class="ui-block-a" ><div class="ui-bar ui-bar-e" style="max-height:1000px;" id="image_config"></div></div>
+			<div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height:120px">B</div></div>
+			<div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height:120px">A</div></div>
+			<div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height:120px">B</div></div>
+			<div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height:120px">A</div></div>
+			<div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height:120px">B</div></div>
+</div><!-- /grid-b -->
+    </div>
+     <div data-role="footer" data-id="foo1" data-position="fixed">
+<!--	<div data-role="navbar">
+		<ul>
+			<li><a href="#info_page" data-icon="grid" data-iconpos="top" class="ui-btn-active">Info</a></li>
+			<li><a href="#info_page" data-icon="grid" data-iconpos="top">s</a></li>
+			<li><a href="#info_page" data-icon="grid" data-iconpos="top">s</a></li>
+		</ul>
+	</div> /navbar -->
+</div>
+        </div>
+
+        <!-- music page -->
         
-        -->                
+        <div data-role="page" data-theme="b" id="music">
+             <div data-role="header">
+                <a href="#" data-icon="arrow-l" data-iconpos="left" data-rel="back" data-transition="slide" data-direction="reverse">Back</a>
+        <h1>Music</h1>
+    </div>
+            
+            <div data-role="content">
+                <div class="content-primary">	
+			<ol data-role="listview">
+				<li><a href="index.html">The Godfather</a></li>
+				<li><a href="index.html">Inception</a></li>
+				<li><a href="index.html">The Good, the Bad and the Ugly </a></li>
+				<li><a href="index.html">Pulp Fiction</a></li>
+				<li><a href="index.html">Schindler's List</a></li>
+				<li><a href="index.html">12 Angry Men</a></li>
+				<li><a href="index.html">One Flew Over the Cuckoo's Nest</a></li>
+				<li><a href="index.html">Star Wars: Episode V - The Empire Strikes Back</a></li>
+				<li><a href="index.html">The Dark Knight</a></li>
+			</ol>
+                </div>
+            </div>
+            <div data-role="footer" data-id="foo1" data-position="fixed">
+                <input type="search" name="search" id="searc-basic" value="" /><a href="index.html" data-icon="search">Search</a>
+                <a href="index.html" data-icon="star">My music</a>
+                <span class="ui-btn ui-icon-plus ui-btn-icon-left ui-corner-all fileinput-button">
+    <span>Upload</span>
+    <input type="file" name="files[]" multiple data-role="none"/>
+                </span>
+                
+                <audio src="02 - The Kill.mp3"  /> 
+                
+            </div>
+        </div>
+        
+        
         <script type="text/javascript" language="javascript">
             unathorizedCheck();
             var delete_cookie = function (name) {
                 document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             };
-            function sendMsg(){
+            function sendMsg() {
                 var receiver_id = $("#receiver_id").val();
                 var body = $("#mbody").val();
-                //clear field
                 $("#mbody").val('');
                 $.ajax({
-                    type:"POST",
-                    url:"msg.send",
-                    data:"m_body=" + body + "&receiver_id=" + receiver_id,
+                    type: "POST",
+                    url: "msg.send",
+                    data: "m_body=" + body + "&receiver_id=" + receiver_id,
                     success: function (data, textStatus, jqXHR) {
-                        openDialogBox(receiver_id); 
+                        openDialogBox(receiver_id);
                     }
                 });
             }
-            function logout(){
+            function logout() {
                 $.ajax({
-                    type:"POST",
-                    url:"logout",
+                    type: "POST",
+                    url: "logout",
                     success: function (data, textStatus, jqXHR) {
-                            window.location.href = jqXHR.getResponseHeader("Location");
+                        window.location.href = jqXHR.getResponseHeader("Location");
                     }
                 });
             }
             $(document).ready(function () {
                 var name = getCookie("user_name");
                 var photo_url = getCookie("user_photo");
+                $("#image_config").append("<img src=" + photo_url + " style='width:100%;'>");
                 $("#avatar").append("<img src=" + photo_url + " id=\"avatar_img\">");
                 $("#greeting").append(name);
                 $("#message_form").submit(function (e)
@@ -99,57 +163,68 @@
                     });
                     return false;
                 });
-                    $.getJSON("users.all?", function (user) {
-                        for (let i = 0; i < user.length; i++) {
-                            var input = document.createElement("a");
-                            var linkText = document.createTextNode(user[i].name);
-                            input.appendChild(linkText);
-                            input.href = "#";
-                            input.title = user[i].id;
-                            input.onclick = function(){openDialogBox(user[i].id);};
-                            input.setAttribute("class", "ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-left");
-                            input.setAttribute("data-transition", "slide");
-                            $("#userlist").append(input);
-                        }
-                    });
+
+                $.getJSON("users.all?", function (user) {
+                    $("#userlist").append('<ul>');
+                    for (let i = 0; i < user.length; i++) {
+                        var input = document.createElement("a");
+                        var linkText = document.createTextNode(user[i].name);
+                        input.appendChild(linkText);
+                        input.href = "#";
+                        input.title = user[i].id;
+                        input.onclick = function () {
+                            openDialogBox(user[i].id, user[i].name, user[i].surname);
+                        };
+                        input.setAttribute("class", "ui-btn ui-btn-b ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-left");
+                        input.setAttribute("data-transition", "slide");
+                        $("#userlist").append(input);
+                    }
+                    $("#userlist").append('<ul>');
+                });
             });
         </script>
-        <!--
-             
--->     <script type="text/javascript" language="javascript">
-         $(document).ready(function () {
-             doConnect();
-             $.getJSON("msg.get?msgcount=5&receiver_id=1", function (message) {
-                 var msg = message;
-                 for (var j = 0; j < msg.length; j++) {
-                     for (var g = 0; g < msg.length - 1; g++) {
-                         if (msg[g].id > msg[g + 1].id) {
-                             var temp = msg[g];
-                             msg[g] = msg[g + 1];
-                             msg[g + 1] = temp;
-                         }
-                     }
-                 }
-                 
-                 $("#receiver_id").val(1);
-                 var date = new Date(msg[0].date);
-                 $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
-                    for (var c = 1; c < msg.length; c++) {
-                     var ids = msg[c].id;
-                     console.log(ids);
-                     var date = new Date(msg[c].date);
-                     $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
-                     $("#general_page").height(500);
-                 }
-                 
-             });
-         })
-     </script><!--
-        -->            <script type="text/javascript" language="javascript">
+             <script type="text/javascript" language="javascript">
             $(document).ready(function () {
+                $(document).ready(function(){
+    $("a").each(function(){
+          $(this).attr("rel","external");
+    });
+}); 
                 
+                doConnect();
+                $.getJSON("msg.get?msgcount=5&receiver_id=1", function (message) {
+                    var msg = message;
+                    for (var j = 0; j < msg.length; j++) {
+                        for (var g = 0; g < msg.length - 1; g++) {
+                            if (msg[g].id > msg[g + 1].id) {
+                                var temp = msg[g];
+                                msg[g] = msg[g + 1];
+                                msg[g + 1] = temp;
+                            }
+                        }
+                    }
+
+                    $("#receiver_id").val(1);
+                    var date = new Date(msg[0].date);
+                    $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
+                    for (var c = 1; c < msg.length; c++) {
+                        var ids = msg[c].id;
+                        console.log(ids);
+                        var date = new Date(msg[c].date);
+                        $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
+                        $("#general_page").height(500);
+                    }
+
+                });
+            })
+        </script>
+                  <script type="text/javascript" language="javascript">
+            $(document).ready(function () {
+
             });
-            function openDialogBox(recipient_id) {
+            function openDialogBox(recipient_id, user_name, user_surname) {
+                //append name
+//                append messages 
                 $("#general_page").empty();
                 $("#receiver_id").val(recipient_id);
                 var messagesBox = document.getElementById("general_page").value;
@@ -162,7 +237,7 @@
                                 msg[i + 1] = temp;
                             }
                         }
-                    
+
                     var date = new Date(msg[0].date);
                     $("#general_page").html("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
 
@@ -176,8 +251,29 @@
                     }
                 });
                 var objDiv = document.getElementById("general_page");
-                        objDiv.scrollTop = objDiv.scrollHeight;
+                objDiv.scrollTop = objDiv.scrollHeight;
             }
         </script>
+        <script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+  
+  $("a[data-role=tab]").each(function () {
+    var anchor = $(this);
+    anchor.bind("click", function () {
+        $.mobile.changePage(anchor.attr("href"), {
+            transition: "none",
+            changeHash: false
+        });
+        return false;
+    });
+});
+
+$("div[data-role=page]").bind("pagebeforeshow", function (e, data) {
+    $.mobile.silentScroll(0);
+    $.mobile.changePage.defaults.transition = 'slide';
+});
+</script>
     </body>
 </html>

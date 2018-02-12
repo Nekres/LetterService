@@ -26,11 +26,30 @@ and open the template in the editor.
     width: 100%;
     height: 100%;
 }
+audio { width: 100px; }
 #messages::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #272b38;
+}
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  float: left;
+  margin-right: 4px;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
 }
 
 #messages::-webkit-scrollbar
@@ -65,12 +84,6 @@ and open the template in the editor.
 	background-color: #272b38;
 }
 
-#userlist::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #555;
-}
 #general_page{
     height: 100%;
 }
