@@ -62,10 +62,13 @@ public class LoginServlet extends HttpServlet {
         try {
             manager.beginTransaction();
             logger.info("Transaction in /login executing");
+            
             User user = manager.getUser(email, password);
             HttpSession session = req.getSession();
             session.setAttribute("user", user.getName());
             session.setAttribute("curr_u_id", user.getId());
+            session.setAttribute(("curr_user"), user);
+            
             HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
             activeSession.put(session.getId(), session);
             
@@ -74,6 +77,7 @@ public class LoginServlet extends HttpServlet {
             SessionManager.addCookie(resp, "user_name", user.getName(), COOKIE_NO_EXPIRE);
             SessionManager.addCookie(resp, "user_surname", user.getSurname(), COOKIE_NO_EXPIRE);
             SessionManager.addCookie(resp, "user_photo", user.getPhotoUrl(), COOKIE_NO_EXPIRE);
+            
             logger.info(Integer.toString(user.getId()));
             
             resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.html"));

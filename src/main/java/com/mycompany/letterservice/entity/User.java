@@ -6,6 +6,7 @@
 package com.mycompany.letterservice.entity;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 /**
  *
@@ -24,6 +25,11 @@ public class User {
     private String surname;
     @Column(name = "photo_url", length = 250, nullable = false)
     private String photoUrl;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "subscribers", joinColumns = {
+        @JoinColumn(name = "user_id", nullable = false)},
+            inverseJoinColumns = { @JoinColumn(name = "sub_id",nullable = false)})
+    private Set<User> subscribers;
     
     public int getId() {
         return id;
@@ -61,6 +67,14 @@ public class User {
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", name=" + name + '}';
+    }
+
+    public Set<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(Set<User> subscribers) {
+        this.subscribers = subscribers;
     }
     
     

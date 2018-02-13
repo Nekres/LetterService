@@ -36,10 +36,10 @@ public class DatabaseManager {
     public final void updateObj(final Object obj){
         session.update(obj);
     }
-    public final List<User> getObj(Class type){
-        Query query = session.createQuery("from "+ type.getName());
-        List<User> users = query.list();
-        return users;
+    public final <T> List<T> getObjects(T type){
+        Query query = session.createQuery("from "+ type.getClass().getName());
+        List<T> list = query.list();
+        return list;
     }
     public final User getUser(final String email, final String password) throws NoSuchUserException{
         String q = "select user from Account as acc inner join acc.user as user where acc.email = :email and acc.password = :password";
@@ -103,6 +103,9 @@ public class DatabaseManager {
             throw new NoSuchUserException("Users with name \"" + name + "\" not found.");
         }
         return list;
+    }
+    public final void setSubscriber(){
+      //  Query query = session.createQ
     }
     public final Transaction beginTransaction(){
         session = factory.openSession();
