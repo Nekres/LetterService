@@ -24,7 +24,7 @@ function doConnect() {
     }
     socket.onopen = function () {
         socketStatus = true;
-        socket.send("jsk");
+        
     };
     socket.onmessage = function (event) {
         var elem = document.getElementById("typing_status");

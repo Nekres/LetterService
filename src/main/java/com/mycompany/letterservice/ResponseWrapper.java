@@ -6,8 +6,8 @@
 package com.mycompany.letterservice;
 
 /**
- *
- * @author nekres
+ * Wraps response with xml.
+ * @author Misha Shikoryak
  */
 public class ResponseWrapper {
     

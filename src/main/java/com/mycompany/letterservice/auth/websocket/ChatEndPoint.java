@@ -19,8 +19,11 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 
 /**
- *
- * @author nrs
+ * This class is used to maintain control of websocket sessions. It subscribes users for another users events
+ * based on their friendship.
+ * @author Misha Shikoryak
+ * @version 1.0
+ * @since 2017-08-25
  */
 @ServerEndpoint(value = "/listener", configurator = HttpSessionConfigurator.class)
 public class ChatEndPoint {
@@ -59,6 +62,7 @@ public class ChatEndPoint {
         //unsubscribe everyone on close
         subscribers.values().forEach((t) -> {
             t.unsubscribe(this.user);
+            System.out.println(t.toString());
         });
         chatEndPoints.remove(this.user);
         this.session = null;
@@ -70,6 +74,10 @@ public class ChatEndPoint {
                 t.echo("User is typing...");
             });
     }
+    /**
+     * Sends message to this endPoint.
+     * @param message - text message to send
+     */
     public void echo(final String message){
         try {
             this.session.getBasicRemote().sendText(message);
@@ -77,12 +85,27 @@ public class ChatEndPoint {
             logger.debug("",ex);
         }
     }
+    /**
+     * Subscribes user to specific websocket-session(endPoint) to listen its events.
+     * @param user - user to subscribe
+     * @param endPoint - websocket-session on which subscribe
+     */
     public void subscribe(final User user, final ChatEndPoint endPoint){
         subscribers.put(user, endPoint);
     }
+    /**
+     * Unsubscribes user from current user. Used when websocket closing connection.
+     * @param user 
+     */
     public void unsubscribe(final User user){
         subscribers.remove(user);
     }
+    /**
+     * This method is used to subscribe user-1 websocket-session to events of another user-2 only 
+     * and if the second and first user are friends. Of course it is works only if user-2 is currently online
+     * 
+     * @param user - user to subscribe for event 
+     */
     private void findSubs(final User user){
         final Set<User> users = new HashSet<>(chatEndPoints.keySet());
         users.retainAll(user.getSubscribers());
@@ -92,9 +115,18 @@ public class ChatEndPoint {
             endPoint.subscribe(user, this);
         });
     }
-    
+    /**
+     * Use to check if two users are friends.
+     * @param first 
+     * @param second
+     * @return true if they are
+     */
+    private boolean friendOf(final User first, final User second){
+        return first.getSubscribers().contains(second) && second.getSubscribers().contains(first);
+    }
     @OnError
     public void onError(Session session, Throwable throwable) {
+        throwable.printStackTrace();
     }
     
     void close() {

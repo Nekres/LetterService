@@ -5,13 +5,14 @@
  */
 package com.mycompany.letterservice.auth.websocket;
 
-import java.util.HashSet;
 
 /**
  *
  * @author nrs
  */
-public class EventSubscriber {
-    //private final ChatEndPoint chatEndPoint;
-   // private final Set<ChatEndPoint> subscribeOnList = new HashSet<>();
+public class Event {
+    
+    private ChatEndPoint eventOwner;
+    private int[] listenersId;
+    
 }
