@@ -11,6 +11,7 @@ import com.mycompany.letterservice.exceptions.*;
 import java.util.List;
 import org.apache.log4j.Logger;
 import javax.persistence.NoResultException;
+import org.apache.log4j.Priority;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
@@ -25,6 +26,8 @@ public class DatabaseManager {
     private final SessionFactory factory;
     private Session session;
     private Transaction transact;
+    
+    
     public DatabaseManager(final SessionFactory factory) {
         this.factory = factory;
     }
@@ -84,7 +87,7 @@ public class DatabaseManager {
         Query query = session.createQuery(q);
         List<User> list = query.list();
         if(list == null || list.isEmpty())
-            throw new NoSuchUserException("Database is empty");
+            throw new NoSuchUserException("Database is empty.");
         else return list;
     }
     

@@ -8,7 +8,6 @@ package com.mycompany.letterservice.auth.websocket;
 import com.mycompany.letterservice.auth.config.HttpSessionConfigurator;
 import com.mycompany.letterservice.entity.User;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,8 +24,9 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint(value = "/listener", configurator = HttpSessionConfigurator.class)
 public class ChatEndPoint {
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
+    private static final Logger logger = Logger.getLogger(ChatEndPoint.class.getName());
     private static final Map<User,ChatEndPoint> chatEndPoints = Collections.synchronizedMap(new HashMap());
+    
     private Session session;
     private User user;
     private Map<User, ChatEndPoint> subscribers = Collections.synchronizedMap(new HashMap());
@@ -37,18 +37,21 @@ public class ChatEndPoint {
         
         logger.info("OnOpen: " + session.getId());
         HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
-        user = (User)httpSession.getAttribute("curr_user");
-        chatEndPoints.put(user,this);
-        findSubs(user);//fills subscribes set with active friends
         
-        logger.info(httpSession.getAttribute("user"));
-        if(httpSession == null){
+         if(httpSession == null){
+            logger.info("No http session. Closed.");
             try {
                 session.close();
             } catch (IOException ex) {
                 logger.debug("ioex", ex);
             }
         }
+        
+        user = (User)httpSession.getAttribute("curr_user");
+        chatEndPoints.put(user,this);
+        logger.info(user.getName());
+        findSubs(user);//fills subscribes set with active friends
+        
     }
     @OnClose
     public void onClose(Session session){
@@ -89,6 +92,7 @@ public class ChatEndPoint {
             endPoint.subscribe(user, this);
         });
     }
+    
     @OnError
     public void onError(Session session, Throwable throwable) {
     }

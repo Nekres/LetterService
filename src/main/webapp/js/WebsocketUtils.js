@@ -14,7 +14,7 @@ function doConnect() {
             } else {  
                 protocol = "ws:";  
             }  
-    var uri = protocol + '//' + window.location.host + "/listener";
+    var uri = protocol + '//' + window.location.host + "/letter/listener";
     if ('WebSocket' in window) {
         socket = new WebSocket(uri);
     } else if ('MozWebSocket' in window) {
@@ -32,6 +32,7 @@ function doConnect() {
         setTimeout(clearStatus,1300);
     };
     socket.onclose = function (event) {
+        alert('closed');
         setConnected(false);
         socketStatus = false;
     };

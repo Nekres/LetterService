@@ -25,11 +25,23 @@ public class User {
     private String surname;
     @Column(name = "photo_url", length = 250, nullable = false)
     private String photoUrl;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "subscribers", joinColumns = {
         @JoinColumn(name = "user_id", nullable = false)},
             inverseJoinColumns = { @JoinColumn(name = "sub_id",nullable = false)})
     private Set<User> subscribers;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "subscribers", joinColumns =  @JoinColumn(name = "sub_id"),inverseJoinColumns = @JoinColumn(
+//    name = "user_id"))
+//    private Set<User> subscribedTo;
+//
+//    public Set<User> getSubscribedTo() {
+//        return subscribedTo;
+//    }
+//
+//    public void setSubscribedTo(Set<User> subscribedTo) {
+//        this.subscribedTo = subscribedTo;
+//    }
     
     public int getId() {
         return id;

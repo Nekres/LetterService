@@ -7,17 +7,13 @@ package com.mycompany.letterservice.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.letterservice.DatabaseManager;
-import com.mycompany.letterservice.entity.User;
+import com.mycompany.letterservice.entity.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import org.hibernate.SessionFactory;
 import org.apache.log4j.Logger;
 
@@ -90,12 +86,13 @@ public class UserManagerServlet extends HttpServlet {
         DatabaseManager manager = new DatabaseManager(sessionFactory);
         PrintWriter out = resp.getWriter();
         manager.beginTransaction();
-        logger.info("here drop down");
         User subscriber = (User)session.getAttribute("curr_user");
         User user = manager.getUserById(subscribeTargetId);
         subscriber.getSubscribers().add(user);
         user.getSubscribers().add(subscriber);
         
+        ObjectMapper mapper = new ObjectMapper();
+        out.write(mapper.writeValueAsString(new Status("You successfully subscribed to this user")));
         manager.commitAndClose();
 
     }

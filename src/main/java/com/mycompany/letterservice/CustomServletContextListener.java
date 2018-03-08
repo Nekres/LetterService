@@ -19,24 +19,27 @@ import org.hibernate.cfg.Configuration;
 @WebListener
 public class CustomServletContextListener implements ServletContextListener{
     private final Logger logger = Logger.getLogger("ServlerContextListener");
+    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("context created");
-        logger.debug("context created");
-        logger.warn("");
         ServletContext context = sce.getServletContext();
+        HashMap activeSessions = new HashMap();
+        context.setAttribute("activeSession", activeSessions);
         
         Configuration c = new Configuration();
         c.configure("hibernate.cfg.xml");
         SessionFactory factory = c.buildSessionFactory();
         context.setAttribute("sessionFactory", factory);
                 
-        HashMap activeSessions = new HashMap();
-        context.setAttribute("activeSession", activeSessions);
+
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        
+        SessionFactory sessionFactory = (SessionFactory)sce.getServletContext().getAttribute("sessionFactory");
+        sessionFactory.close();
     }
 
     
