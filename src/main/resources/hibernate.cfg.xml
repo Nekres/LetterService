@@ -7,11 +7,11 @@
     <session-factory>
         <property name="hbm2ddl.auto">update</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
-                <property name="connection.url">jdbc:postgresql://127.0.0.1:5432/chat</property> 
+                <property name="connection.url">jdbc:postgresql://ec2-54-217-236-201.eu-west-1.compute.amazonaws.com:5432/ddojvbbva8fu65</property> 
 <!--        <property name="connection.url">jdbc:postgresql://ec2-54-217-236-201.eu-west-1.compute.amazonaws.com:5432/ddojvbbva8fu65?sslmode=require</property> -->
         <property name="hibernate.connection.requireSSL">true</property>
-        <property name="connection.username">postgres</property>
-        <property name="connection.password">finished</property>  
+        <property name="connection.username">kvecptonvlllal</property>
+        <property name="connection.password">9b6ca9cd76347c729d7fc4d9e70d18189e93bdff0af418bc6357e8580c109ab3</property>  
 <!--        <property name="connection.username">kvecptonvlllal</property>  -->
 <!--        <property name="connection.password">9b6ca9cd76347c729d7fc4d9e70d18189e93bdff0af418bc6357e8580c109ab3</property>  -->
         <property name="connection.driver_class">org.postgresql.Driver</property>  
