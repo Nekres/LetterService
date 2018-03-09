@@ -59,16 +59,28 @@ public class DatabaseManager {
     }
     
     public final List<Message> getUserMessagesByUid(final int userId, final int rec_id, final int count){
-        Query query = session.createQuery("FROM Message m where m.senderId = :userId and m.receiverId = :rec_id");
-        Query aQuery = session.createQuery("FROM Message m where m.senderId = :rec_id and m.receiverId = :userId");
+        Query query = session.createQuery("FROM Message m where m.senderId = :userId and m.receiverId = :rec_id ORDER BY "
+                + "message_id ");
+        Query aQuery = session.createQuery("FROM Message m where m.senderId = :rec_id and m.receiverId = :userId ORDER BY "
+                + "message_id ");
         query.setParameter("userId", userId);
         query.setParameter("rec_id", rec_id);
         aQuery.setParameter("userId", userId);
         aQuery.setParameter("rec_id", rec_id);
+        query.setMaxResults(count);
+        aQuery.setMaxResults(count);
         List<Message> list = query.list();
         list.addAll(aQuery.list());
         return list;
     }
+    public final Message getUserMessageById(final int userId, final int rec_id){
+        Query query = session.createQuery("FROM Message m where m.position = "
+                + "(select max(msg.position) from Message msg where msg.senderId = :rec_id and msg.receiverId = :userId)");
+        query.setParameter("userId", userId);
+        query.setParameter("rec_id", rec_id);
+        return (Message)query.list().get(0);
+    }
+    
     public final User getUserById(final int id) throws NoSuchUserException{
         String q = "from User where user_id = :id";
         Query query = session.createQuery(q);

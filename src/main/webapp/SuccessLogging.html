@@ -126,6 +126,7 @@
                     data: "m_body=" + body + "&receiver_id=" + receiver_id,
                     success: function (data, textStatus, jqXHR) {
                         openDialogBox(receiver_id);
+                        notifyMessage();
                     }
                 });
             }
@@ -231,7 +232,7 @@
                 $("#general_page").empty();
                 $("#receiver_id").val(recipient_id);
                 var messagesBox = document.getElementById("general_page").value;
-                $.getJSON("msg.get?msgcount=5&receiver_id=" + recipient_id, function (msg) {
+                $.getJSON("msg.get?msgcount=40&receiver_id=" + recipient_id, function (msg) {
                     for (var j = 0; j < msg.length; j++)
                         for (var i = 0; i < msg.length - 1; i++) {
                             if (msg[i].id > msg[i + 1].id) {

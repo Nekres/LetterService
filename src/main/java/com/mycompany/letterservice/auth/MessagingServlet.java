@@ -8,6 +8,7 @@ package com.mycompany.letterservice.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.letterservice.DatabaseManager;
 import com.mycompany.letterservice.entity.Message;
+import com.mycompany.letterservice.entity.Status;
 import com.mycompany.letterservice.entity.User;
 import java.io.*;
 import java.io.Writer;
@@ -62,15 +63,30 @@ public class MessagingServlet extends HttpServlet {
             String rec_id = req.getParameter(RECEIVER_ID);
             try {
                 logger.info("msg.get request come with " + line + "rec_id" + rec_id);
+                
                 int count = Integer.parseInt(line);
                 String user_id = session.getAttribute("curr_u_id").toString();
                 manager.beginTransaction();
+                if(count > 1){
                 List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id), Integer.parseInt(rec_id), count);
                 if (messages.isEmpty()) {
                     out.write(mapper.writeValueAsString(new com.mycompany.letterservice.entity.Status("user have no messages yet.")));
                 } else {
                     logger.info("LOAD MESSAGES: " + messages.toString());
                     out.write(mapper.writeValueAsString(messages));
+                }
+                
+                }else{
+                    logger.info("else");
+                    Message message = manager.getUserMessageById(Integer.parseInt(user_id), Integer.parseInt(rec_id));
+                    if(message == null){
+                        out.write(mapper.writeValueAsString(new Status("user have no messages yes")));
+                        logger.info("No messages");
+                    }
+                    else{
+                        out.write(mapper.writeValueAsString(message));
+                        logger.info(message.toString());
+                    }
                 }
             } catch (NumberFormatException nfe) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

@@ -5,6 +5,7 @@
  */
 package com.mycompany.letterservice.auth.websocket;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.letterservice.auth.config.HttpSessionConfigurator;
 import com.mycompany.letterservice.entity.User;
@@ -72,9 +73,10 @@ public class ChatEndPoint {
         this.session = null;
     }
     @OnMessage
-    public void message(String message, Session session) throws BadPropertiesException{
+    public void message(String message, Session session) throws BadPropertiesException, JsonProcessingException{
         logger.info("User sends message with content: " +  message);
         
+//Read JSON message from client
         final ObjectMapper mapper = new ObjectMapper();
         Event event;
         try{
@@ -86,18 +88,18 @@ public class ChatEndPoint {
             bpe.initCause(ex);
             throw bpe;
         }
+        
+        //Sending event notification to each one who present at 'targetId' field
             List<Integer> values = Arrays.asList(event.getTargetId());
             Set<User> users = subscribers.keySet();
             for(User u: users){
                 if(values.contains(u.getId())){
                     ChatEndPoint endPoint = subscribers.get(u);
-                    endPoint.echo(message);
+                    String callback = mapper.writeValueAsString(event);
+                    endPoint.echo(callback);
                     logger.info("Echoing to " + u.getName() + " with id " + u.getId() + " message: " + message);
                 }
             }
-            subscribers.keySet().forEach((t) -> {
-                
-            });
     }
     /**
      * Sends message to this endPoint.
