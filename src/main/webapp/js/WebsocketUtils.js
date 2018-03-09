@@ -42,6 +42,7 @@ function doConnect() {
                    var date = new Date(message.date);
                         var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(message.body) + "</p>";
                         $("#general_page").append(str);
+                       $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
             });
         }
         }
@@ -50,7 +51,6 @@ function doConnect() {
     };
     socket.onclose = function (event) {
         console.log('Websocket connection status: closed.');
-        setConnected(false);
         socketStatus = false;
     };
 
@@ -92,7 +92,7 @@ function notify(event_type){
 function notifyMessage(){
     if(!socketStatus){
         doConnect();
-        setTimeout(input,1);
+        setTimeout(notifyMessage,1);
     }else{
         socket.send(notify("MESSAGE"));
     }
