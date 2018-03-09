@@ -33,11 +33,20 @@
             </div>
             <div data-role="footer" id="footer" data-position="fixed" data-theme="b">
                 <p>Message</p>
-                <textarea name="addinfo" id="mbody" oninput="input()"></textarea>
+                <textarea name="addinfo" id="mbody" oninput="input()" onkeypress="onEnter()"></textarea>
                 <a href="#"  data-role="button" data-icon="check" onclick="sendMsg()">Send</a>
                 <input type="hidden" name = "receiver_id" value="1" id="receiver_id">
                 <a href="#" id="typing_status"></a>
-                
+                <script>
+function onEnter() {
+    var key = window.event.keyCode;
+
+    // If the user has pressed enter
+    if (key === 13) {
+        sendMsg();
+    }
+}
+                </script>
             </div>
             <div data-role="panel" data-theme="b" id="users">
                 <h2 id="greeting"></h2>
@@ -197,7 +206,7 @@
 }); 
                 
                 
-                $.getJSON("msg.get?msgcount=5&receiver_id=1", function (message) {
+                $.getJSON("msg.get?msgcount=1000&receiver_id=1", function (message) {
                     var msg = message;
                     for (var j = 0; j < msg.length; j++) {
                         for (var g = 0; g < msg.length - 1; g++) {
@@ -232,7 +241,7 @@
                 $("#general_page").empty();
                 $("#receiver_id").val(recipient_id);
                 var messagesBox = document.getElementById("general_page").value;
-                $.getJSON("msg.get?msgcount=40&receiver_id=" + recipient_id, function (msg) {
+                $.getJSON("msg.get?msgcount=1000&receiver_id=" + recipient_id, function (msg) {
                     for (var j = 0; j < msg.length; j++)
                         for (var i = 0; i < msg.length - 1; i++) {
                             if (msg[i].id > msg[i + 1].id) {
