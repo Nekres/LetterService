@@ -18,9 +18,11 @@ function doConnect() {
     if ('WebSocket' in window) {
         socket = new WebSocket(uri);
          console.log('Websocket connection status: opened.');
+         socketStatus = true;
     } else if ('MozWebSocket' in window) {
         socket = new MozWebSocket(uri);
         console.log('Websocket connection status: opened.');
+        socketStatus = true;
     } else {
         alert("websockets not suppored in ur browser");
     }
