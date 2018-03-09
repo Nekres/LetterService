@@ -44,7 +44,7 @@ function clearStatus(){
 }
 function send() {
     var message = document.getElementById('mbody').value;
-    socket.send(message);
+    socket.send();
     var today = new Date();
 }
 function updateTarget(target) {
@@ -59,7 +59,10 @@ function input() {
         doConnect();
         setTimeout(input,1);
     }else{
-        socket.send('');
+        socket.send(JSON.stringify({
+            eventType: "IS_TYPING",
+            targetId: [3]
+        }));
     }
     
 }

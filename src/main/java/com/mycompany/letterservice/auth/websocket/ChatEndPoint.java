@@ -5,12 +5,16 @@
  */
 package com.mycompany.letterservice.auth.websocket;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.letterservice.auth.config.HttpSessionConfigurator;
 import com.mycompany.letterservice.entity.User;
+import com.mycompany.letterservice.exceptions.BadPropertiesException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -68,21 +72,42 @@ public class ChatEndPoint {
         this.session = null;
     }
     @OnMessage
-    public void message(String message, Session session){
-        logger.info("OnMessage: " + session.toString());
-            subscribers.values().forEach((t) -> {
-                t.echo("User is typing...");
+    public void message(String message, Session session) throws BadPropertiesException{
+        logger.info("User sends message with content: " +  message);
+        
+        final ObjectMapper mapper = new ObjectMapper();
+        Event event;
+        try{
+            event = mapper.readValue(message, Event.class);
+            event.setEventOwnerId(this.user.getId());
+            logger.info("Json is correct.");
+        }catch(IOException ex){
+            BadPropertiesException bpe = new BadPropertiesException("Bad json.");
+            bpe.initCause(ex);
+            throw bpe;
+        }
+            List<Integer> values = Arrays.asList(event.getTargetId());
+            Set<User> users = subscribers.keySet();
+            for(User u: users){
+                if(values.contains(u.getId())){
+                    ChatEndPoint endPoint = subscribers.get(u);
+                    endPoint.echo(message);
+                    logger.info("Echoing to " + u.getName() + " with id " + u.getId() + " message: " + message);
+                }
+            }
+            subscribers.keySet().forEach((t) -> {
+                
             });
     }
     /**
      * Sends message to this endPoint.
      * @param message - text message to send
      */
-    public void echo(final String message){
+    public synchronized void echo(final String message){
         try {
             this.session.getBasicRemote().sendText(message);
         } catch (IOException ex) {
-            logger.debug("",ex);
+            ex.printStackTrace();
         }
     }
     /**

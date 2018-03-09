@@ -213,7 +213,6 @@
                     $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
                     for (var c = 1; c < msg.length; c++) {
                         var ids = msg[c].id;
-                        console.log(ids);
                         var date = new Date(msg[c].date);
                         $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
                         $("#general_page").height(500);

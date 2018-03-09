@@ -16,6 +16,13 @@ public class BadPropertiesException extends LetterServiceException{
     public BadPropertiesException(String message) {
         this.message = message;
     }
+
+    @Override
+    public synchronized Throwable initCause(Throwable cause) {
+        return super.initCause(cause); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
     @Override
     public String getMessage() {
