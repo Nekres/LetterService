@@ -14,7 +14,8 @@ function doConnect() {
             } else {  
                 protocol = "ws:";  
             }  
-    var uri = protocol + '//' + window.location.host + "/letter/listener";
+    var uri = protocol + '//' + window.location.host + "/listener";
+    alert(uri);
     if ('WebSocket' in window) {
         socket = new WebSocket(uri);
          console.log('Websocket connection status: opened.');
