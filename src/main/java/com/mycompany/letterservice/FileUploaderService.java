@@ -61,7 +61,7 @@ public class FileUploaderService {
         File targetFile = new File(TEMP_FILES + File.separator + filename);
         targetFile.createNewFile();
         FileUtils.copyInputStreamToFile(input, targetFile);
-        String duration = getDuration(targetFile);
+       // String duration = getDuration(targetFile);
         Map uploadResult = cloud.uploader().upload(targetFile, 
         ObjectUtils.asMap("resource_type", "video"));
         logger.info(uploadResult.get("url").toString());
