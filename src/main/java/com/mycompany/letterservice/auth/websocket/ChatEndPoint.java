@@ -88,6 +88,10 @@ public class ChatEndPoint {
             bpe.initCause(ex);
             throw bpe;
         }
+        if(event.getEventType() == Event.EventType.PING){
+            echo("Success.");
+            return;
+        }
         
         //Sending event notification to each one who present at 'targetId' field
             List<Integer> values = Arrays.asList(event.getTargetId());
@@ -165,4 +169,10 @@ public class ChatEndPoint {
             }
         }
     }
+
+    public static Map<User, ChatEndPoint> getChatEndPoints() {
+        return chatEndPoints;
+    }
+    
+    
 }

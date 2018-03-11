@@ -28,7 +28,10 @@
 
 
 
-            <div data-role="content" class="ui-content" id="general_page" style="overflow:hidden" >
+            <div data-role="content" class="ui-content"  style="overflow:hidden" >
+                <div id="general_page">
+                    
+                </div>
                 
             </div>
             <div data-role="footer" id="footer" data-position="fixed" data-theme="b">
@@ -48,7 +51,7 @@ function onEnter() {
 }
                 </script>
             </div>
-            <div data-role="panel" data-theme="b" id="users">
+            <div data-role="panel" data-theme="b" id="users" data-position-fixed="true">
                 <h2 id="greeting"></h2>
                 <div id="avatar"> </div>
                 <input type="search" name="search" id="searc-basic" value="" />
@@ -198,18 +201,20 @@ function onEnter() {
         </script>
              <script type="text/javascript" language="javascript">
             $(document).ready(function () {
+     
+$(document).bind('panelclose', function(e, data) {
+    $("html,body").animate({ scrollTop: $(document).height()-$(window).height() });
+});
                 doConnect();
                 $(document).ready(function(){
     $("a").each(function(){
           $(this).attr("rel","external");
     });
 }); 
-                
-                
                 $.getJSON("msg.get?msgcount=1000&receiver_id=1", function (message) {
                     var msg = message;
                     for (var j = 0; j < msg.length; j++) {
-                        for (var g = 0; g < msg.length - 1; g++) {
+                        for (var g = 0; g < msg.length-1; g++) {
                             if (msg[g].id > msg[g + 1].id) {
                                 var temp = msg[g];
                                 msg[g] = msg[g + 1];
@@ -217,17 +222,15 @@ function onEnter() {
                             }
                         }
                     }
-
                     $("#receiver_id").val(1);
                     var date = new Date(msg[0].date);
-                    $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
+                    $("#general_page").html("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[0].body) + "</p>");
                     for (var c = 1; c < msg.length; c++) {
                         var ids = msg[c].id;
                         var date = new Date(msg[c].date);
                         $("#general_page").append("<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[c].body) + "</p>");
-                        $("#general_page").height(500);
                     }
-
+                    $("html,body").animate({ scrollTop: $(document).height()-$(window).height() });
                 });
             })
         </script>
@@ -236,6 +239,7 @@ function onEnter() {
 
             });
             function openDialogBox(recipient_id, user_name, user_surname) {
+                $("[data-role=panel]").panel("close");
                 //append name
 //                append messages 
                 $("#general_page").empty();
@@ -243,7 +247,7 @@ function onEnter() {
                 var messagesBox = document.getElementById("general_page").value;
                 $.getJSON("msg.get?msgcount=1000&receiver_id=" + recipient_id, function (msg) {
                     for (var j = 0; j < msg.length; j++)
-                        for (var i = 0; i < msg.length - 1; i++) {
+                        for (var i = 0; i < msg.length-1; i++) {
                             if (msg[i].id > msg[i + 1].id) {
                                 var temp = msg[i];
                                 msg[i] = msg[i + 1];
@@ -260,11 +264,9 @@ function onEnter() {
 
                         var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(msg[g].body) + "</p>";
                         $("#general_page").append(str);
-                        console.log(str);
                     }
+                    $("html,body").animate({ scrollTop: $(document).height()-$(window).height() });
                 });
-                var objDiv = document.getElementById("general_page");
-                objDiv.scrollTop = objDiv.scrollHeight;
             }
         </script>
         <script>

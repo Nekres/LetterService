@@ -37,7 +37,7 @@ public class Event {
     
     public enum EventType{
         
-        MESSAGE, IS_TYPING, COME_ONLINE, GOES_OFFLINE, ONLINE_ACTIVITY;
+        MESSAGE, IS_TYPING, COME_ONLINE, GOES_OFFLINE, ONLINE_ACTIVITY, PING;
         
     }
 

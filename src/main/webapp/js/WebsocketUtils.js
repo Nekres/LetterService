@@ -19,10 +19,17 @@ function doConnect() {
         socket = new WebSocket(uri);
          console.log('Websocket connection status: opened.');
          socketStatus = true;
+         var w = new Worker('js/worker.js');
+         w.onmessage = function(event) {
+             sendPing();
+        };
     } else if ('MozWebSocket' in window) {
         socket = new MozWebSocket(uri);
         console.log('Websocket connection status: opened.');
         socketStatus = true;
+        var w = new Worker('js/worker.js');w.onmessage = function(event) {
+            sendPing();
+        };
     } else {
         alert("websockets not suppored in ur browser");
     }
@@ -40,11 +47,10 @@ function doConnect() {
         }
         else if(obj.eventType == "MESSAGE"){
             $.getJSON("msg.get?msgcount=1&receiver_id=" + id, function (message) {
-                console.log('123');
                    var date = new Date(message.date);
                         var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(message.body) + "</p>";
                         $("#general_page").append(str);
-                       $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                        $("html,body").animate({ scrollTop: $(document).height()-$(window).height() });
             });
         }
         }
@@ -91,6 +97,19 @@ function notify(event_type){
         return json;
 }
 
+function sendPing(){
+    if(!socketStatus){
+        doConnect();
+        setTimeout(sendPing,1);
+    }else{
+         var json = JSON.stringify({
+       eventOwnerId:0,
+       eventType: 'PING',
+       targetId: [0]
+    });
+        socket.send(json);
+    }
+}
 function notifyMessage(){
     if(!socketStatus){
         doConnect();

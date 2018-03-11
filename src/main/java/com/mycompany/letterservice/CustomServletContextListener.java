@@ -6,6 +6,8 @@
 package com.mycompany.letterservice;
 
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
 import org.apache.log4j.Logger;
@@ -19,10 +21,14 @@ import org.hibernate.cfg.Configuration;
 @WebListener
 public class CustomServletContextListener implements ServletContextListener{
     private final Logger logger = Logger.getLogger("ServlerContextListener");
+    private ScheduledExecutorService scheduler;
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("context created");
+        
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        
         ServletContext context = sce.getServletContext();
         HashMap activeSessions = new HashMap();
         context.setAttribute("activeSession", activeSessions);
