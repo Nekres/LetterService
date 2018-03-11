@@ -45,7 +45,6 @@ public class ChatEndPoint {
         
         logger.info("OnOpen: " + session.getId());
         HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
-        
          if(httpSession == null){
             logger.info("No http session. Closed.");
             try {
@@ -75,7 +74,6 @@ public class ChatEndPoint {
     @OnMessage
     public void message(String message, Session session) throws BadPropertiesException, JsonProcessingException{
         logger.info("User sends message with content: " +  message);
-        
 //Read JSON message from client
         final ObjectMapper mapper = new ObjectMapper();
         Event event;
