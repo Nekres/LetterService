@@ -6,6 +6,8 @@
 
 var socket = null;
 var socketStatus = false;
+var timeout = 1200;
+var typingInProcess = false;
 function doConnect() {
     var protocol;
     var loc = window.location;
@@ -44,12 +46,14 @@ function doConnect() {
         if(id == targetId){
             if(obj.eventType == "IS_TYPING" ){
             elem.innerHTML = "typing...";
+               
         }
         else if(obj.eventType == "MESSAGE"){
             $.getJSON("msg.get?msgcount=1&receiver_id=" + id, function (message) {
                    var date = new Date(message.date);
                         var str = "<p>" + date.getHours() + ':' + date.getMinutes() + "<br>" + decodeURIComponent(message.body) + "</p>";
                         $("#general_page").append(str);
+                        $.playSound('open-ended.mp3');
                         $("html,body").animate({ scrollTop: $(document).height()-$(window).height() });
             });
         }
@@ -79,6 +83,7 @@ function updateTarget(target) {
         document.getElementById('target').value = 'wss://' + window.location.host + target;
     }
 }
+var timeoutId;
 function input() {
     if(!socketStatus){
         doConnect();
@@ -86,6 +91,14 @@ function input() {
     }else{
         socket.send(notify("IS_TYPING"));
     }
+}
+function sendTypingNotify(){
+   $.playSound('direct-quieter-version.mp3');
+}
+var wait;
+function checkInputTimeout(){
+   clearTimeout(wait);
+  var wait = setTimeout(sendTypingNotify, 500);
 }
 function notify(event_type){
     var id = parseInt($("#receiver_id").val());
@@ -108,6 +121,7 @@ function sendPing(){
        targetId: [0]
     });
         socket.send(json);
+        console.log(json);
     }
 }
 function notifyMessage(){
