@@ -37,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
     public static final String PICTURE = "picture";
     
     public static final Logger logger = Logger.getLogger(RegistrationServlet.class.getName());
-    public static final ImageUploaderService imageService = new ImageUploaderService();
+    public static final FileUploaderService imageService = new FileUploaderService();
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,7 +65,7 @@ public class RegistrationServlet extends HttpServlet {
              //upload avatar if validation passed
             String pictureName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
             InputStream filestream = picture.getInputStream();
-            String photoUrl = imageService.upload(filestream, (int)picture.getSize(), pictureName);
+            String photoUrl = imageService.uploadImage(filestream, pictureName);
             
             User u = new User();
             u.setName(name);
@@ -88,8 +88,8 @@ public class RegistrationServlet extends HttpServlet {
             manager.persistObj(u);
             manager.persistObj(acc);
             
-            writer.append(mapper.writeValueAsString(new Status("Account successfully created")));
             manager.commitAndClose();
+            writer.append(mapper.writeValueAsString(new Status("Account successfully created")));
             logger.info("Saving to database: " + acc.toString());
         } catch (LetterServiceException ex) {
             writer.append(mapper.writeValueAsString(new Status(ex.getMessage())));
