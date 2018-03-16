@@ -22,6 +22,7 @@ public abstract class AbstractController <E, K>{
     public abstract void update(E entity);
     public abstract boolean delete(K id);
     public abstract void create(E entity);
+    public abstract void save(E entity);
 
     public AbstractController(SessionFactory factory) {
         this.factory = factory;

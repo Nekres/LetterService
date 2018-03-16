@@ -95,8 +95,8 @@ public class UserManagerServlet extends HttpServlet {
         User user = uc.getEntityById(subscribeTargetId);
         subscriber.getSubscribers().add(user);
         user.getSubscribers().add(subscriber);
-        uc.update(user);
-        uc.update(subscriber);
+        uc.save(user);
+        uc.save(subscriber);
         ObjectMapper mapper = new ObjectMapper();
         out.write(mapper.writeValueAsString(new Status("You successfully subscribed to this user")));
 

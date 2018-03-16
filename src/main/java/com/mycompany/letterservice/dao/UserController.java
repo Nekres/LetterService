@@ -69,5 +69,14 @@ public class UserController extends AbstractController<User, Integer>{
         session.close();
         
     }
+
+    @Override
+    public void save(User entity) {
+        Session session = this.factory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.save(entity);
+        tx.commit();
+        session.close();
+    }
     
 }
