@@ -6,6 +6,7 @@
 package com.mycompany.letterservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
@@ -20,23 +21,32 @@ public class User {
     @GeneratedValue
     @Column(name = "user_id",nullable = false)
     private int id;
+    
     @Column(name = "name",length = 50,nullable = false)
     private String name;
+    
     @Column(name = "surname", length = 50, nullable = false)
     private String surname;
+    
     @Column(name = "photo_url", length = 250, nullable = false)
     private String photoUrl;
+    
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "subscribers", joinColumns = {
         @JoinColumn(name = "user_id", nullable = false)},
             inverseJoinColumns = { @JoinColumn(name = "sub_id",nullable = false)})
     private Set<User> subscribers;
+    
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "subscribers", joinColumns =  @JoinColumn(name = "sub_id"),inverseJoinColumns = @JoinColumn(
     name = "user_id"))
     private Set<User> subscribedTo;
+    
+    @Column(name="last_online")
+    private Date lastOnline;
+    
 
     public Set<User> getSubscribedTo() {
         return subscribedTo;
@@ -91,6 +101,15 @@ public class User {
     public void setSubscribers(Set<User> subscribers) {
         this.subscribers = subscribers;
     }
+
+    public Date getLastOnline() {
+        return lastOnline;
+    }
+
+    public void setLastOnline(Date lastOnline) {
+        this.lastOnline = lastOnline;
+    }
+    
     
     
     

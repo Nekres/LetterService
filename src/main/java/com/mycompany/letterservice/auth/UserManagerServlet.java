@@ -7,6 +7,7 @@ package com.mycompany.letterservice.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.letterservice.DatabaseManager;
+import com.mycompany.letterservice.dao.UserController;
 import com.mycompany.letterservice.entity.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +59,12 @@ public class UserManagerServlet extends HttpServlet {
         }
         manager.commitAndClose();
     }
-
+    /**
+     * Subscribes user to another user by uid.
+     * Request params "sub"
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("/subscribe");
@@ -83,17 +89,16 @@ public class UserManagerServlet extends HttpServlet {
         }
         
         SessionFactory sessionFactory = (SessionFactory) context.getAttribute("sessionFactory");
-        DatabaseManager manager = new DatabaseManager(sessionFactory);
+        UserController uc = new UserController(sessionFactory);
         PrintWriter out = resp.getWriter();
-        manager.beginTransaction();
         User subscriber = (User)session.getAttribute("curr_user");
-        User user = manager.getUserById(subscribeTargetId);
+        User user = uc.getEntityById(subscribeTargetId);
         subscriber.getSubscribers().add(user);
         user.getSubscribers().add(subscriber);
-        
+        uc.update(user);
+        uc.update(subscriber);
         ObjectMapper mapper = new ObjectMapper();
         out.write(mapper.writeValueAsString(new Status("You successfully subscribed to this user")));
-        manager.commitAndClose();
 
     }
 

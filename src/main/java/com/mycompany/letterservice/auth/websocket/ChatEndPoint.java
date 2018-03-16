@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
@@ -38,13 +40,14 @@ public class ChatEndPoint {
     private Session session;
     private User user;
     private Map<User, ChatEndPoint> subscribers = Collections.synchronizedMap(new HashMap());
-    
+    private volatile boolean online = false;
     @OnOpen
     public void open(Session session, EndpointConfig config){
         this.session = session;
         
-        logger.info("OnOpen: " + session.getId());
         HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
+        httpSession.setAttribute("endPoint", this);
+        
          if(httpSession == null){
             logger.info("No http session. Closed.");
             try {
@@ -64,17 +67,31 @@ public class ChatEndPoint {
     public void onClose(Session session){
         logger.info("OnClose: " + session.toString());
         //unsubscribe everyone on close
-        subscribers.values().forEach((t) -> {
+        final ObjectMapper mapper = new ObjectMapper();
+        Event offlineEvent = new Event(this.user.getId(), Event.EventType.GOES_OFFLINE);
+        String event = null;
+        try {
+            event = mapper.writeValueAsString(offlineEvent);
+        } catch (JsonProcessingException ex) {
+            logger.info("Bad json.");
+            subscribers.values().forEach((t) -> {
             t.unsubscribe(this.user);
             System.out.println(t.toString());
         });
+            return;
+        }
+        for(ChatEndPoint t : subscribers.values()){
+            t.echo(event);
+            t.unsubscribe(this.user);
+            System.out.println(t.toString());
+        }
         chatEndPoints.remove(this.user);
         this.session = null;
     }
     @OnMessage
     public void message(String message, Session session) throws BadPropertiesException, JsonProcessingException{
         logger.info("User sends message with content: " +  message);
-//Read JSON message from client
+        //Read JSON message from client
         final ObjectMapper mapper = new ObjectMapper();
         Event event;
         try{
@@ -86,10 +103,10 @@ public class ChatEndPoint {
             bpe.initCause(ex);
             throw bpe;
         }
-        if(event.getEventType() == Event.EventType.PING){
-            echo("Success.");
-            return;
+        if(event.getEventType() == Event.EventType.MESSAGE || event.getEventType() == Event.EventType.IS_TYPING){
+            this.online = true;
         }
+        //
         
         //Sending event notification to each one who present at 'targetId' field
             List<Integer> values = Arrays.asList(event.getTargetId());
@@ -170,6 +187,14 @@ public class ChatEndPoint {
 
     public static Map<User, ChatEndPoint> getChatEndPoints() {
         return chatEndPoints;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
     
     

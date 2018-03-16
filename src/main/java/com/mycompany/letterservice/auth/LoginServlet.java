@@ -6,10 +6,12 @@
 package com.mycompany.letterservice.auth;
 
 import com.mycompany.letterservice.*;
+import com.mycompany.letterservice.auth.websocket.ChatEndPoint;
 import com.mycompany.letterservice.entity.User;
 import com.mycompany.letterservice.exceptions.NoSuchUserException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
 import javax.servlet.*;
@@ -78,9 +80,11 @@ public class LoginServlet extends HttpServlet {
             SessionManager.addCookie(resp, "user_surname", user.getSurname(), COOKIE_NO_EXPIRE);
             SessionManager.addCookie(resp, "user_photo", user.getPhotoUrl(), COOKIE_NO_EXPIRE);
             
-            logger.info(Integer.toString(user.getId()));
+            user.setLastOnline(new Date());
             
             resp.sendRedirect(resp.encodeRedirectURL("SuccessLogging.html"));
+            
+            
         } catch (NoSuchUserException exception) {
             RequestDispatcher dispatcher = ctx.getRequestDispatcher("/index.html");
             PrintWriter out = resp.getWriter();

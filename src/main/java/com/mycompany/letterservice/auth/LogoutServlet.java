@@ -5,10 +5,7 @@
  */
 package com.mycompany.letterservice.auth;
 
-import com.mycompany.letterservice.SessionManager;
-import static com.mycompany.letterservice.auth.LoginServlet.COOKIE_NO_EXPIRE;
 import java.io.IOException;
-import java.io.PrintWriter;
 import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
