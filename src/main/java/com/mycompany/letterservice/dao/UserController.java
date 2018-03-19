@@ -22,6 +22,7 @@ public class UserController extends AbstractController<User, Integer>{
         super(factory);
     }
     
+    
     @Override
     public List<User> getAll() {
         Session session = this.factory.openSession();

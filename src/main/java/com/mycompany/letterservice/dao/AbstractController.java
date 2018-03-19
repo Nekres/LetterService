@@ -8,6 +8,7 @@ package com.mycompany.letterservice.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
@@ -16,6 +17,7 @@ import org.hibernate.SessionFactory;
  */
 public abstract class AbstractController <E, K>{
     protected SessionFactory factory;
+    protected Session session;
     
     public abstract List<E> getAll();
     public abstract E getEntityById(K id);
@@ -27,6 +29,15 @@ public abstract class AbstractController <E, K>{
     public AbstractController(SessionFactory factory) {
         this.factory = factory;
     }
+    
+    public void openSession(){
+        this.session = this.factory.openSession();
+    }
+    
+    public void closeSession(){
+        this.session.close();
+    }
+    
     
    
 }
