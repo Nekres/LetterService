@@ -13,6 +13,7 @@ import com.mycompany.letterservice.exceptions.BadPropertiesException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ChatEndPoint {
     @OnOpen
     public void open(Session session, EndpointConfig config){
         this.session = session;
-        
+        user.setLastOnline(new Date());
         HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
         httpSession.setAttribute("endPoint", this);
         
@@ -105,6 +106,7 @@ public class ChatEndPoint {
         }
         if(event.getEventType() == Event.EventType.MESSAGE || event.getEventType() == Event.EventType.IS_TYPING){
             this.online = true;
+            this.user.setLastOnline(new Date());
         }
         //
         

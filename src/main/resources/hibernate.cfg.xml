@@ -8,9 +8,10 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
 <!--                <property name="connection.url">jdbc:postgresql://ec2-54-217-236-201.eu-west-1.compute.amazonaws.com:5432/ddojvbbva8fu65</property> -->
-        <property name="connection.url">jdbc:postgresql://ec2-54-217-236-201.eu-west-1.compute.amazonaws.com:5432/ddojvbbva8fu65?sslmode=require</property> 
-        <property name="connection.username">kvecptonvlllal</property>
-        <property name="connection.password">9b6ca9cd76347c729d7fc4d9e70d18189e93bdff0af418bc6357e8580c109ab3</property>  
+        <property name="connection.url">jdbc:postgresql://ec2-54-75-239-237.eu-west-1.compute.amazonaws.com:5432/dfmrkas198odsr?sslmode=require</property> 
+        <property name="connection.username">jhqfvyprcbqgjp</property>
+        
+        <property name="connection.password">87a966749910cb2d765f7d71dd630c17280919269411afdbced96b44a3172445</property>  
 <!--        <property name="connection.username">kvecptonvlllal</property>  -->
 <!--        <property name="connection.password">9b6ca9cd76347c729d7fc4d9e70d18189e93bdff0af418bc6357e8580c109ab3</property>  -->
         <property name="connection.driver_class">org.postgresql.Driver</property>  
@@ -18,9 +19,9 @@
         
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">10</property>
-        <property name="hibernate.c3p0.timeout">1</property>
+        <property name="hibernate.c3p0.timeout">300</property>
         <property name="hibernate.c3p0.max_statements">50</property>
-        <property name="hibernate.c3p0.idle_test_period">10</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
         
         <property name="hibernate.connection.CharSet">utf8</property>
         <property name="hibernate.connection.characterEncoding">utf8</property>
@@ -30,6 +31,7 @@
         <mapping class="com.mycompany.letterservice.entity.User"/> 
         <mapping class="com.mycompany.letterservice.entity.Account"/> 
         <mapping class="com.mycompany.letterservice.entity.Message"/> 
+        <mapping class="com.mycompany.letterservice.entity.Music"/> 
     </session-factory> 
     
 </hibernate-configuration>
