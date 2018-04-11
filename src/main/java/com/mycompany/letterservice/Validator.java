@@ -15,9 +15,8 @@ import java.util.regex.Pattern;
  * @author nekres
  */
 public class Validator {
-    private static final int MIN_SIZE = 3;
     private static final Pattern EMAIL_REGEX = Pattern.compile("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$");
-    private static final Pattern DEFAULT_REGEX = Pattern.compile("^[a-zA-Z0-9_-]{3,15}$");
+    private static final Pattern DEFAULT_REGEX = Pattern.compile("^[a-zA-Zа-яёА-ЯЁ0-9_-]{3,15}$");
     
     public static enum Type{
         EMAIL, PASSWORD,NAME;

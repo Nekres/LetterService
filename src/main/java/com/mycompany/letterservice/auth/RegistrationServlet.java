@@ -46,14 +46,13 @@ public class RegistrationServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/xml");
         PrintWriter writer = resp.getWriter();
-        //receiving fields
+        
         String name = req.getParameter(USER_NAME);
         String surname = req.getParameter(USER_SURNAME);
         String email = req.getParameter(USER_EMAIL);
         String password = req.getParameter(USER_PASSWORD);
         Part picture = req.getPart(PICTURE);
         
-        //jackson
             ObjectMapper mapper = new ObjectMapper();
         try {
             if(name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || picture.getSize() == 0){

@@ -45,9 +45,12 @@ public class ChatEndPoint {
     @OnOpen
     public void open(Session session, EndpointConfig config){
         this.session = session;
-        user.setLastOnline(new Date());
+        
+        
         HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
         httpSession.setAttribute("endPoint", this);
+        user = (User)httpSession.getAttribute("curr_user");
+        user.setLastOnline(new Date());
         
          if(httpSession == null){
             logger.info("No http session. Closed.");
@@ -58,7 +61,6 @@ public class ChatEndPoint {
             }
         }
         
-        user = (User)httpSession.getAttribute("curr_user");
         chatEndPoints.put(user,this);
         logger.info(user.getName());
         findSubs(user);//fills subscribes set with active friends
