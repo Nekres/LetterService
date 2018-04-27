@@ -33,13 +33,16 @@ public class Music {
     @Column
     private String name;
     @Column
+    private String author;
+    @Column
     private String url;
     @Column(name = "upload_date")
     private Date uploadDate;
 
-    public Music(User owner, String name, String url, Date uploadDate) {
+    public Music(User owner, String name,String author, String url, Date uploadDate) {
         this.owner = owner;
         this.name = name;
+        this.author = author;
         this.url = url;
         this.uploadDate = uploadDate;
     }
@@ -87,9 +90,17 @@ public class Music {
         this.uploadDate = uploadDate;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     @Override
     public String toString() {
-        return "Music{" + "id=" + id + ", owner=" + owner + ", name=" + name + ", url=" + url + ", uploadDate=" + uploadDate + '}';
+        return "Music{" + "id=" + id + ", owner=" + owner + ", name=" + name + ", author=" + author + ", url=" + url + ", uploadDate=" + uploadDate + '}';
     }
     
 }

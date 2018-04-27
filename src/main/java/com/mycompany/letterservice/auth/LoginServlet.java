@@ -28,6 +28,8 @@ public class LoginServlet extends HttpServlet {
     public static final int COOKIE_EXPIRE_TIME = 30*60;
     public static final int COOKIE_NO_EXPIRE = -1;
     public static final String SESSION_PARAM = "session";
+    public static final String ADMIN_LOGIN = "NEKRES";
+    //public static final String AD
     
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 

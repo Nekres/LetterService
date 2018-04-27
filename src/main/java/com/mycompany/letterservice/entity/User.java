@@ -5,8 +5,11 @@
  */
 package com.mycompany.letterservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
@@ -30,7 +33,6 @@ public class User {
     
     @Column(name = "photo_url", length = 250, nullable = false)
     private String photoUrl;
-    
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "subscribers", joinColumns = {
@@ -109,8 +111,22 @@ public class User {
     public void setLastOnline(Date lastOnline) {
         this.lastOnline = lastOnline;
     }
-    
-    
+    @JsonProperty(value = "subscribed")
+    public Set<Integer> getSubsIds(){
+        Set<Integer> set = new HashSet<>();
+        for(User u: subscribedTo){
+            set.add(u.getId());
+        }
+        return set;
+    }
+    @JsonProperty(value = "subscribers")
+    public Set<Integer> getSubsribedIds(){
+        Set<Integer> set = new HashSet<>();
+        for(User u: subscribers){
+            set.add(u.getId());
+        }
+        return set;
+    }
     
     
     @Override

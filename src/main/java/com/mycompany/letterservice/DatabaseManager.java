@@ -110,12 +110,18 @@ public class DatabaseManager {
         if(!query.list().isEmpty())
             throw new EmailAlreadyExistException("Email " + email + " is busy. Try another one.");
     }
-    public final List<User> getUsersByName(final String name) throws NoSuchUserException{
+    /**
+     * Returns all users from database with defined name
+     * @param name
+     * @return list of users
+     * @throws NoSuchUserException i
+     */
+    public final List<User> getUsersByName(final String name){
         Query query = session.createQuery("FROM User WHERE name = :name");
         query.setParameter("name", name);
         List<User> list = null;
         if((list = query.list()).isEmpty()){
-            throw new NoSuchUserException("Users with name \"" + name + "\" not found.");
+            return null;
         }
         return list;
     }

@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
@@ -174,6 +172,7 @@ public class ChatEndPoint {
     private boolean friendOf(final User first, final User second){
         return first.getSubscribers().contains(second) && second.getSubscribers().contains(first);
     }
+    
     @OnError
     public void onError(Session session, Throwable throwable) {
         throwable.printStackTrace();

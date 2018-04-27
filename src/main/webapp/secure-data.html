@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+   <head>
+        <title>Secure administrator panel</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+       <style>
+    </style>
+   </head>
+    <body>
+        <script >
+            
+            $(document).ready(function () {
+             $.getJSON("users.all?", function (user) {
+                    $("#userTableBody").append('<ul>');
+                    for (let i = 0; i < user.length; i++) {
+                        $("#userTableBody").append('<tr>');
+                        $("#userTableBody").append('<th scope="row">'+ (i+1) + '</th>');
+                         $("#userTableBody").append('<td>' + user[i].id + '</td>');
+                        $("#userTableBody").append('<td>' + user[i].name + '</td>');
+                        $("#userTableBody").append('<td>' + user[i].surname + '</td>');
+                        $("#userTableBody").append('<td><a class="btn btn-primary" target="_blank" href="' + user[i].photoUrl + '">Open photo</a></td>');
+                        var date = new Date(user[i].lastOnline);
+                        $("#userTableBody").append('<td><button type="button" class="btn btn-primary">' + date.toString() + '</button></td>');
+                             $("#userTableBody").append('<td><button type="button" class="btn btn-danger">Modify</button></td>');
+                        $("#userTableBody").append('<td>');
+                         var subs = user[i].subscribers;
+                        for(let j = 0; j < subs.length;j++){
+                            $("#userTableBody").append('<a>' + subs[j] + '<a>');
+                            if(j != subs.length - 1)
+                               $("#userTableBody").append(','); 
+                        }
+                        $("#userTableBody").append('</td>');
+                        $("#userTableBody").append('</tr>');
+                        
+                    }
+                });
+            });
+            </script>
+            <div id="users">
+       <table class="table table-inverse">
+  <thead>
+    <tr>
+        <th>#</th>
+      <th>#Id</th>
+      <th>#First Name</th>
+      <th>#Last Name</th>
+      <th>#Photo</th>
+      <th>#Last Online</th>
+      <th>#Edit</th>
+       <th>#Subscribers</th>
+    </tr>
+  </thead>
+  <tbody id="userTableBody">
+  </tbody>
+</table>
+                 </div>
+            
+    </body>
+
+</html>

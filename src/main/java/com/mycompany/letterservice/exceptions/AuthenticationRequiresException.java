@@ -10,7 +10,7 @@ package com.mycompany.letterservice.exceptions;
  * @author nekres
  */
 public class AuthenticationRequiresException extends LetterServiceException{
-    
+    public static final String DEFAULT_MESSAGE = "Authentification needs to reach this resource";
     private String message;
 
     public AuthenticationRequiresException(String message) {
@@ -18,6 +18,7 @@ public class AuthenticationRequiresException extends LetterServiceException{
     }
 
     public AuthenticationRequiresException() {
+        this.message = DEFAULT_MESSAGE;
     }
     
     

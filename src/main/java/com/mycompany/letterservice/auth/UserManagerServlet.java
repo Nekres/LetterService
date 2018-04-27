@@ -43,6 +43,7 @@ public class UserManagerServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         manager.beginTransaction();
         if (req.getServletPath().equals(USERS_GET)) {
+            
             String id = req.getParameter("id");
             if (id == null) {
                 manager.commitAndClose();
@@ -56,6 +57,7 @@ public class UserManagerServlet extends HttpServlet {
             List<User> userList = manager.getAllUsers();
             String json = mapper.writeValueAsString(userList);
             out.write(json);
+            logger.info(json);
         }
         manager.commitAndClose();
     }

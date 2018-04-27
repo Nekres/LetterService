@@ -8,6 +8,7 @@ package com.mycompany.letterservice;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
+import com.mycompany.letterservice.auth.json.Sound;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,7 @@ import org.tritonus.share.sampled.file.TAudioFileFormat;
  * @author nekres
  */
 public class FileUploaderService {
+    
     public static final Logger logger = Logger.getLogger(FileUploaderService.class.getName());
     public static final String TEMP_FILES = System.getProperty("java.io.tmpdir") + File.separator + "LetterService";
     public static final String CLOUD_NAME = "nekres";
@@ -52,7 +54,7 @@ public class FileUploaderService {
       return uploadResult.get("url").toString();
     }
     
-    public String uploadMusic(final InputStream input, String filename) throws IOException, UnsupportedAudioFileException{
+    public Sound uploadMusic(final InputStream input, String filename, String author, String name) throws IOException, UnsupportedAudioFileException{
         logger.info("Music uploading started");
         
         File tmp = new File(TEMP_FILES);
@@ -65,7 +67,13 @@ public class FileUploaderService {
         Map uploadResult = cloud.uploader().upload(targetFile, 
         ObjectUtils.asMap("resource_type", "video"));
         logger.info(uploadResult.get("url").toString());
-        return uploadResult.get("url").toString();
+        Sound sound = new Sound();
+        sound.setName(name);
+        sound.setAuthor(author);
+        sound.setUrl(uploadResult.get("url").toString());
+        sound.setDuration(getDuration(targetFile));
+        targetFile.delete();
+        return sound;
     }
     
     private final String getDuration(final File file) throws IOException, UnsupportedAudioFileException{
