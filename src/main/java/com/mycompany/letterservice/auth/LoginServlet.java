@@ -18,6 +18,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import org.hibernate.SessionFactory;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -32,6 +33,7 @@ public class LoginServlet extends HttpServlet {
     //public static final String AD
     
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
+    private final org.slf4j.Logger telegramLogger = LoggerFactory.getLogger("Telegram Notification");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,6 +44,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
+        telegramLogger.info("Login attempt. Adress " + req.getRemoteAddr());
         logger.info("Login attempt...");
         logger.info("Session id: " + session);
         if(!activeSession.containsKey(session)){
@@ -62,7 +65,7 @@ public class LoginServlet extends HttpServlet {
         ServletContext ctx = req.getServletContext();
         SessionFactory sessionFactory = (SessionFactory)ctx.getAttribute("sessionFactory");
         DatabaseManager manager = new DatabaseManager(sessionFactory);
-        
+
         try {
             manager.beginTransaction();
             logger.info("Transaction in /login executing");

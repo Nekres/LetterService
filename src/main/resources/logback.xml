@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="TELEGRAM"
+              class="com.github.paolodenti.telegram.logback.TelegramAppender">
+        <botToken>624539470:AAElUVg7r_PZleCnyovCFC6Ety496Qh2LNk</botToken>
+        <chatId>610520159</chatId>
+        <Layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </Layout>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="TELEGRAM" />
+    </root>
+</configuration>

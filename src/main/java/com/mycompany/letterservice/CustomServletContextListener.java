@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebListener;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -21,12 +22,13 @@ import org.hibernate.cfg.Configuration;
 @WebListener
 public class CustomServletContextListener implements ServletContextListener{
     private final Logger logger = Logger.getLogger("ServlerContextListener");
+    private final org.slf4j.Logger telegramLogger = LoggerFactory.getLogger("Telegram Notification");
     private ScheduledExecutorService scheduler;
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("context created");
-        
+        telegramLogger.info("Web app started...");
         scheduler = Executors.newSingleThreadScheduledExecutor();
         
         ServletContext context = sce.getServletContext();

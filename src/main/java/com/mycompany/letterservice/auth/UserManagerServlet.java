@@ -57,7 +57,6 @@ public class UserManagerServlet extends HttpServlet {
             List<User> userList = manager.getAllUsers();
             String json = mapper.writeValueAsString(userList);
             out.write(json);
-            logger.info(json);
         }
         manager.commitAndClose();
     }
