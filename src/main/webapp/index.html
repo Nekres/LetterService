@@ -120,6 +120,35 @@
                 </div>
             </div>
         </div>
-        
+        <script >
+
+            $(document).ready(function () {
+                $.getJSON("users.all?", function (user) {
+                    $("#userTableBody").append('<ul>');
+                    for (let i = 0; i < user.length; i++) {
+                        $("#userTableBody").append('<tr>');
+                        $("#userTableBody").append('<th scope="row">' + (i + 1) + '</th>');
+                        $("#userTableBody").append('<td>' + user[i].name + '</td>');
+                        $("#userTableBody").append('<td>' + user[i].surname + '</td>');
+                        $("#userTableBody").append('<td><a class="btn btn-primary" target="_blank" href="' + user[i].photoUrl + '">photo url.</a></td>');
+                    }
+                });
+            });
+        </script>
+        <div id="users">
+            <table class="table table-inverse">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>#</th>
+                    <th>#</th>
+                </tr>
+                </thead>
+                <tbody id="userTableBody">
+                </tbody>
+            </table>
+            shikoryakm@gmail.com finished<p>
+            linalola808@gmail.com finished
+        </div>
     </body>
 </html>

@@ -33,7 +33,7 @@ public class MessagingServlet extends HttpServlet {
 
     public static final String RECEIVER_ID = "receiver_id";
     public static final String MSG_BODY = "m_body";
-    public static final String CURR_U_ID = "curr_u_id";
+    public static final String CURRENT_USER_ID = "CURRENT_USER_ID";
     public static final String LAST_MESSAGES_COUNT = "msgcount";
 
     @Override
@@ -65,7 +65,7 @@ public class MessagingServlet extends HttpServlet {
                 logger.info("msg.get request come with " + line + "rec_id" + rec_id);
                 
                 int count = Integer.parseInt(line);
-                String user_id = session.getAttribute("curr_u_id").toString();
+                String user_id = session.getAttribute("CURRENT_USER_ID").toString();
                 manager.beginTransaction();
                 if(count > 1){
                 List<Message> messages = manager.getUserMessagesByUid(Integer.parseInt(user_id), Integer.parseInt(rec_id), count);
@@ -107,7 +107,7 @@ public class MessagingServlet extends HttpServlet {
                 return;
             }
 
-            int user_id = Integer.parseInt(session.getAttribute(CURR_U_ID).toString());
+            int user_id = Integer.parseInt(session.getAttribute(CURRENT_USER_ID).toString());
             String messageBody = URLDecoder.decode(req.getParameter(MSG_BODY), "UTF-8");
             int receiverId = 0;
             try {
