@@ -29,9 +29,21 @@
                 }
             }
         </style>
+
         1.jsf
 	2.оазис
 	3.спринг
 	4......
+        <script>
+            function play(){
+                var audio = document.getElementById("audio");
+                audio.play();
+                $.getJSON("login?play=1", function (data) {
+                });
+            }
+        </script>
+
+        <input type="button" value="PLAY"  onclick="play()">
+        <audio id="audio" src="lp.mp3" ></audio>
     </body>
 </html>

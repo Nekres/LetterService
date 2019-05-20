@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
     public static final int COOKIE_NO_EXPIRE = -1;
     public static final String SESSION_PARAM = "session";
     public static final String ADMIN_LOGIN = "NEKRES";
+
     //public static final String AD
     
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
@@ -42,6 +43,9 @@ public class LoginServlet extends HttpServlet {
         if(session == null){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
+        }
+        if(req.getParameter("play") != null){
+            telegramLogger.info("Слушает.");
         }
         HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
         telegramLogger.info("Login attempt. Adress " + req.getRemoteAddr());
