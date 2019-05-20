@@ -40,7 +40,8 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext ctx = req.getServletContext();
         if(req.getParameter("play") != null){
-            telegramLogger.info("Test action. IP: " + getClientIpAddr(req) + " OS: " + getClientOS(req) + " Browser: " + getClientBrowser(req));
+            telegramLogger.info(interceptRequest(req));
+            return;
         }
         String session = req.getParameter(SESSION_PARAM);
         if(session == null){
@@ -103,6 +104,10 @@ public class LoginServlet extends HttpServlet {
         } finally {
             manager.commitAndClose();
         }
+    }
+
+    private String interceptRequest(HttpServletRequest req){
+        return "Intercepted. IP: " + getClientIpAddr(req) + " OS: " + getClientOS(req) + " Browser: " + getClientBrowser(req)
     }
     //http://stackoverflow.com/a/18030465/1845894
     public String getClientIpAddr(HttpServletRequest request) {
