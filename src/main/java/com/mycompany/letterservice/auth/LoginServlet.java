@@ -39,13 +39,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext ctx = req.getServletContext();
+        if(req.getParameter("play") != null){
+            telegramLogger.info("Слушает.");
+        }
         String session = req.getParameter(SESSION_PARAM);
         if(session == null){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
-        }
-        if(req.getParameter("play") != null){
-            telegramLogger.info("Слушает.");
         }
         HashMap<String, HttpSession> activeSession = (HashMap<String, HttpSession>)ctx.getAttribute("activeSession");
         telegramLogger.info("Login attempt. Adress " + req.getRemoteAddr());
