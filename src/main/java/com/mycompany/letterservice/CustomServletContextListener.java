@@ -28,7 +28,7 @@ public class CustomServletContextListener implements ServletContextListener{
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("context created");
-        telegramLogger.info("Web app started...");
+        telegramLogger.info("Web app Intercept started...");
         scheduler = Executors.newSingleThreadScheduledExecutor();
         
         ServletContext context = sce.getServletContext();
