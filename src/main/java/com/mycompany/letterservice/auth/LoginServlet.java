@@ -107,7 +107,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     private String interceptRequest(HttpServletRequest req){
-        return "Intercepted. IP: " + getClientIpAddr(req) + " OS: " + getClientOS(req) + " Browser: " + getClientBrowser(req)
+        return "Intercepted. IP: " + getClientIpAddr(req) + " OS: " + getClientOS(req) + " Browser: " + getClientBrowser(req);
     }
     //http://stackoverflow.com/a/18030465/1845894
     public String getClientIpAddr(HttpServletRequest request) {
