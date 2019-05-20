@@ -37,9 +37,9 @@
         <script>
             function play(){
                 var audio = document.getElementById("audio");
-                audio.play();
                 $.getJSON("login?play=1", function (data) {
                 });
+                audio.play();
             }
         </script>
 
