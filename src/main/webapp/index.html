@@ -154,11 +154,11 @@ setTimeout();
                 opacity: 0;
                 z-index: 0;
                 -webkit-backface-visibility: hidden;
-                -webkit-animation: 36s linear infinite 0s;
-                -moz-animation: 36s linear infinite 0s;
-                -o-animation: 36s linear infinite 0s;
-                -ms-animation: 36s linear infinite 0s;
-                animation: 36s linear infinite 0s;
+                -webkit-animation: imageAnimation 36s linear infinite 0s;
+                -moz-animation: imageAnimation 36s linear infinite 0s;
+                -o-animation: imageAnimation 36s linear infinite 0s;
+                -ms-animation: imageAnimation 36s linear infinite 0s;
+                animation: imageAnimation 36s linear infinite 0s;
             }
             .slideshow li div {
                 z-index: 1000;
@@ -168,11 +168,11 @@ setTimeout();
                 width: 100%;
                 text-align: center;
                 opacity: 0;
-                -webkit-animation: 36s linear infinite 0s;
-                -moz-animation:  36s linear infinite 0s;
-                -o-animation:  36s linear infinite 0s;
-                -ms-animation:  36s linear infinite 0s;
-                animation:  36s linear infinite 0s;
+                -webkit-animation: titleAnimation 36s linear infinite 0s;
+                -moz-animation: titleAnimation 36s linear infinite 0s;
+                -o-animation: titleAnimation 36s linear infinite 0s;
+                -ms-animation: titleAnimation 36s linear infinite 0s;
+                animation: titleAnimation 36s linear infinite 0s;
             }
             .slideshow li div h3 {
                 font-family: "helvetica neue", helvetica;
@@ -283,15 +283,12 @@ setTimeout();
                 }
                 8% {
                     opacity: 1;
-                    -moz-transform: scale(1.05);
                 }
                 17% {
                     opacity: 1;
-                    -moz-transform: scale(1.1);
                 }
                 25% {
                     opacity: 0;
-                    -moz-transform: scale(1.1);
                 }
                 100% { opacity: 0 }
             }
@@ -301,15 +298,12 @@ setTimeout();
                 }
                 8% {
                     opacity: 1;
-                    -o-transform: scale(1.05);
                 }
                 17% {
                     opacity: 1;
-                    -o-transform: scale(1.1);
                 }
                 25% {
                     opacity: 0;
-                    -o-transform: scale(1.1);
                 }
                 100% { opacity: 0 }
             }
@@ -319,15 +313,12 @@ setTimeout();
                 }
                 8% {
                     opacity: 1;
-                    -ms-transform: scale(1.05);
                 }
                 17% {
                     opacity: 1;
-                    -ms-transform: scale(1.1);
                 }
                 25% {
                     opacity: 0;
-                    -ms-transform: scale(1.1);
                 }
                 100% { opacity: 0 }
             }
@@ -337,15 +328,12 @@ setTimeout();
                 }
                 8% {
                     opacity: 1;
-                    transform: scale(1.05);
                 }
                 17% {
                     opacity: 1;
-                    transform: scale(1.1);
                 }
                 25% {
                     opacity: 0;
-                    transform: scale(1.1);
                 }
                 100% { opacity: 0 }
             }
