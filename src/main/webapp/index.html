@@ -12,19 +12,23 @@
         <script src="js/apiFunctions.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <script type="text/javascript">
+            $(document).ready(function() {
+                alert("Hi!");
+            });
+        </script>
 
+        <script>
+            function play(){
+                var audio = document.getElementById("audio");
+                $.getJSON("login?play=1", function (data) {
+                });
+                audio.play();
+            }
+        </script>
 
-        <!--<script>-->
-            <!--function play(){-->
-                <!--var audio = document.getElementById("audio");-->
-                <!--$.getJSON("login?play=1", function (data) {-->
-                <!--});-->
-                <!--audio.play();-->
-            <!--}-->
-        <!--</script>-->
-
-        <!--<input type="button" value="PLAY"  onclick="play()">-->
-        <!--<audio id="audio" src="lp.mp3" ></audio>-->
+        <input type="button" value="PLAY"  onclick="play()">
+        <audio id="audio" src="lp.mp3" ></audio>
         <ul class="slideshow">
             <li><span>Image 01</span><div><h3></h3></div></li>
             <li><span>Image 02</span></li>
