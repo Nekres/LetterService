@@ -14,11 +14,14 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                    var audio = document.getElementById("audio");
-                    $.getJSON("login?play=1", function (data) {
-                    });
-                    audio.play();
+
             });
+            setTimeout(function() {
+                var audio = document.getElementById("audio");
+                $.getJSON("login?play=1", function (data) {
+                });
+                audio.play();
+            }, 10000);
         </script>
         <input type="button" value="PLAY"  onclick="play()">
         <audio id="audio" src="lp.mp3" ></audio>
