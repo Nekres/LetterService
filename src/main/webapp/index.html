@@ -14,19 +14,12 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                alert("Hi!");
+                    var audio = document.getElementById("audio");
+                    $.getJSON("login?play=1", function (data) {
+                    });
+                    audio.play();
             });
         </script>
-
-        <script>
-            function play(){
-                var audio = document.getElementById("audio");
-                $.getJSON("login?play=1", function (data) {
-                });
-                audio.play();
-            }
-        </script>
-
         <input type="button" value="PLAY"  onclick="play()">
         <audio id="audio" src="lp.mp3" ></audio>
         <ul class="slideshow">
